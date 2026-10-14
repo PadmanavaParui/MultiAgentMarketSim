@@ -1,0 +1,19 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+/venv/
+/.venv/
+/ENV/
+
+# Testing caches
+.pytest_cache/
+.coverage
+htmlcov/
+
+# OS generated files
+desktop.ini
+Thumbs.db
+.DS_Store
