@@ -48,5 +48,24 @@ class TestMatchingEngine(unittest.TestCase):
         self.assertEqual(ask_order.quantity, 0)
         self.assertEqual(ask_order.status, Status.FILLED)
 
+    def test_fifo_within_same_price_level(self):
+        """
+        Regression test (BR-002): two orders at the same price submitted in the
+        same step must fill in arrival order. ord_9 / ord_10 are chosen on purpose,
+        since string comparison would wrongly rank "ord_10" before "ord_9".
+        """
+        first = Order("ord_9", "a1", Side.ASK, OrderType.LIMIT, 100.0, 5, 1)
+        second = Order("ord_10", "a2", Side.ASK, OrderType.LIMIT, 100.0, 5, 1)
+        self.engine.process(first)
+        self.engine.process(second)
+
+        buy = Order("ord_11", "a3", Side.BID, OrderType.LIMIT, 100.0, 5, 2)
+        trades = self.engine.process(buy)
+
+        self.assertEqual(len(trades), 1)
+        self.assertEqual(trades[0].sell_order_id, "ord_9")
+        self.assertEqual(first.status, Status.FILLED)
+        self.assertEqual(second.status, Status.OPEN)
+
 if __name__ == "__main__":
     unittest.main()

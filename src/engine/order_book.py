@@ -41,20 +41,25 @@ class OrderBook:
     """
     def __init__(self, tick_size: float = 0.01):
         self.tick_size = tick_size
+        # Heap entries are (price_key, arrival_seq, order).
         # Bids: max heap (we negate prices to use Python's min-heap as a max-heap)
         self.bids: List[Tuple[float, int, Order]] = [] 
         # Asks: min heap
         self.asks: List[Tuple[float, int, Order]] = [] 
         self.orders: Dict[str, Order] = {}
+        # Monotonic arrival counter: guarantees strict FIFO (time priority) within
+        # a price level, even for multiple orders submitted in the same step.
+        self._seq = 0
         
     def add_order(self, order: Order):
         self.orders[order.order_id] = order
         if order.order_type == OrderType.LIMIT:
+            self._seq += 1
             if order.side == Side.BID:
                 # Store -price so highest price is at top of min-heap
-                heapq.heappush(self.bids, (-order.price, order.timestamp_step, order))
+                heapq.heappush(self.bids, (-order.price, self._seq, order))
             else:
-                heapq.heappush(self.asks, (order.price, order.timestamp_step, order))
+                heapq.heappush(self.asks, (order.price, self._seq, order))
                 
     def cancel_order(self, order_id: str):
         if order_id in self.orders:
