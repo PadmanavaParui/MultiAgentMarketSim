@@ -145,6 +145,7 @@ class MetricsLogger:
         price: float,
         quantity: int,
         timestamp_step: int,
+        episode: int = 1,
     ):
         """Append a trade entry and update price series."""
         record = TradeRecord(
@@ -158,6 +159,7 @@ class MetricsLogger:
         )
         self.trades.append(asdict(record))
         self.price_series.append({
+            "episode": episode,
             "step": timestamp_step,
             "price": price,
             "quantity": quantity,

@@ -98,15 +98,39 @@ def plot_order_book_depth(
 def plot_price_and_volume(price_series: List[Dict[str, Any]]) -> go.Figure:
     """
     Renders dual-axis subplots for price time series and volume bars.
+    Handles multi-episode and single-episode runs gracefully without backward loops.
     """
     if not price_series:
         fig = go.Figure()
         fig.update_layout(title="No Trade Data Available")
         return fig
 
-    steps = [p.get("step", i) for i, p in enumerate(price_series)]
+    # Check if steps reset backwards (indicates multi-episode runs)
+    raw_steps = [p.get("step", i + 1) for i, p in enumerate(price_series)]
+    has_resets = any(raw_steps[i] < raw_steps[i - 1] for i in range(1, len(raw_steps)))
+
+    if "global_step" in price_series[0]:
+        x_vals = [p["global_step"] for p in price_series]
+        x_label = "Global Simulation Step"
+    elif has_resets:
+        # Multi-episode run: use sequential trade progression to ensure strictly forward timeline
+        x_vals = list(range(1, len(price_series) + 1))
+        x_label = "Trade Execution Sequence (#)"
+    else:
+        x_vals = raw_steps
+        x_label = "Simulation Step"
+
     prices = [p.get("price", 0.0) for p in price_series]
     quantities = [p.get("quantity", 0) for p in price_series]
+
+    hover_texts = [
+        f"Trade #{i + 1}<br>"
+        + (f"Episode: {p.get('episode')}<br>" if 'episode' in p else "")
+        + f"Step: {p.get('step', i + 1)}<br>"
+        + f"Price: ${p.get('price', 0.0):.2f}<br>"
+        + f"Volume: {p.get('quantity', 0)} shares"
+        for i, p in enumerate(price_series)
+    ]
 
     fig = make_subplots(
         rows=2, cols=1,
@@ -119,13 +143,14 @@ def plot_price_and_volume(price_series: List[Dict[str, Any]]) -> go.Figure:
     # Price Line
     fig.add_trace(
         go.Scatter(
-            x=steps,
+            x=x_vals,
             y=prices,
             mode="lines+markers",
             name="Trade Price",
             line=dict(color="#1f77b4", width=2),
-            marker=dict(size=5),
-            hovertemplate="Step: %{x}<br>Price: $%{y:.2f}<extra></extra>",
+            marker=dict(size=6),
+            customdata=hover_texts,
+            hovertemplate="%{customdata}<extra></extra>",
         ),
         row=1, col=1,
     )
@@ -133,11 +158,12 @@ def plot_price_and_volume(price_series: List[Dict[str, Any]]) -> go.Figure:
     # Volume Bars
     fig.add_trace(
         go.Bar(
-            x=steps,
+            x=x_vals,
             y=quantities,
             name="Volume",
             marker_color="#ff7f0e",
-            hovertemplate="Step: %{x}<br>Volume: %{y} shares<extra></extra>",
+            customdata=hover_texts,
+            hovertemplate="%{customdata}<extra></extra>",
         ),
         row=2, col=1,
     )
@@ -148,7 +174,7 @@ def plot_price_and_volume(price_series: List[Dict[str, Any]]) -> go.Figure:
         showlegend=False,
         margin=dict(l=40, r=40, t=50, b=40),
     )
-    fig.update_xaxes(title_text="Simulation Step", row=2, col=1)
+    fig.update_xaxes(title_text=x_label, row=2, col=1)
     fig.update_yaxes(title_text="Price ($)", row=1, col=1)
     fig.update_yaxes(title_text="Shares", row=2, col=1)
     return fig

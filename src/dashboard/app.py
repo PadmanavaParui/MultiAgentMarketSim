@@ -34,6 +34,22 @@ from src.dashboard.charts import (
 from scripts.run_simulation import run_simulation
 
 
+def render_chart(fig):
+    """Renders Plotly chart with modern width='stretch' and backwards-compatible fallback."""
+    try:
+        st.plotly_chart(fig, width="stretch")
+    except TypeError:
+        st.plotly_chart(fig, use_container_width=True)
+
+
+def render_dataframe(df):
+    """Renders DataFrame with modern width='stretch' and backwards-compatible fallback."""
+    try:
+        st.dataframe(df, width="stretch")
+    except TypeError:
+        st.dataframe(df, use_container_width=True)
+
+
 def main():
     st.set_page_config(
         page_title="Multi-Agent Market Simulation Platform",
@@ -114,6 +130,37 @@ def main():
         price_series = logger.get_price_series(selected_run_id)
         agent_metrics = logger.get_agent_metrics(selected_run_id)
         eq_analysis = logger.get_equilibrium_analysis(selected_run_id)
+
+        # On-the-fly fallback if run was logged before game-theoretic pipeline
+        if eq_analysis is None and agent_metrics:
+            try:
+                from src.gametheory.payoff_builder import PayoffBuilder
+                from src.gametheory.nash_solver import NashSolver
+                from src.gametheory.best_response import BestResponseDynamics
+
+                archetype_pnls = {}
+                for m in agent_metrics:
+                    a_id = m.get("agent_id", "")
+                    arch = "RL" if "rl" in a_id.lower() else ("MM" if "mm" in a_id.lower() else "ZI")
+                    archetype_pnls.setdefault(arch, []).append(m.get("pnl", 0.0))
+
+                if len(archetype_pnls) >= 2:
+                    A, B, strats = PayoffBuilder.build_archetype_matrix(archetype_pnls)
+                    solver = NashSolver(A, B)
+                    eq_candidates = solver.get_equilibrium_candidates(method="support_enumeration")
+                    brd = BestResponseDynamics(A, B)
+                    trace = brd.trace(max_iterations=20)
+                    eq_analysis = {
+                        "run_id": selected_run_id,
+                        "method": "LEMKE_HOWSON",
+                        "payoff_matrix": A.tolist(),
+                        "strategies": strats,
+                        "equilibrium_candidates": eq_candidates,
+                        "best_response_trace": trace,
+                        "computed_at": "dynamic",
+                    }
+            except Exception:
+                pass
     except Exception as e:
         st.error(f"Error loading run data for `{selected_run_id}`: {e}")
         return
@@ -156,33 +203,60 @@ def main():
     with tabs[0]:
         st.subheader("Price & Volume Microstructure")
         if price_series:
-            fig_pv = plot_price_and_volume(price_series)
-            st.plotly_chart(fig_pv, use_container_width=True)
+            # Check if multiple episodes are recorded in trade entries
+            episodes_in_trades = sorted(list(set(p.get("episode", 1) for p in price_series if "episode" in p)))
+            if len(episodes_in_trades) > 1:
+                selected_view = st.selectbox(
+                    "Timeline View:",
+                    options=["Full Run (All Trades)"] + [f"Episode {e}" for e in episodes_in_trades],
+                    help="Filter trades by episode or view full run sequence."
+                )
+                if selected_view != "Full Run (All Trades)":
+                    target_ep = int(selected_view.split()[-1])
+                    display_series = [p for p in price_series if p.get("episode") == target_ep]
+                else:
+                    display_series = price_series
+            else:
+                display_series = price_series
+
+            fig_pv = plot_price_and_volume(display_series)
+            render_chart(fig_pv)
         else:
             st.warning("No trade price series available for this run.")
 
         st.subheader("Simulated Order Book Ladder")
-        # Generate sample / snapshot depth ladder
-        sample_bids = [(99.50, 100), (99.00, 250), (98.50, 400), (98.00, 500)]
-        sample_asks = [(100.50, 120), (101.00, 300), (101.50, 350), (102.00, 600)]
+        last_price = price_series[-1]["price"] if price_series else 100.0
+        sample_bids = [
+            (round(last_price - 0.50, 2), 100),
+            (round(last_price - 1.00, 2), 250),
+            (round(last_price - 1.50, 2), 400),
+            (round(last_price - 2.00, 2), 500),
+        ]
+        sample_asks = [
+            (round(last_price + 0.50, 2), 120),
+            (round(last_price + 1.00, 2), 300),
+            (round(last_price + 1.50, 2), 350),
+            (round(last_price + 2.00, 2), 600),
+        ]
         fig_depth = plot_order_book_depth(
             sample_bids, sample_asks,
-            best_bid=99.50, best_ask=100.50
+            best_bid=round(last_price - 0.50, 2),
+            best_ask=round(last_price + 0.50, 2)
         )
-        st.plotly_chart(fig_depth, use_container_width=True)
+        render_chart(fig_depth)
 
     # TAB 2: Agent Performance
     with tabs[1]:
         st.subheader("Agent Cumulative PnL (RL Directional vs. Baselines)")
         if agent_metrics:
             fig_pnl = plot_agent_pnl(agent_metrics)
-            st.plotly_chart(fig_pnl, use_container_width=True)
+            render_chart(fig_pnl)
 
             col_a, col_b = st.columns(2)
             with col_a:
                 st.subheader("Inventory Accumulation")
                 fig_inv = plot_inventory_accumulation(agent_metrics)
-                st.plotly_chart(fig_inv, use_container_width=True)
+                render_chart(fig_inv)
 
             with col_b:
                 st.subheader("Agent Metrics Summary Table")
@@ -202,7 +276,7 @@ def main():
                         "Avg Sharpe": round(float(avg_sharpe), 3),
                         "Final Inventory": last_record.get("inventory", 0),
                     })
-                st.dataframe(summary_rows, use_container_width=True)
+                render_dataframe(summary_rows)
         else:
             st.warning("No agent metric data available.")
 
@@ -239,7 +313,7 @@ def main():
                 trace = eq_analysis.get("best_response_trace", [])
                 if trace:
                     fig_trace = plot_best_response_trace(trace)
-                    st.plotly_chart(fig_trace, use_container_width=True)
+                    render_chart(fig_trace)
                 else:
                     st.info("No best-response trace data recorded.")
         else:
@@ -253,7 +327,7 @@ def main():
         if rl_metrics:
             rewards = [m.get("reward", 0.0) for m in rl_metrics]
             fig_conv = plot_convergence_diagnostics(rewards)
-            st.plotly_chart(fig_conv, use_container_width=True)
+            render_chart(fig_conv)
 
             # Check stability vs oscillation
             if len(rewards) >= 4:

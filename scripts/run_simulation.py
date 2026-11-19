@@ -156,6 +156,7 @@ def run_simulation(
                     price=trade.price,
                     quantity=trade.quantity,
                     timestamp_step=trade.timestamp_step,
+                    episode=ep + 1,
                 )
 
             # Log end-of-episode agent metrics
