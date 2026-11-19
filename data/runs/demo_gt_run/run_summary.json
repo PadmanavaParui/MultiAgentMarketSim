@@ -1,0 +1,15 @@
+{
+  "run_id": "demo_gt_run",
+  "seed": 42,
+  "config_snapshot": {
+    "mode": "rl_vs_baseline",
+    "episodes": 5,
+    "cycles_per_episode": 25,
+    "seed": 42,
+    "run_id": "demo_gt_run"
+  },
+  "started_at": "2026-11-19T05:26:38.026914+00:00",
+  "status": "COMPLETE",
+  "completed_at": "2026-11-19T05:26:42.223945+00:00",
+  "error_message": null
+}

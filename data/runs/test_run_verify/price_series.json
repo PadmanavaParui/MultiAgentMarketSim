@@ -1,0 +1,200 @@
+[
+  {
+    "step": 4,
+    "price": 99.5,
+    "quantity": 10,
+    "trade_id": "trd_1"
+  },
+  {
+    "step": 5,
+    "price": 100.0,
+    "quantity": 7,
+    "trade_id": "trd_2"
+  },
+  {
+    "step": 8,
+    "price": 99.25,
+    "quantity": 10,
+    "trade_id": "trd_3"
+  },
+  {
+    "step": 11,
+    "price": 100.0,
+    "quantity": 3,
+    "trade_id": "trd_4"
+  },
+  {
+    "step": 11,
+    "price": 100.06,
+    "quantity": 6,
+    "trade_id": "trd_5"
+  },
+  {
+    "step": 15,
+    "price": 100.06,
+    "quantity": 4,
+    "trade_id": "trd_6"
+  },
+  {
+    "step": 17,
+    "price": 99.12,
+    "quantity": 2,
+    "trade_id": "trd_7"
+  },
+  {
+    "step": 1,
+    "price": 100.5,
+    "quantity": 9,
+    "trade_id": "trd_1"
+  },
+  {
+    "step": 6,
+    "price": 100.5,
+    "quantity": 1,
+    "trade_id": "trd_2"
+  },
+  {
+    "step": 6,
+    "price": 100.75,
+    "quantity": 3,
+    "trade_id": "trd_3"
+  },
+  {
+    "step": 11,
+    "price": 100.0,
+    "quantity": 5,
+    "trade_id": "trd_4"
+  },
+  {
+    "step": 11,
+    "price": 100.75,
+    "quantity": 7,
+    "trade_id": "trd_5"
+  },
+  {
+    "step": 11,
+    "price": 100.75,
+    "quantity": 3,
+    "trade_id": "trd_6"
+  },
+  {
+    "step": 13,
+    "price": 100.0,
+    "quantity": 1,
+    "trade_id": "trd_7"
+  },
+  {
+    "step": 17,
+    "price": 100.0,
+    "quantity": 4,
+    "trade_id": "trd_8"
+  },
+  {
+    "step": 17,
+    "price": 99.88,
+    "quantity": 5,
+    "trade_id": "trd_9"
+  },
+  {
+    "step": 17,
+    "price": 100.75,
+    "quantity": 7,
+    "trade_id": "trd_10"
+  },
+  {
+    "step": 17,
+    "price": 100.75,
+    "quantity": 3,
+    "trade_id": "trd_11"
+  },
+  {
+    "step": 19,
+    "price": 100.75,
+    "quantity": 1,
+    "trade_id": "trd_12"
+  },
+  {
+    "step": 19,
+    "price": 99.88,
+    "quantity": 5,
+    "trade_id": "trd_13"
+  },
+  {
+    "step": 19,
+    "price": 99.88,
+    "quantity": 5,
+    "trade_id": "trd_14"
+  },
+  {
+    "step": 2,
+    "price": 98.68,
+    "quantity": 2,
+    "trade_id": "trd_1"
+  },
+  {
+    "step": 2,
+    "price": 98.18,
+    "quantity": 8,
+    "trade_id": "trd_2"
+  },
+  {
+    "step": 7,
+    "price": 98.18,
+    "quantity": 2,
+    "trade_id": "trd_3"
+  },
+  {
+    "step": 7,
+    "price": 98.18,
+    "quantity": 3,
+    "trade_id": "trd_4"
+  },
+  {
+    "step": 10,
+    "price": 98.68,
+    "quantity": 1,
+    "trade_id": "trd_5"
+  },
+  {
+    "step": 13,
+    "price": 98.18,
+    "quantity": 7,
+    "trade_id": "trd_6"
+  },
+  {
+    "step": 14,
+    "price": 98.68,
+    "quantity": 2,
+    "trade_id": "trd_7"
+  },
+  {
+    "step": 16,
+    "price": 97.93,
+    "quantity": 4,
+    "trade_id": "trd_8"
+  },
+  {
+    "step": 17,
+    "price": 98.68,
+    "quantity": 7,
+    "trade_id": "trd_9"
+  },
+  {
+    "step": 17,
+    "price": 98.8,
+    "quantity": 3,
+    "trade_id": "trd_10"
+  },
+  {
+    "step": 20,
+    "price": 98.8,
+    "quantity": 7,
+    "trade_id": "trd_11"
+  },
+  {
+    "step": 20,
+    "price": 98.8,
+    "quantity": 3,
+    "trade_id": "trd_12"
+  }
+]
