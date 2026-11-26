@@ -90,26 +90,30 @@ class TestDashboard(unittest.TestCase):
         import src.dashboard.tab_stress as tab_stress
         import src.dashboard.tab_validation as tab_validation
         import src.dashboard.tab_nash as tab_nash
+        import src.dashboard.tab_replay as tab_replay
 
         self.assertTrue(hasattr(app, "main"))
         self.assertTrue(hasattr(tab_stress, "render"))
         self.assertTrue(hasattr(tab_validation, "render"))
         self.assertTrue(hasattr(tab_nash, "render"))
+        self.assertTrue(hasattr(tab_replay, "render"))
 
     def test_tab_missing_files_graceful_handling(self):
-        """Verifies that all three tab render() functions handle missing files gracefully without raising exceptions."""
-        from src.dashboard import tab_stress, tab_validation, tab_nash
+        """Verifies that all tab render() functions handle missing files gracefully without raising exceptions."""
+        from src.dashboard import tab_stress, tab_validation, tab_nash, tab_replay
 
         # None run_dir
         tab_stress.render(None)
         tab_validation.render(None)
         tab_nash.render(None)
+        tab_replay.render(None)
 
         # Non-existent run_dir
         non_existent = "data/runs/definitely_not_a_real_run_dir_12345"
         tab_stress.render(non_existent)
         tab_validation.render(non_existent)
         tab_nash.render(non_existent)
+        tab_replay.render(non_existent)
 
     def test_tab_stress_chart_builders(self):
         """Verifies that tab_stress chart builders produce valid Plotly figures."""
@@ -289,6 +293,122 @@ class TestDashboard(unittest.TestCase):
                 json.dump(eq_analysis, f)
 
             tab_nash.render(tmp_dir)
+
+            # 4. Book snapshots and trades mock for replay
+            snapshots = [
+                {
+                    "episode": 1,
+                    "step": 5,
+                    "best_bid": 99.5,
+                    "best_ask": 100.5,
+                    "mid": 100.0,
+                    "spread": 1.0,
+                    "bids": [[99.5, 20], [99.0, 30]],
+                    "asks": [[100.5, 25], [101.0, 35]],
+                    "inventories": {"mm_0": 0, "rl_0": 0},
+                    "pnls": {"mm_0": 0.0, "rl_0": 0.0},
+                },
+                {
+                    "episode": 1,
+                    "step": 10,
+                    "best_bid": 99.0,
+                    "best_ask": 100.0,
+                    "mid": 99.5,
+                    "spread": 1.0,
+                    "bids": [[99.0, 15], [98.5, 40]],
+                    "asks": [[100.0, 20], [100.5, 30]],
+                    "inventories": {"mm_0": -10, "rl_0": 10},
+                    "pnls": {"mm_0": 5.0, "rl_0": -5.0},
+                },
+            ]
+            with open(os.path.join(tmp_dir, "book_snapshots.json"), "w") as f:
+                json.dump(snapshots, f)
+
+            trades = [
+                {"trade_id": "trd_1", "step": 5, "price": 100.0, "quantity": 10},
+                {"trade_id": "trd_2", "step": 8, "price": 99.5, "quantity": 5},
+            ]
+            with open(os.path.join(tmp_dir, "trades.json"), "w") as f:
+                json.dump(trades, f)
+
+            from src.dashboard import tab_replay
+            tab_replay.render(tmp_dir)
+
+    def test_tab_replay_chart_builders(self):
+        """Verifies that tab_replay Bookmap heatmap and live order book produce valid Plotly figures."""
+        from src.dashboard.tab_replay import (
+            plot_bookmap_depth_heatmap,
+            plot_live_order_book,
+            detect_flash_crash_step,
+        )
+
+        snapshots = [
+            {
+                "episode": 1,
+                "step": 5,
+                "best_bid": 99.5,
+                "best_ask": 100.5,
+                "mid": 100.0,
+                "spread": 1.0,
+                "bids": [[99.5, 10], [99.0, 20]],
+                "asks": [[100.5, 15], [101.0, 25]],
+                "inventories": {"mm_0": 0},
+                "pnls": {"mm_0": 0.0},
+            },
+            {
+                "episode": 1,
+                "step": 10,
+                "best_bid": 99.0,
+                "best_ask": 100.0,
+                "mid": 99.5,
+                "spread": 1.0,
+                "bids": [[99.0, 30], [98.5, 10]],
+                "asks": [[100.0, 10], [100.5, 20]],
+                "inventories": {"mm_0": 10},
+                "pnls": {"mm_0": 12.0},
+            },
+            {
+                "episode": 1,
+                "step": 15,
+                "best_bid": 96.0,
+                "best_ask": 97.5,
+                "mid": 96.75,
+                "spread": 1.5,
+                "bids": [[96.0, 50]],
+                "asks": [[97.5, 40]],
+                "inventories": {"mm_0": 40},
+                "pnls": {"mm_0": -45.0},
+            },
+        ]
+        trades = [
+            {"trade_id": "trd_1", "step": 6, "price": 99.5, "quantity": 10},
+            {"trade_id": "trd_2", "step": 15, "price": 96.0, "quantity": 40},
+        ]
+
+        # 1. Bookmap Heatmap with trades and flash-crash marker
+        fig_bookmap = plot_bookmap_depth_heatmap(
+            snapshots=snapshots,
+            trades=trades,
+            flash_crash_step=15,
+            downsample_stride=1,
+            price_bin_size=0.5,
+        )
+        self.assertIsInstance(fig_bookmap, go.Figure)
+        # Should have heatmap trace + mid price line trace + executed trade bubbles trace
+        self.assertGreaterEqual(len(fig_bookmap.data), 3)
+
+        # 2. Live Order Book Ladder
+        fig_ladder = plot_live_order_book(snapshots[0])
+        self.assertIsInstance(fig_ladder, go.Figure)
+        self.assertEqual(len(fig_ladder.data), 2)  # Bids and Asks bars
+
+        # 3. Detect flash crash step
+        step_found = detect_flash_crash_step(
+            run_dir=None,
+            snapshots=[{"agents": {"shock_0": {}}}],
+            trades=[{"buy_order_id": "ord_shock_1", "step": 12}],
+        )
+        self.assertEqual(step_found, 12)
 
 
 if __name__ == "__main__":
