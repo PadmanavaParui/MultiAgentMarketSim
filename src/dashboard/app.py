@@ -31,7 +31,7 @@ from src.dashboard.charts import (
     plot_best_response_trace,
     plot_convergence_diagnostics,
 )
-from src.dashboard import tab_stress, tab_validation, tab_nash
+from src.dashboard import tab_stress, tab_validation, tab_nash, tab_replay
 from scripts.run_simulation import run_simulation
 
 
@@ -165,6 +165,7 @@ def main():
     tabs = st.tabs([
         "📊 Market & Price Action",
         "👥 Agent Performance",
+        "📼 Order Book Replay",
         "🎯 Game Theory & Nash Equilibria",
         "⚡ Stress Testing",
         "🔬 Econometric Stylized Facts",
@@ -253,20 +254,24 @@ def main():
         else:
             st.warning("No agent metric data available.")
 
-    # TAB 3: Game Theory & Nash Equilibria
+    # TAB 3: Order Book Replay
     with tabs[2]:
+        tab_replay.render(run_dir)
+
+    # TAB 4: Game Theory & Nash Equilibria
+    with tabs[3]:
         tab_nash.render(run_dir)
 
-    # TAB 4: Stress Testing
-    with tabs[3]:
+    # TAB 5: Stress Testing
+    with tabs[4]:
         tab_stress.render(run_dir)
 
-    # TAB 5: Econometric Stylized Facts
-    with tabs[4]:
+    # TAB 6: Econometric Stylized Facts
+    with tabs[5]:
         tab_validation.render(run_dir)
 
-    # TAB 6: Convergence Diagnostics
-    with tabs[5]:
+    # TAB 7: Convergence Diagnostics
+    with tabs[6]:
         st.subheader("Reinforcement Learning Convergence Diagnostics")
         rl_metrics = [m for m in agent_metrics if "rl" in m.get("agent_id", "").lower()]
 
@@ -289,8 +294,8 @@ def main():
         else:
             st.info("No RL agent metrics found to compute convergence diagnostics.")
 
-    # TAB 7: Run Info & Reproducibility
-    with tabs[6]:
+    # TAB 8: Run Info & Reproducibility
+    with tabs[7]:
         st.subheader("Run Configuration & Reproducibility Snapshot")
         st.json(run_summary)
 
