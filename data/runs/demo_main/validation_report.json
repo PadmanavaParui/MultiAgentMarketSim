@@ -1,0 +1,75 @@
+{
+  "timestamp": "2026-11-26T16:35:30.283084+00:00",
+  "resample_interval": 5,
+  "num_observations": 8850,
+  "overall_passed": false,
+  "summary": {
+    "total_checks": 5,
+    "passed_checks": 3,
+    "failed_checks": 2
+  },
+  "stylized_facts": {
+    "excess_kurtosis": {
+      "passed": true,
+      "raw_kurtosis": 18.8684,
+      "excess_kurtosis": 15.8684,
+      "threshold": 3.0,
+      "criterion": "raw_kurtosis > 3.0 (excess_kurtosis > 0.0)",
+      "description": "Heavy Tails (Leptokurtosis): Unconditional returns exhibit heavy tails with excess kurtosis > 0 (kurtosis > 3), exceeding the Gaussian normal distribution."
+    },
+    "hill_tail_index": {
+      "passed": true,
+      "tail_index": 2.1932,
+      "k_tail_obs": 532,
+      "tail_fraction": 0.1,
+      "bounds": [
+        2.0,
+        5.0
+      ],
+      "criterion": "2.0 <= tail_index <= 5.0",
+      "description": "Hill Tail Index: Power-law tail exponent alpha falls within [2.0, 5.0], characterizing the heavy-tailed, finite-variance regime universally observed in empirical finance."
+    },
+    "return_autocorrelation": {
+      "passed": false,
+      "lags": {
+        "lag_1": -0.0592,
+        "lag_2": 0.0352,
+        "lag_3": 0.0787,
+        "lag_4": 0.1116,
+        "lag_5": 0.0971
+      },
+      "max_abs_acf": 0.1116,
+      "threshold": 0.1,
+      "criterion": "max(|ACF(1..5)|) < 0.1",
+      "description": "Absence of Linear Autocorrelations: Linear autocorrelation of returns decays rapidly to near zero (|ACF| < 0.10 for lags 1-5), consistent with the Efficient Market Hypothesis."
+    },
+    "volatility_clustering": {
+      "passed": false,
+      "lags": {
+        "lag_1": -0.0393,
+        "lag_2": -0.0059,
+        "lag_3": 0.0117,
+        "lag_4": 0.0446,
+        "lag_5": 0.0247,
+        "lag_6": 0.0422,
+        "lag_7": 0.0308,
+        "lag_8": 0.0404,
+        "lag_9": 0.0434,
+        "lag_10": 0.0277
+      },
+      "lag_1": -0.0393,
+      "mean_lags_1_5": 0.0072,
+      "lag_10": 0.0277,
+      "criterion": "ACF(r^2, lag=1) > 0 and mean(ACF(r^2, lags=1..5)) > 0 with slow decay (lag_10 <= lag_1)",
+      "description": "Volatility Clustering: While returns are linearly uncorrelated, squared returns exhibit positive, slowly decaying autocorrelation across lags 1-10 (ARCH effect)."
+    },
+    "spread_volatility_correlation": {
+      "passed": true,
+      "correlation": 0.1312,
+      "threshold": 0.0,
+      "criterion": "corr(spread, |returns|) > 0.0",
+      "description": "Spread-Volatility Correlation: Market makers widen bid-ask spreads during periods of elevated volatility to manage inventory risk and adverse selection."
+    }
+  },
+  "run_id": "demo_main"
+}

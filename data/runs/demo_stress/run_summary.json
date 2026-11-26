@@ -1,0 +1,23 @@
+{
+  "run_id": "demo_stress",
+  "seed": 42,
+  "config_snapshot": {
+    "mode": "stress_scenarios",
+    "scenarios": [
+      "flash_crash",
+      "informed_flow",
+      "liquidity_withdrawal"
+    ],
+    "mm_types": [
+      "MarketMakerAgent",
+      "AvellanedaStoikovMM"
+    ],
+    "episodes": 5,
+    "cycles": 50,
+    "seed": 42
+  },
+  "started_at": "2026-11-26T16:36:01.015130+00:00",
+  "status": "COMPLETE",
+  "completed_at": "2026-11-26T16:36:01.015139+00:00",
+  "error_message": null
+}
