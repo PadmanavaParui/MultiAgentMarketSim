@@ -152,6 +152,64 @@ class TestAgents(unittest.TestCase):
         # Average reward in second half should be >= first half or Q-learning updates occurred
         self.assertGreater(len(rl_agent.reward_history), 50)
 
+    def test_rl_directional_agent_per_episode_epsilon_decay(self):
+        """Test that decay_per_episode delays epsilon decay until episode boundary/reset."""
+        rl = RLDirectionalAgent(
+            agent_id="rl_decay_test",
+            seed=42,
+            alpha=0.5,
+            epsilon=1.0,
+            epsilon_decay=0.9,
+            epsilon_min=0.1,
+            decay_per_episode=True,
+        )
+        self.assertTrue(rl.decay_per_episode)
+        self.assertEqual(rl.epsilon, 1.0)
+
+        obs = {
+            "bids": np.array([[100.0, 10.0]]),
+            "asks": np.array([[101.0, 10.0]]),
+            "cash": np.array([10000.0]),
+            "inventory": np.array([0.0]),
+        }
+        next_obs = {
+            "bids": np.array([[100.5, 10.0]]),
+            "asks": np.array([[101.5, 10.0]]),
+            "cash": np.array([10050.0]),
+            "inventory": np.array([5.0]),
+        }
+
+        # Step and update several times within episode
+        for _ in range(5):
+            _ = rl.act(obs)
+            rl.update(reward=10.0, next_observation=next_obs)
+
+        # In per-episode mode, updates within episode MUST NOT decay epsilon
+        self.assertEqual(rl.epsilon, 1.0)
+        self.assertEqual(rl._episode_steps, 5)
+
+        # Calling reset() at episode end triggers the per-episode decay
+        rl.reset()
+        self.assertAlmostEqual(rl.epsilon, 0.9)
+        self.assertEqual(rl._episode_steps, 0)
+
+        # Calling reset() immediately without steps should not double-decay
+        rl.reset()
+        self.assertAlmostEqual(rl.epsilon, 0.9)
+
+        # Calling decay_epsilon() manually directly decays
+        new_eps = rl.decay_epsilon()
+        self.assertAlmostEqual(new_eps, 0.81)
+
+        # Test alias epsilon_decay_per_episode
+        rl_alias = RLDirectionalAgent("rl_alias", epsilon_decay_per_episode=True)
+        self.assertTrue(rl_alias.decay_per_episode)
+
+        # Verify diagnostics reports decay_per_episode
+        diag = rl.get_diagnostics()
+        self.assertTrue(diag["decay_per_episode"])
+
 
 if __name__ == "__main__":
     unittest.main()
+
