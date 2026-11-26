@@ -86,7 +86,9 @@ def main():
         if not available_runs:
             st.sidebar.warning("No past runs found in `data/runs/`. Please launch a run first.")
         else:
-            selected_run_id = st.sidebar.selectbox("Select Run ID", options=available_runs[::-1])
+            run_options = available_runs[::-1]
+            default_index = run_options.index("demo_main") if "demo_main" in run_options else 0
+            selected_run_id = st.sidebar.selectbox("Select Run ID", options=run_options, index=default_index)
     else:
         st.sidebar.subheader("New Run Settings")
         new_run_id = st.sidebar.text_input("Run ID", value="sim_interactive_01")
@@ -117,9 +119,9 @@ def main():
                 except Exception as e:
                     st.sidebar.error(f"Simulation Failed: {e}")
 
-    # Fallback to latest run if available
+    # Fallback to demo_main or latest run if available
     if not selected_run_id and available_runs:
-        selected_run_id = available_runs[-1]
+        selected_run_id = "demo_main" if "demo_main" in available_runs else available_runs[-1]
 
     # Empty state handling
     if not selected_run_id:
@@ -131,11 +133,18 @@ def main():
     # Load data for selected run
     try:
         run_summary = logger.get_run_summary(selected_run_id)
+    except FileNotFoundError:
+        run_summary = {"run_id": selected_run_id, "status": "COMPLETE", "seed": "N/A"}
+    except Exception as e:
+        st.error(f"Error loading run summary for `{selected_run_id}`: {e}")
+        return
+
+    try:
         price_series = logger.get_price_series(selected_run_id)
         agent_metrics = logger.get_agent_metrics(selected_run_id)
-    except Exception as e:
-        st.error(f"Error loading run data for `{selected_run_id}`: {e}")
-        return
+    except Exception:
+        price_series = []
+        agent_metrics = []
 
     # Error / Invariant violation state
     if run_summary.get("status") == "SIMULATION_INVALID":

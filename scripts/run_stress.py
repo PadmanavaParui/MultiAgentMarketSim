@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import os
 import sys
+import json
 import argparse
 from datetime import datetime, timezone
 
@@ -159,7 +160,29 @@ def main():
     for sc_name, sc_data in report.get("scenarios", {}).items():
         print(format_table(sc_name, sc_data))
 
-    report_path = os.path.join(args.output_dir, run_id, "stress_report.json")
+    run_dir = os.path.join(args.output_dir, run_id)
+    os.makedirs(run_dir, exist_ok=True)
+    summary_path = os.path.join(run_dir, "run_summary.json")
+    summary = {
+        "run_id": run_id,
+        "seed": args.seed,
+        "config_snapshot": {
+            "mode": "stress_scenarios",
+            "scenarios": args.scenarios,
+            "mm_types": args.mm_types,
+            "episodes": args.episodes,
+            "cycles": args.cycles,
+            "seed": args.seed,
+        },
+        "started_at": datetime.now(timezone.utc).isoformat(),
+        "status": "COMPLETE",
+        "completed_at": datetime.now(timezone.utc).isoformat(),
+        "error_message": None,
+    }
+    with open(summary_path, "w") as f:
+        json.dump(summary, f, indent=2)
+
+    report_path = os.path.join(run_dir, "stress_report.json")
     print(f"\n[+] Stress report saved to: {report_path}\n")
 
 
