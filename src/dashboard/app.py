@@ -31,6 +31,7 @@ from src.dashboard.charts import (
     plot_best_response_trace,
     plot_convergence_diagnostics,
 )
+from src.dashboard import tab_stress, tab_validation, tab_nash
 from scripts.run_simulation import run_simulation
 
 
@@ -124,43 +125,13 @@ def main():
         st.info("👋 Welcome! No simulation run is currently loaded. Use the sidebar to launch a new simulation or inspect existing data.")
         return
 
+    run_dir = os.path.join(logger.base_dir, selected_run_id) if selected_run_id else None
+
     # Load data for selected run
     try:
         run_summary = logger.get_run_summary(selected_run_id)
         price_series = logger.get_price_series(selected_run_id)
         agent_metrics = logger.get_agent_metrics(selected_run_id)
-        eq_analysis = logger.get_equilibrium_analysis(selected_run_id)
-
-        # On-the-fly fallback if run was logged before game-theoretic pipeline
-        if eq_analysis is None and agent_metrics:
-            try:
-                from src.gametheory.payoff_builder import PayoffBuilder
-                from src.gametheory.nash_solver import NashSolver
-                from src.gametheory.best_response import BestResponseDynamics
-
-                archetype_pnls = {}
-                for m in agent_metrics:
-                    a_id = m.get("agent_id", "")
-                    arch = "RL" if "rl" in a_id.lower() else ("MM" if "mm" in a_id.lower() else "ZI")
-                    archetype_pnls.setdefault(arch, []).append(m.get("pnl", 0.0))
-
-                if len(archetype_pnls) >= 2:
-                    A, B, strats = PayoffBuilder.mean_pnl_ranking(archetype_pnls)
-                    solver = NashSolver(A, B)
-                    eq_candidates = solver.get_equilibrium_candidates(method="support_enumeration")
-                    brd = BestResponseDynamics(A, B)
-                    trace = brd.trace(max_iterations=20)
-                    eq_analysis = {
-                        "run_id": selected_run_id,
-                        "method": "LEMKE_HOWSON",
-                        "payoff_matrix": A.tolist(),
-                        "strategies": strats,
-                        "equilibrium_candidates": eq_candidates,
-                        "best_response_trace": trace,
-                        "computed_at": "dynamic",
-                    }
-            except Exception:
-                pass
     except Exception as e:
         st.error(f"Error loading run data for `{selected_run_id}`: {e}")
         return
@@ -195,9 +166,10 @@ def main():
         "📊 Market & Price Action",
         "👥 Agent Performance",
         "🎯 Game Theory & Nash Equilibria",
+        "⚡ Stress Testing",
+        "🔬 Econometric Stylized Facts",
         "📉 Convergence Diagnostics",
         "📋 Run Info & Reproducibility",
-        "🔬 Econometric Stylized Facts",
     ])
 
     # TAB 1: Market & Price Action
@@ -283,50 +255,18 @@ def main():
 
     # TAB 3: Game Theory & Nash Equilibria
     with tabs[2]:
-        st.subheader("Post-Hoc Game-Theoretic Equilibrium Analysis (Nashpy)")
-        if eq_analysis:
-            col_gt1, col_gt2 = st.columns([1, 1])
+        tab_nash.render(run_dir)
 
-            with col_gt1:
-                st.markdown("#### Payoff Matrix ($A$)")
-                strategies = eq_analysis.get("strategies", ["Strat 1", "Strat 2"])
-                matrix = eq_analysis.get("payoff_matrix", [])
-                st.write("Payoff table across interacting strategies:")
-                st.table({strategies[i]: [round(x, 2) for x in row] for i, row in enumerate(matrix)})
-
-                se = eq_analysis.get("standard_errors")
-                if se:
-                    st.markdown("#### Standard Errors ($SE_A$)")
-                    st.table({strategies[i]: [round(x, 2) for x in row] for i, row in enumerate(se)})
-
-                st.markdown("#### Nash Equilibrium Candidates")
-                candidates = eq_analysis.get("equilibrium_candidates", [])
-                if candidates:
-                    for cand in candidates:
-                        p1_s = [f"{strategies[i]}: {prob*100:.1f}%" for i, prob in enumerate(cand.get("player_1_strategy", []))]
-                        p2_s = [f"{strategies[i]}: {prob*100:.1f}%" for i, prob in enumerate(cand.get("player_2_strategy", []))]
-                        is_pure = cand.get("is_pure", False)
-                        st.success(
-                            f"**Equilibrium #{cand.get('equilibrium_id')}** ({'Pure Strategy' if is_pure else 'Mixed Strategy'})\n\n"
-                            f"- **Player 1 Strategy:** {', '.join(p1_s)} (Payoff: ${cand.get('player_1_payoff')})\n\n"
-                            f"- **Player 2 Strategy:** {', '.join(p2_s)} (Payoff: ${cand.get('player_2_payoff')})"
-                        )
-                else:
-                    st.info("No pure/mixed equilibrium candidates identified.")
-
-            with col_gt2:
-                st.markdown("#### Best-Response Trajectory (Fictitious Play)")
-                trace = eq_analysis.get("best_response_trace", [])
-                if trace:
-                    fig_trace = plot_best_response_trace(trace)
-                    render_chart(fig_trace)
-                else:
-                    st.info("No best-response trace data recorded.")
-        else:
-            st.info("No game-theoretic equilibrium analysis found for this run. Run with multiple agent archetypes to compute equilibria.")
-
-    # TAB 4: Convergence Diagnostics
+    # TAB 4: Stress Testing
     with tabs[3]:
+        tab_stress.render(run_dir)
+
+    # TAB 5: Econometric Stylized Facts
+    with tabs[4]:
+        tab_validation.render(run_dir)
+
+    # TAB 6: Convergence Diagnostics
+    with tabs[5]:
         st.subheader("Reinforcement Learning Convergence Diagnostics")
         rl_metrics = [m for m in agent_metrics if "rl" in m.get("agent_id", "").lower()]
 
@@ -349,8 +289,8 @@ def main():
         else:
             st.info("No RL agent metrics found to compute convergence diagnostics.")
 
-    # TAB 5: Run Info & Reproducibility
-    with tabs[4]:
+    # TAB 7: Run Info & Reproducibility
+    with tabs[6]:
         st.subheader("Run Configuration & Reproducibility Snapshot")
         st.json(run_summary)
 
@@ -359,58 +299,6 @@ def main():
             "Every run stores its random seed and exact parameter configuration. "
             "Re-running with the identical seed reproduces the exact trade sequence bit-for-bit."
         )
-
-    # TAB 6: Econometric Stylized Facts
-    with tabs[5]:
-        st.subheader("Microstructure Stylized Facts & Empirical Validation")
-        st.markdown(
-            "Evaluates price telemetry against canonical empirical properties of financial asset returns "
-            "(Cont 2001; Bouchaud & Potters 2003) with fixed-interval resampling to avoid bid-ask bounce."
-        )
-
-        val_report = logger.get_validation_report(selected_run_id) if selected_run_id else None
-
-        if not val_report and selected_run_id:
-            col_b1, _ = st.columns([1, 3])
-            with col_b1:
-                if st.button("Run Stylized Facts Validation", key="btn_run_val"):
-                    try:
-                        from src.validation.stylized_facts import validate_stylized_facts
-                        val_report = validate_stylized_facts(run_id=selected_run_id, data_dir="data/runs", resample_interval=5)
-                        st.success("Validation computed successfully!")
-                    except Exception as ve:
-                        st.error(f"Validation failed: {ve}")
-
-        if val_report:
-            summary = val_report.get("summary", {})
-            facts = val_report.get("stylized_facts", {})
-            passed_count = summary.get("passed_checks", 0)
-            total_count = summary.get("total_checks", 5)
-
-            col_m1, col_m2, col_m3 = st.columns(3)
-            with col_m1:
-                st.metric("Overall Validation", "PASSED" if val_report.get("overall_passed") else "FAILED")
-            with col_m2:
-                st.metric("Passed Checks", f"{passed_count} / {total_count}")
-            with col_m3:
-                st.metric("Resample Interval", f"{val_report.get('resample_interval', 5)} steps")
-
-            st.markdown("### Stylized Facts Scorecard")
-            scorecard_rows = []
-            for name, d in facts.items():
-                p_badge = "✅ PASS" if d.get("passed") else "❌ FAIL"
-                scorecard_rows.append({
-                    "Stylized Fact": name.replace("_", " ").title(),
-                    "Status": p_badge,
-                    "Criterion": d.get("criterion", ""),
-                    "Theoretical Description": d.get("description", ""),
-                })
-            render_dataframe(scorecard_rows)
-
-            with st.expander("Detailed Metric Values"):
-                st.json(facts)
-        else:
-            st.info("No validation report available for this run. Click 'Run Stylized Facts Validation' or execute with `--validate`.")
 
 
 if __name__ == "__main__":
