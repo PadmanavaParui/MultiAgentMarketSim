@@ -1,0 +1,149 @@
+{
+  "run_id": "demo_stress",
+  "timestamp": "2026-11-26T16:36:01.014255+00:00",
+  "config": {
+    "scenarios": [
+      "flash_crash",
+      "informed_flow",
+      "liquidity_withdrawal"
+    ],
+    "mm_types": [
+      "MarketMakerAgent",
+      "AvellanedaStoikovMM"
+    ],
+    "episodes": 5,
+    "cycles": 50,
+    "seed": 42
+  },
+  "scenarios": {
+    "flash_crash": {
+      "MarketMakerAgent": {
+        "scenario_name": "flash_crash",
+        "mm_type": "MarketMakerAgent",
+        "max_drawdown_mid": 8.663,
+        "peak_spread": 20.0,
+        "baseline_spread": 1.263,
+        "spread_diff": 18.737,
+        "spread_ratio": 17.4115,
+        "mm_max_abs_inventory": 72,
+        "mm_pnl_stressed": -317.298,
+        "mm_pnl_baseline": 60.006,
+        "mm_pnl_vs_baseline": -377.304,
+        "adverse_selection_loss": 391.888,
+        "adverse_selection_pnl": -391.888,
+        "recovered": false,
+        "recovery_time": null
+      },
+      "AvellanedaStoikovMM": {
+        "scenario_name": "flash_crash",
+        "mm_type": "AvellanedaStoikovMM",
+        "max_drawdown_mid": 3.236,
+        "peak_spread": 20.0,
+        "baseline_spread": 1.1606,
+        "spread_diff": 18.8394,
+        "spread_ratio": 17.7085,
+        "mm_max_abs_inventory": 77,
+        "mm_pnl_stressed": 21.361,
+        "mm_pnl_baseline": 100.564,
+        "mm_pnl_vs_baseline": -79.203,
+        "adverse_selection_loss": 70.733,
+        "adverse_selection_pnl": -70.733,
+        "recovered": true,
+        "recovery_time": 2
+      },
+      "comparison": {
+        "pnl_vs_baseline_advantage_as": 298.101,
+        "inventory_reduction_as": -5,
+        "adverse_selection_reduction_as": 321.155,
+        "drawdown_reduction_as": 5.427,
+        "more_resilient_agent": "AvellanedaStoikovMM"
+      }
+    },
+    "informed_flow": {
+      "MarketMakerAgent": {
+        "scenario_name": "informed_flow",
+        "mm_type": "MarketMakerAgent",
+        "max_drawdown_mid": 2.347,
+        "peak_spread": 20.0,
+        "baseline_spread": 1.259,
+        "spread_diff": 18.741,
+        "spread_ratio": 16.7018,
+        "mm_max_abs_inventory": 75,
+        "mm_pnl_stressed": -875.908,
+        "mm_pnl_baseline": 59.055,
+        "mm_pnl_vs_baseline": -934.963,
+        "adverse_selection_loss": 1102.632,
+        "adverse_selection_pnl": -1102.632,
+        "recovered": false,
+        "recovery_time": null
+      },
+      "AvellanedaStoikovMM": {
+        "scenario_name": "informed_flow",
+        "mm_type": "AvellanedaStoikovMM",
+        "max_drawdown_mid": 2.411,
+        "peak_spread": 20.0,
+        "baseline_spread": 1.2298,
+        "spread_diff": 18.7702,
+        "spread_ratio": 16.4251,
+        "mm_max_abs_inventory": 99,
+        "mm_pnl_stressed": -266.252,
+        "mm_pnl_baseline": 111.971,
+        "mm_pnl_vs_baseline": -378.223,
+        "adverse_selection_loss": 467.404,
+        "adverse_selection_pnl": -467.404,
+        "recovered": false,
+        "recovery_time": null
+      },
+      "comparison": {
+        "pnl_vs_baseline_advantage_as": 556.74,
+        "inventory_reduction_as": -24,
+        "adverse_selection_reduction_as": 635.228,
+        "drawdown_reduction_as": -0.064,
+        "more_resilient_agent": "AvellanedaStoikovMM"
+      }
+    },
+    "liquidity_withdrawal": {
+      "MarketMakerAgent": {
+        "scenario_name": "liquidity_withdrawal",
+        "mm_type": "MarketMakerAgent",
+        "max_drawdown_mid": 2.455,
+        "peak_spread": 16.568,
+        "baseline_spread": 1.2454,
+        "spread_diff": 15.3226,
+        "spread_ratio": 12.5135,
+        "mm_max_abs_inventory": 39,
+        "mm_pnl_stressed": 89.94,
+        "mm_pnl_baseline": 66.107,
+        "mm_pnl_vs_baseline": 23.833,
+        "adverse_selection_loss": 0.0,
+        "adverse_selection_pnl": 0.0,
+        "recovered": true,
+        "recovery_time": 9
+      },
+      "AvellanedaStoikovMM": {
+        "scenario_name": "liquidity_withdrawal",
+        "mm_type": "AvellanedaStoikovMM",
+        "max_drawdown_mid": 2.011,
+        "peak_spread": 14.33,
+        "baseline_spread": 1.1164,
+        "spread_diff": 13.2136,
+        "spread_ratio": 12.1089,
+        "mm_max_abs_inventory": 43,
+        "mm_pnl_stressed": 103.567,
+        "mm_pnl_baseline": 105.457,
+        "mm_pnl_vs_baseline": -1.89,
+        "adverse_selection_loss": 0.0,
+        "adverse_selection_pnl": 0.0,
+        "recovered": true,
+        "recovery_time": 7
+      },
+      "comparison": {
+        "pnl_vs_baseline_advantage_as": -25.723,
+        "inventory_reduction_as": -4,
+        "adverse_selection_reduction_as": 0.0,
+        "drawdown_reduction_as": 0.444,
+        "more_resilient_agent": "MarketMakerAgent"
+      }
+    }
+  }
+}
