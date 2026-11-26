@@ -11,7 +11,7 @@ from src.dashboard.charts import (
     plot_convergence_diagnostics,
 )
 
-from src.dashboard import tab_stress, tab_validation, tab_nash
+from src.dashboard import tab_stress, tab_validation, tab_nash, tab_replay
 
 __all__ = [
     "plot_order_book_depth",
@@ -23,4 +23,5 @@ __all__ = [
     "tab_stress",
     "tab_validation",
     "tab_nash",
+    "tab_replay",
 ]
