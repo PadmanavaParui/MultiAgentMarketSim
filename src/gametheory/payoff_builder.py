@@ -11,6 +11,12 @@ from __future__ import annotations
 from typing import List, Dict, Any, Tuple, Optional
 import numpy as np
 
+from src.env.market_env import MarketEnvironment
+from src.agents.zero_intelligence import ZeroIntelligenceAgent
+from src.agents.market_maker import MarketMakerAgent
+from src.agents.rl_directional import RLDirectionalAgent
+from src.metrics.pnl import compute_agent_metrics
+
 
 class PayoffBuilder:
     """
@@ -72,7 +78,7 @@ class PayoffBuilder:
         return A, B, strategies
 
     @staticmethod
-    def build_archetype_matrix(
+    def mean_pnl_ranking(
         archetype_pnls: Dict[str, List[float]]
     ) -> Tuple[np.ndarray, np.ndarray, List[str]]:
         """
@@ -99,6 +105,144 @@ class PayoffBuilder:
                 B[i, j] = means[a2]
 
         return A, B, archetypes
+
+    @staticmethod
+    def _make_agent(agent_id: str, strategy: Dict[str, Any], seed: int):
+        """Instantiate an agent from a strategy descriptor dict."""
+        stype = strategy["type"]
+        kw = dict(strategy.get("kwargs", {}))
+        if stype == "ZI":
+            return ZeroIntelligenceAgent(agent_id=agent_id, seed=seed, **kw)
+        elif stype == "MM":
+            return MarketMakerAgent(agent_id=agent_id, seed=seed, **kw)
+        elif stype == "RL":
+            return RLDirectionalAgent(agent_id=agent_id, seed=seed, **kw)
+        else:
+            raise ValueError(f"Unknown strategy type: {stype}")
+
+    @staticmethod
+    def build_tournament_matrix(
+        strategies: List[Dict[str, Any]],
+        background_agents: Optional[List[Dict[str, Any]]] = None,
+        n_episodes: int = 5,
+        cycles_per_episode: int = 50,
+        seed: int = 42,
+    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, List[str]]:
+        """
+        Construct payoff matrices via round-robin head-to-head tournament.
+
+        For every ordered pair (i, j) of strategies, runs ``n_episodes``
+        seeded episodes where Player X plays strategy *i* and Player Y
+        plays strategy *j*, with a fixed identical background of other agents.
+
+        Parameters
+        ----------
+        strategies : list of dict
+            Each dict has ``"label"`` (str), ``"type"`` (``"ZI"``/``"MM"``/``"RL"``),
+            and ``"kwargs"`` (dict of constructor keyword args).
+        background_agents : list of dict or None
+            Same format as *strategies*; these agents participate in every
+            episode but are not scored.
+        n_episodes : int
+            Number of seeded episodes per cell.
+        cycles_per_episode : int
+            Max steps per episode.
+        seed : int
+            Base random seed — every cell/episode gets a deterministic
+            derivative seed so the full tournament is reproducible.
+
+        Returns
+        -------
+        A : ndarray, shape (n, n)
+            Mean PnL of Player X (row player).
+        B : ndarray, shape (n, n)
+            Mean PnL of Player Y (column player).
+        SE_A : ndarray, shape (n, n)
+            Standard error of Player X mean PnL.
+        SE_B : ndarray, shape (n, n)
+            Standard error of Player Y mean PnL.
+        labels : list of str
+            Strategy labels in row/column order.
+        """
+        n = len(strategies)
+        if n < 2:
+            labels = [s.get("label", f"S{i}") for i, s in enumerate(strategies)]
+            z = np.zeros((max(n, 2), max(n, 2)))
+            return z, z.copy(), z.copy(), z.copy(), labels
+
+        bg = background_agents or []
+        labels = [s.get("label", f"S{i}") for i, s in enumerate(strategies)]
+
+        A = np.zeros((n, n))
+        B = np.zeros((n, n))
+        SE_A = np.zeros((n, n))
+        SE_B = np.zeros((n, n))
+
+        for i in range(n):
+            for j in range(n):
+                x_pnls: List[float] = []
+                y_pnls: List[float] = []
+
+                for ep in range(n_episodes):
+                    # Deterministic per-cell, per-episode seed
+                    cell_seed = seed + i * 10000 + j * 1000 + ep * 100
+
+                    # Build agent roster: player_x, player_y, plus background
+                    all_ids = ["player_x", "player_y"]
+                    bg_ids = [f"bg_{k}" for k in range(len(bg))]
+                    all_ids.extend(bg_ids)
+
+                    env = MarketEnvironment(
+                        agents=all_ids,
+                        max_cycles=cycles_per_episode,
+                        dict_spaces=True,
+                        run_id=f"tourney_{i}_{j}_{ep}",
+                    )
+
+                    agents_map = {}
+                    agents_map["player_x"] = PayoffBuilder._make_agent(
+                        "player_x", strategies[i], seed=cell_seed,
+                    )
+                    agents_map["player_y"] = PayoffBuilder._make_agent(
+                        "player_y", strategies[j], seed=cell_seed + 1,
+                    )
+                    for k_idx, bg_cfg in enumerate(bg):
+                        bg_id = f"bg_{k_idx}"
+                        agents_map[bg_id] = PayoffBuilder._make_agent(
+                            bg_id, bg_cfg, seed=cell_seed + 2 + k_idx,
+                        )
+
+                    # Run one episode
+                    obs, _ = env.reset(seed=cell_seed)
+                    for a in agents_map.values():
+                        a.reset()
+
+                    while env.agents:
+                        actions = {
+                            a_id: agents_map[a_id].act(obs[a_id])
+                            for a_id in env.agents
+                            if a_id in obs
+                        }
+                        next_obs, rewards, _, _, _ = env.step(actions)
+                        for a_id in env.agents:
+                            if a_id in rewards and a_id in next_obs:
+                                agents_map[a_id].update(rewards[a_id], next_obs[a_id])
+                        obs = next_obs
+
+                    # Compute PnL for the two focal players
+                    ref = env._get_reference_price()
+                    for focal_id, pnl_list in [("player_x", x_pnls), ("player_y", y_pnls)]:
+                        pv = env.cash[focal_id] + env.inventory[focal_id] * ref
+                        pnl_list.append(pv - env._initial_cash[focal_id])
+
+                x_arr = np.array(x_pnls)
+                y_arr = np.array(y_pnls)
+                A[i, j] = float(np.mean(x_arr))
+                B[i, j] = float(np.mean(y_arr))
+                SE_A[i, j] = float(np.std(x_arr, ddof=1) / np.sqrt(n_episodes)) if n_episodes > 1 else 0.0
+                SE_B[i, j] = float(np.std(y_arr, ddof=1) / np.sqrt(n_episodes)) if n_episodes > 1 else 0.0
+
+        return A, B, SE_A, SE_B, labels
 
     @staticmethod
     def build_symmetric_matrix(values_2x2: List[List[float]]) -> Tuple[np.ndarray, np.ndarray]:

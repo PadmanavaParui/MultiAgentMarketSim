@@ -145,7 +145,7 @@ def main():
                     archetype_pnls.setdefault(arch, []).append(m.get("pnl", 0.0))
 
                 if len(archetype_pnls) >= 2:
-                    A, B, strats = PayoffBuilder.build_archetype_matrix(archetype_pnls)
+                    A, B, strats = PayoffBuilder.mean_pnl_ranking(archetype_pnls)
                     solver = NashSolver(A, B)
                     eq_candidates = solver.get_equilibrium_candidates(method="support_enumeration")
                     brd = BestResponseDynamics(A, B)
@@ -292,6 +292,11 @@ def main():
                 matrix = eq_analysis.get("payoff_matrix", [])
                 st.write("Payoff table across interacting strategies:")
                 st.table({strategies[i]: [round(x, 2) for x in row] for i, row in enumerate(matrix)})
+
+                se = eq_analysis.get("standard_errors")
+                if se:
+                    st.markdown("#### Standard Errors ($SE_A$)")
+                    st.table({strategies[i]: [round(x, 2) for x in row] for i, row in enumerate(se)})
 
                 st.markdown("#### Nash Equilibrium Candidates")
                 candidates = eq_analysis.get("equilibrium_candidates", [])

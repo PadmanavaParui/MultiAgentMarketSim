@@ -186,20 +186,30 @@ def run_simulation(
                 for a_id in agent_ids:
                     print(f"  {a_id}: Cash=${env.cash[a_id]:.2f}, Inv={env.inventory[a_id]}, Total PnL=${(env.cash[a_id] + env.inventory[a_id] * ref_price - env._initial_cash[a_id]):.2f}")
 
-        # Post-hoc game-theoretic analysis (OJT doc Step 8 / Phase 3)
+        # Post-hoc game-theoretic analysis via head-to-head tournament
         try:
             from src.gametheory.payoff_builder import PayoffBuilder
             from src.gametheory.nash_solver import NashSolver
             from src.gametheory.best_response import BestResponseDynamics
 
-            archetype_pnls: Dict[str, List[float]] = {}
-            for m in logger.agent_metrics:
-                a_id = m["agent_id"]
-                arch = agent_configs.get(a_id, {}).get("type", a_id)
-                archetype_pnls.setdefault(arch, []).append(m["pnl"])
+            # Extract unique strategy configurations from the simulation run
+            unique_strats = []
+            seen_types = set()
+            for a_id, cfg in agent_configs.items():
+                stype = cfg["type"]
+                if stype not in seen_types:
+                    seen_types.add(stype)
+                    kw = {k: v for k, v in cfg.items() if k != "type"}
+                    unique_strats.append({"label": stype, "type": stype, "kwargs": kw})
 
-            if len(archetype_pnls) >= 2:
-                A, B, strats = PayoffBuilder.build_archetype_matrix(archetype_pnls)
+            if len(unique_strats) >= 2:
+                A, B, SE_A, SE_B, strats = PayoffBuilder.build_tournament_matrix(
+                    strategies=unique_strats,
+                    background_agents=[{"type": "ZI", "kwargs": {"aggression": 0.6, "max_quantity": 10}}],
+                    n_episodes=max(2, min(episodes, 5)),
+                    cycles_per_episode=cycles_per_episode,
+                    seed=seed,
+                )
                 solver = NashSolver(A, B)
                 eq_candidates = solver.get_equilibrium_candidates(method="support_enumeration")
                 brd = BestResponseDynamics(A, B)
@@ -208,11 +218,13 @@ def run_simulation(
                     run_id=run_id,
                     payoff_matrix=A,
                     equilibrium_candidates=eq_candidates,
+                    method="support_enumeration",
                     strategies=strats,
                     best_response_trace=trace,
+                    standard_errors=SE_A,
                 )
                 if verbose:
-                    print(f"\n[Game Theory] Computed {len(eq_candidates)} Nash equilibrium candidate(s).")
+                    print(f"\n[Game Theory] Head-to-head tournament computed {len(eq_candidates)} Nash equilibrium candidate(s).")
         except Exception as gt_err:
             if verbose:
                 print(f"[Game Theory] Post-hoc analysis notice: {gt_err}")
