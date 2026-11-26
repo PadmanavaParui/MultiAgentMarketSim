@@ -13,6 +13,7 @@ from src.dashboard.charts import (
     plot_inventory_accumulation,
     plot_best_response_trace,
     plot_convergence_diagnostics,
+    plot_training_curve,
 )
 from src.metrics.logger import MetricsLogger
 
@@ -83,6 +84,26 @@ class TestDashboard(unittest.TestCase):
 
         fig_empty_trace = plot_best_response_trace([])
         self.assertIsInstance(fig_empty_trace, go.Figure)
+
+        fig_empty_train = plot_training_curve([])
+        self.assertIsInstance(fig_empty_train, go.Figure)
+
+    def test_plot_training_curve(self):
+        """Tests that plot_training_curve renders subplots, moving average, and secondary curves."""
+        rewards = [5.0, 8.0, 12.0, 10.0, 15.0, 18.0]
+        epsilons = [1.0, 0.95, 0.90, 0.85, 0.80, 0.75]
+        td_errors = [1.2, 0.9, 0.7, 0.5, 0.4, 0.3]
+
+        # Full figure with rewards, epsilons, and td_errors
+        fig_full = plot_training_curve(rewards, epsilons, td_errors, window=3)
+        self.assertIsInstance(fig_full, go.Figure)
+        # Should have raw reward, rolling mean, epsilon, and td error traces (4 traces)
+        self.assertGreaterEqual(len(fig_full.data), 4)
+
+        # Rewards only figure
+        fig_rewards_only = plot_training_curve(rewards)
+        self.assertIsInstance(fig_rewards_only, go.Figure)
+        self.assertEqual(len(fig_rewards_only.data), 2)  # raw + rolling mean
 
     def test_app_module_imports(self):
         """Tests that src.dashboard.app and modular tabs import without syntax or dependency errors."""

@@ -80,6 +80,8 @@ class RLDirectionalAgent:
         epsilon_min: float = 0.05,
         epsilon_decay: float = 0.995,
         order_quantity: int = 10,
+        decay_per_episode: bool = False,
+        epsilon_decay_per_episode: Optional[bool] = None,
     ):
         self.agent_id = agent_id
         self.alpha = alpha
@@ -88,7 +90,15 @@ class RLDirectionalAgent:
         self.epsilon_min = epsilon_min
         self.epsilon_decay = epsilon_decay
         self.order_quantity = order_quantity
+        self.decay_per_episode = (
+            bool(epsilon_decay_per_episode)
+            if epsilon_decay_per_episode is not None
+            else bool(decay_per_episode)
+        )
         self.rng = np.random.default_rng(seed)
+
+        # Track steps taken within the current episode
+        self._episode_steps: int = 0
 
         # Q-table: state_key → np.array of shape (NUM_ACTIONS,)
         self.q_table: Dict[Tuple, np.ndarray] = defaultdict(
@@ -110,6 +120,7 @@ class RLDirectionalAgent:
 
     def act(self, observation: Any) -> Dict[str, Any]:
         """Select an action via ε-greedy over the Q-table."""
+        self._episode_steps += 1
         state = self._discretize(observation)
         self._prev_state = state
         # Ensure state entry exists in Q-table
@@ -153,13 +164,41 @@ class RLDirectionalAgent:
         self.td_error_history.append(abs(td_error))
         self.epsilon_history.append(self.epsilon)
 
-        # Decay epsilon
-        self.epsilon = max(self.epsilon_min, self.epsilon * self.epsilon_decay)
+        # Decay epsilon only if step-wise decay is active
+        if not self.decay_per_episode:
+            self.epsilon = max(self.epsilon_min, self.epsilon * self.epsilon_decay)
 
-    def reset(self, seed: Optional[int] = None) -> None:
-        """Reset per-episode state (keeps the learned Q-table)."""
+    def decay_epsilon(self) -> float:
+        """
+        Decay exploration rate epsilon by factor self.epsilon_decay down to self.epsilon_min.
+        Returns the updated epsilon value.
+        """
+        self.epsilon = max(self.epsilon_min, self.epsilon * self.epsilon_decay)
+        return self.epsilon
+
+    def reset(self, seed: Optional[int] = None, decay_epsilon: Optional[bool] = None) -> None:
+        """
+        Reset per-episode state (keeps the learned Q-table).
+
+        Parameters
+        ----------
+        seed : int | None
+            Optional new random seed for the episode.
+        decay_epsilon : bool | None
+            If True, decay epsilon immediately. If None and decay_per_episode is True,
+            epsilon decays if the agent took steps in the preceding episode.
+        """
+        should_decay = (
+            decay_epsilon
+            if decay_epsilon is not None
+            else (self.decay_per_episode and self._episode_steps > 0)
+        )
+        if should_decay:
+            self.decay_epsilon()
+
         self._prev_state = None
         self._prev_action = None
+        self._episode_steps = 0
         if seed is not None:
             self.rng = np.random.default_rng(seed)
 
@@ -251,6 +290,7 @@ class RLDirectionalAgent:
         return {
             "q_table_size": len(self.q_table),
             "epsilon": self.epsilon,
+            "decay_per_episode": self.decay_per_episode,
             "total_updates": len(self.reward_history),
             "mean_reward_last_100": (
                 float(np.mean(self.reward_history[-100:]))
