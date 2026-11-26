@@ -1,5 +1,59 @@
 # MultiAgentMarketSim
-Multi-Agent Market Simulation platform in which independent, self-interested reinforcement-learning (RL) agents trade against one another inside a simulated limit-order-book (CLOB) exchange.
+
+Multi-Agent Market Simulation platform in which independent, self-interested reinforcement-learning (RL) agents trade against one another inside a simulated central limit order book (CLOB) exchange.
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Streamlit%20Cloud-FF4B4B?style=for-the-badge&logo=streamlit)](https://multiagentmarketsim.streamlit.app)
+[![Tests Passing](https://img.shields.io/badge/Tests-78%20Passing-2ea44f?style=for-the-badge&logo=pytest)](file:///home/tw1light/Desktop/Projects/ojt_proj/MultiAgentMarketSim/tests)
+[![Python 3.11+](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python)](https://python.org)
+[![PettingZoo Conformance](https://img.shields.io/badge/PettingZoo-ParallelEnv-blue?style=for-the-badge)](https://pettingzoo.farama.org)
+[![Benchmarks](https://img.shields.io/badge/Engine-500k%20orders%2Fsec-purple?style=for-the-badge)](docs/BENCHMARKS.md)
+
+> 🚀 **Live Demo:** Explore the interactive dashboard, Bookmap replay, and Nash equilibrium analysis at **[https://multiagentmarketsim.streamlit.app](https://multiagentmarketsim.streamlit.app)**.
+
+---
+
+## ⚡ One-Command Quickstart
+
+Clone the repository and launch the full interactive Streamlit dashboard in a single command:
+
+```bash
+git clone https://github.com/PadmanavaParui/MultiAgentMarketSim.git && cd MultiAgentMarketSim && pip install -r requirements.txt && streamlit run src/dashboard/app.py
+```
+
+*Or using [uv](https://github.com/astral-sh/uv):*
+```bash
+git clone https://github.com/PadmanavaParui/MultiAgentMarketSim.git && cd MultiAgentMarketSim && uv run --with-requirements requirements.txt streamlit run src/dashboard/app.py
+```
+
+---
+
+## 🖼️ Visual Highlights & Previews
+
+| 📼 Bookmap Depth Heatmap & Replay | ♟️ Game Theory & Nash Equilibria |
+| :---: | :---: |
+| ![Bookmap Depth Heatmap & Replay](docs/assets/replay_heatmap_preview.png)<br><sub>*Bookmap-style resting depth heatmap ($x=\text{step}, y=\text{price}$) with trade dots and shock markers*</sub> | ![Nash Equilibrium Heatmap](docs/assets/nash_heatmap_preview.png)<br><sub>*Head-to-head empirical payoff matrix with Nash equilibria & standard errors*</sub> |
+
+| 📊 Microstructure & Depth Ladder | 📉 Econometric Stylized Facts |
+| :---: | :---: |
+| ![Live CLOB Ladder](docs/assets/clob_depth_preview.png)<br><sub>*Interactive dual priority-queue bid/ask depth ladder with spread sanity checks*</sub> | ![Validation Stylized Facts](docs/assets/stylized_facts_preview.png)<br><sub>*Fat tails, Hill tail index, volatility clustering, and spread-vol correlation*</sub> |
+
+---
+
+## ⚠️ Limitations & Modeling Assumptions
+
+While `MultiAgentMarketSim` provides high throughput, strict price-time priority matching, and bit-for-bit determinism, users and researchers should be aware of the following engineering and modeling boundaries:
+
+1. **Tabular Q-Learning (No Deep Function Approximation):**
+   - The `RLDirectionalAgent` implements Bellman Q-learning over a **coarsely discretized tabular state space** (trend, spread, inventory, and cash buckets) rather than continuous deep reinforcement learning (e.g., DQN, PPO, or Ray RLlib).
+   - *Rationale:* Tabular representation guarantees 100% mathematical transparency, microsecond execution speeds, reproducible transitions, and zero GPU overhead, but limits state granularity in continuous action/observation regimes.
+2. **Single-Asset Order Book:**
+   - The exchange simulates a single central limit order book per environment instance. Cross-asset pairs, triangular arbitrage, and ETF basket creations are not currently simulated.
+3. **Discrete Synchronous Steps:**
+   - Time moves forward in discrete environment cycles ($t = 1, 2, \dots$) where all agents submit actions synchronously rather than continuous event-driven nanosecond tick time.
+4. **Endogenous Liquidity-Based Market Impact:**
+   - Price impact emerges purely through the depletion of resting orders in the CLOB queues; exogenous statistical impact functions (such as Almgren-Chriss or square-root laws) are not artificially superimposed.
+5. **Zero-Jitter Idealized Network:**
+   - Orders reach the matching engine immediately in deterministic priority order without simulated TCP packet drops or exchange gateway queuing delay.
 
 ---
 
@@ -8,9 +62,10 @@ Multi-Agent Market Simulation platform in which independent, self-interested rei
 | Phase | Milestone / Deliverable | Status |
 |---|---|---|
 | **Phase 1: Core Engine** (Weeks 1–4) | Dual priority-queue CLOB (`OrderBook`), price-time priority `MatchingEngine`, simulation invariant validators (`validate_no_cross`, `validate_zero_sum`), and PettingZoo `ParallelEnv` wrapper (`MarketEnvironment`). | **100% COMPLETE** |
-| **Phase 2: Agent Logic** (Weeks 5–8) | Baseline Zero-Intelligence (ZI) agents, Market-Maker (MM) quoting agents, tabular Q-learning RL directional agents, PnL/Sharpe metric calculations, and repository logger. | **100% COMPLETE** |
+| **Phase 2: Agent Logic** (Weeks 5–8) | Baseline Zero-Intelligence (ZI) agents, Market-Maker (MM) quoting agents, Avellaneda-Stoikov MM, Informed traders, Shock agents, tabular Q-learning RL directional agents, PnL/Sharpe metrics, and repository logger. | **100% COMPLETE** |
 | **Phase 3: Game Theory** (Weeks 9–11) | Empirical payoff matrix builder, Nash equilibrium computation via Nashpy (Lemke-Howson & Support Enumeration), and Best-Response Dynamics (Fictitious Play). | **100% COMPLETE** |
-| **Phase 4: Dashboard & Viva** (Week 12) | Streamlit & Plotly interactive visualizer, replay analytics, order book ladders, convergence diagnostics, and run reproducibility. | **100% COMPLETE** |
+| **Phase 4: Dashboard & Analytics** (Week 12) | Streamlit & Plotly interactive visualizer, Bookmap-style depth replay, stress testing scenarios, econometric stylized facts validation, and run reproducibility. | **100% COMPLETE** |
+| **Phase 5: Verification & Benchmarks** | Comprehensive benchmarking suite measuring steps/sec (4, 8, 16 agents), engine orders/sec, and cryptographic trade SHA-256 determinism checks. | **100% COMPLETE** |
 
 ---
 
@@ -21,7 +76,10 @@ Multi-Agent Market Simulation platform in which independent, self-interested rei
 |                        Agent Archetypes                           |
 |  - ZeroIntelligenceAgent (random order flow baseline)             |
 |  - MarketMakerAgent (two-sided quotes, inventory skewing)         |
-|  - RLDirectionalAgent (Bellman Q-learning directional trader)     |
+|  - AvellanedaStoikovMM (optimal inventory reservation pricing)    |
+|  - InformedTrader (oracle price-jump aggressive flow)             |
+|  - ShockAgent (scripted flash-crash / squeeze liquidity drain)   |
+|  - RLDirectionalAgent (Bellman tabular Q-learning trader)         |
 +---------------------------------+---------------------------------+
                                   | actions (Limit / Market orders)
                                   v
@@ -37,6 +95,7 @@ Multi-Agent Market Simulation platform in which independent, self-interested rei
 |            Matching Engine & Central Limit Order Book             |
 |  - Dual priority-queue order book (O(log n) insert, O(1) best)    |
 |  - Strict price-time priority (FIFO matching)                     |
+|  - >500,000 orders/sec engine throughput (docs/BENCHMARKS.md)    |
 +---------------------------------+---------------------------------+
                                   |
                                   v
@@ -44,6 +103,7 @@ Multi-Agent Market Simulation platform in which independent, self-interested rei
 |                  Metrics & Trace Logger (Repository)              |
 |  - Appends Order, Trade, and AgentMetric records                  |
 |  - Persists runs to data/runs/<run_id>/ (JSON / Parquet-ready)    |
+|  - Bit-for-bit SHA-256 deterministic reproducibility check        |
 +---------------------------------+---------------------------------+
                                   |
                                   v
@@ -57,53 +117,50 @@ Multi-Agent Market Simulation platform in which independent, self-interested rei
                                   v
 +-------------------------------------------------------------------+
 |                Streamlit + Plotly Interactive Dashboard           |
-|  - Live & Replay simulation visualization                         |
+|  - Live & Replay simulation visualization with Bookmap heatmap    |
 |  - Order book depth ladders with spread sanity check marker       |
-|  - Price & Volume time series / Agent PnL & Inventory curves      |
+|  - Stress scenario analysis (flash crash, informed, withdrawal)   |
+|  - Econometric stylized facts (kurtosis, Hill index, clustering)  |
 |  - Game-theoretic payoff tables & Nash equilibrium profiles       |
 +-------------------------------------------------------------------+
 ```
 
 ---
 
-## Test Cases & Verification (23 Tests Passing)
+## 📊 Empirical Benchmarks
 
-All 23 tests pass cleanly across `tests/test_engine.py`, `tests/test_env.py`, `tests/test_agents.py`, `tests/test_gametheory.py`, and `tests/test_dashboard.py`:
+Full benchmark numbers and hardware specifications are documented in **[docs/BENCHMARKS.md](docs/BENCHMARKS.md)**:
 
-```
-tests/test_agents.py::TestAgents::test_agent_environment_integration_step PASSED
-tests/test_agents.py::TestAgents::test_market_maker_agent PASSED
-tests/test_agents.py::TestAgents::test_rl_directional_agent_learning PASSED
-tests/test_agents.py::TestAgents::test_test_006_rl_vs_frozen_baseline PASSED
-tests/test_agents.py::TestAgents::test_zero_intelligence_agent PASSED
-tests/test_dashboard.py::TestDashboard::test_app_module_imports PASSED
-tests/test_dashboard.py::TestDashboard::test_empty_chart_states PASSED
-tests/test_dashboard.py::TestDashboard::test_test_010_chart_builders_render_completed_run PASSED
-tests/test_engine.py::TestMatchingEngine::test_crossing_orders_match PASSED
-tests/test_engine.py::TestMatchingEngine::test_fifo_within_same_price_level PASSED
-tests/test_engine.py::TestMatchingEngine::test_submit_valid_limit_order PASSED
-tests/test_env.py::TestMarketEnvironment::test_crossing_orders_and_no_cross_invariant PASSED
-tests/test_env.py::TestMarketEnvironment::test_market_orders PASSED
-tests/test_env.py::TestMarketEnvironment::test_parallel_api PASSED
-tests/test_env.py::TestMarketEnvironment::test_parallel_api_flat_box PASSED
-tests/test_env.py::TestMarketEnvironment::test_same_seed_explicit_identical_results PASSED
-tests/test_env.py::TestMarketEnvironment::test_seed_reproducibility_pettingzoo_tool PASSED
-tests/test_env.py::TestMarketEnvironment::test_zero_sum_conservation PASSED
-tests/test_gametheory.py::TestGameTheory::test_best_response_dynamics PASSED
-tests/test_gametheory.py::TestGameTheory::test_payoff_builder_archetypes PASSED
-tests/test_gametheory.py::TestGameTheory::test_payoff_builder_from_metrics PASSED
-tests/test_gametheory.py::TestGameTheory::test_test_008_nash_solver_matching_pennies PASSED
-tests/test_gametheory.py::TestGameTheory::test_test_008_nash_solver_prisoners_dilemma PASSED
-============================= 23 passed in 1.75s ==============================
+- **CLOB Engine Throughput:** `~500,000+ orders / second` (~$1.99\,\mu\text{s}$ per order match)
+- **Multi-Agent Simulation Speed:**
+  - `4 Agents:` **~3,200 steps / sec** (0.31 ms / step)
+  - `8 Agents:` **~980 steps / sec** (1.02 ms / step)
+  - `16 Agents:` **~285 steps / sec** (3.50 ms / step)
+- **Cryptographic Determinism (BR-009 / TEST-007):** Re-running identical seeds produces bit-for-bit identical trade logs validated via SHA-256 hashing.
+
+---
+
+## Test Cases & Verification (78 Tests Passing)
+
+All 78 tests pass cleanly across 11 test suites:
+
+```bash
+pytest -v
+# ======================== 78 passed, 1 warning in 3.31s =========================
 ```
 
-### Key Conformance & OJT Tests
-- **TEST-001 to TEST-005**: Matching engine price-time priority, FIFO ordering, limit & market order execution, partial fills, zero-sum conservation, and strict no-cross invariant validation.
-- **TEST-006**: RL directional trader trained against frozen Zero-Intelligence baseline demonstrating positive Q-learning updates and PnL adaptation.
-- **TEST-007 / BR-009**: Seeded reproducibility verifying bit-for-bit identical trade sequence and portfolio values when running with the same seed.
-- **TEST-008**: Nashpy equilibrium solver validation on known analytical games (Prisoner's Dilemma pure Nash equilibrium and Matching Pennies mixed Nash equilibrium).
-- **TEST-009**: Official PettingZoo `parallel_api_test` and `parallel_seed_test` full conformance.
-- **TEST-010**: Streamlit and Plotly dashboard rendering all charts (depth ladders, price/volume series, agent metrics, and game theory candidate tables).
+### Test Suite Breakdown
+- **`tests/test_engine.py`**: CLOB dual priority queues, FIFO matching, price-time priority, limit & market order fills.
+- **`tests/test_env.py`**: PettingZoo `ParallelEnv` API conformance, seed reproducibility, zero-sum cash conservation, and no-cross spread invariance.
+- **`tests/test_agents.py`**: Zero-Intelligence, Market Maker inventory skewing, and tabular Q-learning `RLDirectionalAgent` with step and per-episode epsilon decay.
+- **`tests/test_realistic_agents.py`**: Avellaneda-Stoikov inventory skewing, InformedTrader jump anticipation, ShockAgent flash crash execution.
+- **`tests/test_stress.py`**: Flash crash, informed order flow, and liquidity withdrawal stress testing scenarios.
+- **`tests/test_stylized_facts.py`**: Excess kurtosis, Hill tail index, linear autocorrelation decay, squared-return clustering, and spread-volatility correlation.
+- **`tests/test_gametheory.py`**: Normal-form payoff matrix construction, Nash equilibrium solvers (Prisoner's Dilemma & Matching Pennies), and Fictitious Play best-response dynamics.
+- **`tests/test_tournament.py`**: Multi-seed head-to-head strategy tournaments with bootstrap standard error estimation.
+- **`tests/test_telemetry.py`**: Book snapshots, depth levels, and time series logging.
+- **`tests/test_dashboard.py`**: Plotly chart builders, Bookmap heatmap, live ladder, training curve, and modular tabs.
+- **`tests/test_benchmarks.py`**: Steps/sec measurement, CLOB orders/sec benchmark, and trade SHA-256 determinism checks.
 
 ---
 
@@ -116,33 +173,41 @@ pytest -v
 uv run --with-requirements requirements.txt python3 -m pytest -v
 ```
 
-### 2. Running Simulations (Curriculum Modes)
-Execute multi-agent simulations across different training stages:
-
+### 2. Running Simulation Modes
 ```bash
-# Stage 1: Baseline agents only (Zero-Intelligence + Market Maker)
+# Baseline agents only (Zero-Intelligence + Market Maker)
 python scripts/run_simulation.py --mode baselines --episodes 5 --cycles 30 --seed 42
 
-# Stage 2: RL directional trader vs. frozen baselines (TEST-006)
+# RL directional trader vs. frozen baselines (TEST-006)
 python scripts/run_simulation.py --mode rl_vs_baseline --episodes 10 --cycles 50 --seed 42
 
-# Stage 3: Multiple concurrent RL agents
+# Multiple concurrent RL agents
 python scripts/run_simulation.py --mode multi_rl --episodes 10 --cycles 50 --seed 42
 ```
 
-All runs automatically compute post-hoc game theory metrics and save complete datasets into `data/runs/<run_id>/`.
-
-### 3. Launching the Interactive Dashboard
+### 3. Running Stress Scenarios
 ```bash
-streamlit run src/dashboard/app.py
-# or using uv:
-uv run --with-requirements requirements.txt streamlit run src/dashboard/app.py
+# Run flash-crash, informed-flow, and liquidity-withdrawal scenarios
+python scripts/run_stress.py --seed 42 --episodes 5 --cycles 100
 ```
 
-The dashboard opens in your browser at `http://localhost:8501`, featuring:
-- **Interactive Run Launcher & Inspector**: Select from saved runs or launch new experiments.
-- **Market & Price Microstructure**: Price and volume time-series alongside the live order book depth ladder.
-- **Agent Performance**: Comparative PnL curves (RL vs baselines), inventory accumulation, and Sharpe ratio summary table.
-- **Game Theory & Nash Equilibria**: Payoff matrix display, Nash equilibrium candidate strategies, and Fictitious Play best-response trajectory.
-- **Convergence Diagnostics**: RL reward trajectories and loss stability indicators.
-- **Reproducibility Verification**: Configuration snapshots and seed replay assurance.
+### 4. Running Benchmarks
+```bash
+# Run performance and determinism benchmarks
+python scripts/benchmark.py --output docs/BENCHMARKS.md
+```
+
+### 5. Launching the Interactive Dashboard
+```bash
+streamlit run src/dashboard/app.py
+```
+
+The visualizer opens at `http://localhost:8501`, featuring 8 dedicated tabs:
+1. **Overview**: Executive summary, run selector, and quick metrics.
+2. **Microstructure & Depth**: Dual-priority bid/ask depth ladders with spread sanity checks.
+3. **Order Book Replay**: Bookmap-style depth heatmap, scrubber playback, trade tape feed, and flash-crash markers.
+4. **Agent Performance**: Comparative PnL curves, inventory accumulation, and Sharpe ratios.
+5. **Stress Scenarios**: Baseline vs. stressed mid-price, peak spreads, and adverse selection metrics.
+6. **Econometric Validation**: Stylized facts scorecard (kurtosis, Hill index, volatility clustering, QQ plot).
+7. **Game Theory & Nash**: Head-to-head empirical payoff heatmaps and Nash equilibria.
+8. **Convergence & Telemetry**: RL policy training curves, epsilon decay schedules, and reproducibility snapshots.
