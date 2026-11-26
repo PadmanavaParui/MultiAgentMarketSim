@@ -15,6 +15,9 @@ from src.env.market_env import MarketEnvironment
 from src.agents.zero_intelligence import ZeroIntelligenceAgent
 from src.agents.market_maker import MarketMakerAgent
 from src.agents.rl_directional import RLDirectionalAgent
+from src.agents.avellaneda_stoikov import AvellanedaStoikovMM
+from src.agents.informed_trader import InformedTrader
+from src.agents.shock_agent import ShockAgent
 from src.metrics.pnl import compute_agent_metrics
 
 
@@ -111,12 +114,18 @@ class PayoffBuilder:
         """Instantiate an agent from a strategy descriptor dict."""
         stype = strategy["type"]
         kw = dict(strategy.get("kwargs", {}))
-        if stype == "ZI":
+        if stype in ("ZI", "ZeroIntelligenceAgent"):
             return ZeroIntelligenceAgent(agent_id=agent_id, seed=seed, **kw)
-        elif stype == "MM":
+        elif stype in ("MM", "MarketMakerAgent"):
             return MarketMakerAgent(agent_id=agent_id, seed=seed, **kw)
-        elif stype == "RL":
+        elif stype in ("RL", "RLDirectionalAgent"):
             return RLDirectionalAgent(agent_id=agent_id, seed=seed, **kw)
+        elif stype in ("AvellanedaStoikovMM", "AS_MM", "AS"):
+            return AvellanedaStoikovMM(agent_id=agent_id, seed=seed, **kw)
+        elif stype in ("InformedTrader", "Informed"):
+            return InformedTrader(agent_id=agent_id, seed=seed, **kw)
+        elif stype in ("ShockAgent", "Shock"):
+            return ShockAgent(agent_id=agent_id, seed=seed, **kw)
         else:
             raise ValueError(f"Unknown strategy type: {stype}")
 
