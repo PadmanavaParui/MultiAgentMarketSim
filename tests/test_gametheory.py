@@ -69,14 +69,14 @@ class TestGameTheory(unittest.TestCase):
         self.assertEqual(B.shape, (2, 2))
         self.assertEqual(len(strategies), 2)
 
-    def test_payoff_builder_archetypes(self):
-        """Test building archetype payoff matrix."""
+    def test_payoff_builder_mean_pnl_ranking(self):
+        """Test building mean PnL ranking matrix."""
         archetype_pnls = {
             "RL": [12.0, 15.0, 20.0],
             "MM": [5.0, 6.0, 7.0],
             "ZI": [-10.0, -8.0, -12.0],
         }
-        A, B, archetypes = PayoffBuilder.build_archetype_matrix(archetype_pnls)
+        A, B, archetypes = PayoffBuilder.mean_pnl_ranking(archetype_pnls)
         self.assertEqual(A.shape, (3, 3))
         self.assertEqual(B.shape, (3, 3))
         self.assertIn("RL", archetypes)

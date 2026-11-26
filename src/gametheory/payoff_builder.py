@@ -78,7 +78,7 @@ class PayoffBuilder:
         return A, B, strategies
 
     @staticmethod
-    def build_archetype_matrix(
+    def mean_pnl_ranking(
         archetype_pnls: Dict[str, List[float]]
     ) -> Tuple[np.ndarray, np.ndarray, List[str]]:
         """
