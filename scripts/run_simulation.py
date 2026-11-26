@@ -37,6 +37,7 @@ def run_simulation(
     run_id: str = "sim_run",
     output_dir: str = "data/runs",
     verbose: bool = True,
+    snapshot_interval: int = 5,
 ) -> MetricsLogger:
     """
     Executes a multi-episode market simulation run and logs all records.
@@ -48,6 +49,7 @@ def run_simulation(
         "cycles_per_episode": cycles_per_episode,
         "seed": seed,
         "run_id": run_id,
+        "snapshot_interval": snapshot_interval,
     }
     logger.start_run(run_id=run_id, seed=seed, config=config_snapshot)
 
@@ -143,6 +145,73 @@ def run_simulation(
                     if a_id in step_infos:
                         ep_portfolios[a_id].append(step_infos[a_id]["portfolio_value"])
                         ep_inventories[a_id].append(step_infos[a_id]["inventory"])
+
+                # Telemetry logging: book snapshots and timeseries every K steps
+                if snapshot_interval > 0 and step % snapshot_interval == 0:
+                    best_bid_order = env.order_book.best_bid()
+                    best_ask_order = env.order_book.best_ask()
+                    best_bid = float(best_bid_order.price) if best_bid_order is not None else None
+                    best_ask = float(best_ask_order.price) if best_ask_order is not None else None
+                    if best_bid is not None and best_ask is not None:
+                        mid = round((best_bid + best_ask) / 2.0, 4)
+                        spread = round(best_ask - best_bid, 4)
+                    else:
+                        mid = None
+                        spread = None
+
+                    depth = env.order_book.depth(levels=5)
+                    bids_depth = [[float(p), int(v)] for p, v in depth.get("bids", [])][:5]
+                    asks_depth = [[float(p), int(v)] for p, v in depth.get("asks", [])][:5]
+                    depth_dict = {"bids": bids_depth, "asks": asks_depth}
+
+                    ref_p = env._get_reference_price()
+                    agents_telemetry = {}
+                    inventories_map = {}
+                    pnls_map = {}
+                    for a_id in agent_ids:
+                        inv = int(env.inventory[a_id])
+                        if a_id in step_infos and "pnl" in step_infos[a_id]:
+                            pnl_val = float(step_infos[a_id]["pnl"])
+                        else:
+                            pnl_val = float(env.cash[a_id] + env.inventory[a_id] * ref_p - env._initial_cash[a_id])
+                        pnl_val = round(pnl_val, 4)
+                        agents_telemetry[a_id] = {
+                            "inventory": inv,
+                            "pnl": pnl_val,
+                        }
+                        inventories_map[a_id] = inv
+                        pnls_map[a_id] = pnl_val
+
+                    logger.log_book_snapshot(
+                        episode=ep + 1,
+                        step=step,
+                        best_bid=best_bid,
+                        best_ask=best_ask,
+                        mid=mid,
+                        spread=spread,
+                        bids=bids_depth,
+                        asks=asks_depth,
+                        depth=depth_dict,
+                        agents=agents_telemetry,
+                        inventories=inventories_map,
+                        pnls=pnls_map,
+                        run_id=run_id,
+                    )
+                    logger.log_timeseries(
+                        episode=ep + 1,
+                        step=step,
+                        best_bid=best_bid,
+                        best_ask=best_ask,
+                        mid=mid,
+                        spread=spread,
+                        agents=agents_telemetry,
+                        inventories=inventories_map,
+                        pnls=pnls_map,
+                        bids=bids_depth,
+                        asks=asks_depth,
+                        depth=depth_dict,
+                        run_id=run_id,
+                    )
 
                 obs = next_obs
 
@@ -250,6 +319,15 @@ if __name__ == "__main__":
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--run-id", type=str, default="demo_run_001")
     parser.add_argument("--output-dir", type=str, default="data/runs")
+    parser.add_argument(
+        "--snapshot-interval",
+        "-k",
+        "--k",
+        dest="snapshot_interval",
+        type=int,
+        default=5,
+        help="Step interval for book snapshots and timeseries telemetry (default 5)",
+    )
     args = parser.parse_args()
 
     run_simulation(
@@ -259,4 +337,5 @@ if __name__ == "__main__":
         seed=args.seed,
         run_id=args.run_id,
         output_dir=args.output_dir,
+        snapshot_interval=args.snapshot_interval,
     )
