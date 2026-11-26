@@ -30,6 +30,7 @@ from src.dashboard.charts import (
     plot_inventory_accumulation,
     plot_best_response_trace,
     plot_convergence_diagnostics,
+    plot_training_curve,
 )
 from src.dashboard import tab_stress, tab_validation, tab_nash, tab_replay
 from scripts.run_simulation import run_simulation
@@ -277,6 +278,9 @@ def main():
 
         if rl_metrics:
             rewards = [m.get("reward", 0.0) for m in rl_metrics]
+            fig_training = plot_training_curve(rewards, title="RL Policy Training Curve & Smoothed Trend")
+            render_chart(fig_training)
+
             fig_conv = plot_convergence_diagnostics(rewards)
             render_chart(fig_conv)
 

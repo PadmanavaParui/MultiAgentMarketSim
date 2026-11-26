@@ -9,6 +9,7 @@ from src.dashboard.charts import (
     plot_inventory_accumulation,
     plot_best_response_trace,
     plot_convergence_diagnostics,
+    plot_training_curve,
 )
 
 from src.dashboard import tab_stress, tab_validation, tab_nash, tab_replay
@@ -20,6 +21,7 @@ __all__ = [
     "plot_inventory_accumulation",
     "plot_best_response_trace",
     "plot_convergence_diagnostics",
+    "plot_training_curve",
     "tab_stress",
     "tab_validation",
     "tab_nash",

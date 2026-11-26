@@ -340,3 +340,145 @@ def plot_convergence_diagnostics(rewards: List[float], td_errors: Optional[List[
         margin=dict(l=40, r=40, t=50, b=40),
     )
     return fig
+
+
+def plot_training_curve(
+    rewards: List[float],
+    epsilons: Optional[List[float]] = None,
+    td_errors: Optional[List[float]] = None,
+    window: int = 5,
+    title: str = "RL Agent Training Curve (Reward & Exploration Dynamics)",
+) -> go.Figure:
+    """
+    Renders an RL training curve displaying raw episode/step rewards, a smoothed
+    moving-average trendline, exploration rate (epsilon) decay, and TD errors.
+
+    Parameters
+    ----------
+    rewards : List[float]
+        Sequence of rewards per step or episode.
+    epsilons : List[float] | None
+        Exploration rate (epsilon) schedule history.
+    td_errors : List[float] | None
+        Temporal difference (TD) Bellman error history.
+    window : int
+        Window size for computing smoothed rolling average (default: 5).
+    title : str
+        Chart title.
+    """
+    if not rewards:
+        fig = go.Figure()
+        fig.update_layout(
+            title="No Training Data Available",
+            template="plotly_white",
+            margin=dict(l=40, r=40, t=50, b=40),
+        )
+        return fig
+
+    has_secondary = bool(epsilons or td_errors)
+    steps = list(range(1, len(rewards) + 1))
+
+    # Compute rolling mean for rewards
+    w = max(1, min(window, len(rewards)))
+    rolling_rewards = []
+    for i in range(len(rewards)):
+        start_idx = max(0, i - w + 1)
+        rolling_rewards.append(float(np.mean(rewards[start_idx : i + 1])))
+
+    if has_secondary:
+        fig = make_subplots(
+            rows=2,
+            cols=1,
+            shared_xaxes=True,
+            vertical_spacing=0.12,
+            subplot_titles=(
+                "Reward Trajectory & Smoothed Trend",
+                "Exploration Rate (ε) & Bellman Error Progression",
+            ),
+            row_heights=[0.62, 0.38],
+        )
+    else:
+        fig = make_subplots(
+            rows=1,
+            cols=1,
+            subplot_titles=("Reward Trajectory & Smoothed Trend",),
+        )
+
+    # 1. Raw rewards
+    fig.add_trace(
+        go.Scatter(
+            x=steps,
+            y=rewards,
+            mode="lines+markers",
+            name="Raw Reward",
+            line=dict(color="rgba(31, 119, 180, 0.35)", width=1.5),
+            marker=dict(size=4, color="rgba(31, 119, 180, 0.5)"),
+            hovertemplate="Step: %{x}<br>Reward: %{y:.2f}<extra>RAW</extra>",
+        ),
+        row=1,
+        col=1,
+    )
+
+    # 2. Smoothed rolling mean
+    fig.add_trace(
+        go.Scatter(
+            x=steps,
+            y=rolling_rewards,
+            mode="lines",
+            name=f"Rolling Mean (w={w})",
+            line=dict(color="#1f77b4", width=3),
+            hovertemplate="Step: %{x}<br>Mean Reward: %{y:.2f}<extra>TREND</extra>",
+        ),
+        row=1,
+        col=1,
+    )
+
+    # Baseline 0 reward reference line
+    fig.add_hline(y=0.0, line_dash="dash", line_color="gray", row=1, col=1)
+
+    # 3. Secondary subplots: Epsilon & TD Error
+    if has_secondary:
+        if epsilons:
+            eps_x = steps[: len(epsilons)]
+            fig.add_trace(
+                go.Scatter(
+                    x=eps_x,
+                    y=epsilons,
+                    mode="lines",
+                    name="Exploration (ε)",
+                    line=dict(color="#ff7f0e", width=2),
+                    hovertemplate="Step: %{x}<br>Epsilon: %{y:.4f}<extra>EPSILON</extra>",
+                ),
+                row=2,
+                col=1,
+            )
+
+        if td_errors:
+            td_x = steps[: len(td_errors)]
+            fig.add_trace(
+                go.Scatter(
+                    x=td_x,
+                    y=td_errors,
+                    mode="lines",
+                    name="TD Error |δ|",
+                    line=dict(color="#d62728", width=1.5, dash="dot"),
+                    hovertemplate="Step: %{x}<br>TD Error: %{y:.4f}<extra>BELLMAN</extra>",
+                ),
+                row=2,
+                col=1,
+            )
+
+    fig.update_layout(
+        title=title,
+        template="plotly_white",
+        hovermode="x unified",
+        margin=dict(l=40, r=40, t=60, b=40),
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1.0),
+    )
+    fig.update_xaxes(title_text="Step / Episode", row=2 if has_secondary else 1, col=1)
+    fig.update_yaxes(title_text="Reward ($)", row=1, col=1)
+    if has_secondary:
+        fig.update_yaxes(title_text="Rate / Error", row=2, col=1)
+
+    return fig
+
