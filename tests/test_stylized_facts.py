@@ -258,6 +258,50 @@ class TestStylizedFactsValidationAndReporting(unittest.TestCase):
         self.assertFalse(report["stylized_facts"]["hill_tail_index"]["passed"])
         self.assertFalse(report["stylized_facts"]["spread_volatility_correlation"]["passed"])
 
+    def test_logger_get_validation_report(self):
+        """Test MetricsLogger query methods for validation and stress reports."""
+        from src.metrics.logger import MetricsLogger, get_validation_report
+
+        logger = MetricsLogger(base_dir=self.test_dir)
+        # Non-existent report returns None
+        self.assertIsNone(logger.get_validation_report("run_missing"))
+
+        # Create dummy validation_report.json
+        run_folder = os.path.join(self.test_dir, "run_valid")
+        os.makedirs(run_folder, exist_ok=True)
+        with open(os.path.join(run_folder, "validation_report.json"), "w") as f:
+            import json
+            json.dump({"run_id": "run_valid", "overall_passed": True}, f)
+
+        res = logger.get_validation_report("run_valid")
+        self.assertIsNotNone(res)
+        self.assertEqual(res["run_id"], "run_valid")
+
+    def test_simulation_runner_validate_integration(self):
+        """Test run_simulation with validate=True generates validation_report.json."""
+        from scripts.run_simulation import run_simulation
+        from src.metrics.logger import MetricsLogger
+
+        logger = run_simulation(
+            mode="baselines",
+            episodes=1,
+            cycles_per_episode=15,
+            snapshot_interval=1,
+            seed=42,
+            run_id="sim_val_test",
+            output_dir=self.test_dir,
+            verbose=False,
+            validate=True,
+        )
+
+        val_file = os.path.join(self.test_dir, "sim_val_test", "validation_report.json")
+        self.assertTrue(os.path.exists(val_file))
+
+        rep = logger.get_validation_report("sim_val_test")
+        self.assertIsNotNone(rep)
+        self.assertEqual(rep["run_id"], "sim_val_test")
+
 
 if __name__ == "__main__":
     unittest.main()
+
