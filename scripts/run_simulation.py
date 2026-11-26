@@ -25,6 +25,9 @@ from src.env.market_env import MarketEnvironment
 from src.agents.zero_intelligence import ZeroIntelligenceAgent
 from src.agents.market_maker import MarketMakerAgent
 from src.agents.rl_directional import RLDirectionalAgent
+from src.agents.avellaneda_stoikov import AvellanedaStoikovMM
+from src.agents.informed_trader import InformedTrader
+from src.agents.shock_agent import ShockAgent
 from src.metrics.logger import MetricsLogger
 from src.metrics.pnl import compute_agent_metrics
 
@@ -38,6 +41,7 @@ def run_simulation(
     output_dir: str = "data/runs",
     verbose: bool = True,
     snapshot_interval: int = 5,
+    custom_agent_configs: Optional[Dict[str, Dict[str, Any]]] = None,
 ) -> MetricsLogger:
     """
     Executes a multi-episode market simulation run and logs all records.
@@ -54,7 +58,9 @@ def run_simulation(
     logger.start_run(run_id=run_id, seed=seed, config=config_snapshot)
 
     # Agent setup based on mode
-    if mode == "baselines":
+    if custom_agent_configs is not None:
+        agent_configs = custom_agent_configs
+    elif mode == "baselines":
         agent_configs = {
             "mm_0": {"type": "MM", "spread": 0.5, "quantity": 10},
             "zi_0": {"type": "ZI", "aggression": 0.8, "max_quantity": 15},
@@ -66,6 +72,13 @@ def run_simulation(
             "rl_1": {"type": "RL", "alpha": 0.1, "epsilon": 0.5},
             "mm_0": {"type": "MM", "spread": 0.5, "quantity": 10},
             "zi_0": {"type": "ZI", "aggression": 0.7, "max_quantity": 10},
+        }
+    elif mode == "realistic":
+        agent_configs = {
+            "as_mm_0": {"type": "AvellanedaStoikovMM", "gamma": 0.1, "k": 1.5, "window": 10, "quantity": 10},
+            "informed_0": {"type": "InformedTrader", "jump_step": 20, "jump_size": 2.0, "quantity": 10},
+            "shock_0": {"type": "ShockAgent", "shock_step": 35, "n_steps": 3, "direction": "sell", "quantity": 50},
+            "zi_0": {"type": "ZI", "aggression": 0.6, "max_quantity": 10},
         }
     else:  # "rl_vs_baseline" or default
         agent_configs = {
@@ -86,27 +99,58 @@ def run_simulation(
     agents = {}
     for i, (a_id, cfg) in enumerate(agent_configs.items()):
         agent_seed = (seed + i * 100) if seed is not None else None
-        if cfg["type"] == "MM":
+        stype = cfg["type"]
+        if stype in ("MM", "MarketMakerAgent"):
             agents[a_id] = MarketMakerAgent(
                 agent_id=a_id,
                 seed=agent_seed,
                 spread=cfg.get("spread", 1.0),
                 quantity=cfg.get("quantity", 10),
             )
-        elif cfg["type"] == "ZI":
+        elif stype in ("ZI", "ZeroIntelligenceAgent"):
             agents[a_id] = ZeroIntelligenceAgent(
                 agent_id=a_id,
                 seed=agent_seed,
                 aggression=cfg.get("aggression", 0.7),
                 max_quantity=cfg.get("max_quantity", 15),
             )
-        elif cfg["type"] == "RL":
+        elif stype in ("RL", "RLDirectionalAgent"):
             agents[a_id] = RLDirectionalAgent(
                 agent_id=a_id,
                 seed=agent_seed,
                 alpha=cfg.get("alpha", 0.1),
                 epsilon=cfg.get("epsilon", 0.5),
             )
+        elif stype in ("AvellanedaStoikovMM", "AS_MM", "AS"):
+            agents[a_id] = AvellanedaStoikovMM(
+                agent_id=a_id,
+                seed=agent_seed,
+                gamma=cfg.get("gamma", 0.1),
+                k=cfg.get("k", 1.5),
+                window=cfg.get("window", 10),
+                quantity=cfg.get("quantity", 10),
+                T=cfg.get("T", 1.0),
+                max_steps=cycles_per_episode,
+            )
+        elif stype in ("InformedTrader", "Informed"):
+            agents[a_id] = InformedTrader(
+                agent_id=a_id,
+                seed=agent_seed,
+                jump_step=cfg.get("jump_step", 20),
+                jump_size=cfg.get("jump_size", 1.0),
+                quantity=cfg.get("quantity", 10),
+            )
+        elif stype in ("ShockAgent", "Shock"):
+            agents[a_id] = ShockAgent(
+                agent_id=a_id,
+                seed=agent_seed,
+                shock_step=cfg.get("shock_step", 15),
+                n_steps=cfg.get("n_steps", cfg.get("duration", 5)),
+                direction=cfg.get("direction", "sell"),
+                quantity=cfg.get("quantity", 50),
+            )
+        else:
+            raise ValueError(f"Unknown agent type: {stype}")
 
     if verbose:
         print(f"=== Starting Simulation Run [{run_id}] ===")
@@ -313,7 +357,7 @@ def run_simulation(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="MultiAgentMarketSim Simulation Runner")
-    parser.add_argument("--mode", type=str, default="rl_vs_baseline", choices=["baselines", "rl_vs_baseline", "multi_rl"])
+    parser.add_argument("--mode", type=str, default="rl_vs_baseline", choices=["baselines", "rl_vs_baseline", "multi_rl", "realistic"])
     parser.add_argument("--episodes", type=int, default=5)
     parser.add_argument("--cycles", type=int, default=50)
     parser.add_argument("--seed", type=int, default=42)
