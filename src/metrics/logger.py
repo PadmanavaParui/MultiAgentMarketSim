@@ -9,6 +9,8 @@ standard query methods for the dashboard and analysis tools:
   - get_price_series(run_id)
   - get_agent_metrics(run_id, agent_id=None)
   - get_equilibrium_analysis(run_id)
+  - get_book_snapshots(run_id)
+  - get_timeseries(run_id)
 """
 
 from __future__ import annotations
@@ -68,10 +70,42 @@ class AgentMetricRecord:
     reward: float
 
 
+@dataclass
+class BookSnapshotRecord:
+    episode: int
+    step: int
+    best_bid: Optional[float]
+    best_ask: Optional[float]
+    mid: Optional[float]
+    spread: Optional[float]
+    bids: List[List[Union[float, int]]] = field(default_factory=list)
+    asks: List[List[Union[float, int]]] = field(default_factory=list)
+    depth: Dict[str, List[List[Union[float, int]]]] = field(default_factory=dict)
+    agents: Dict[str, Dict[str, Union[int, float]]] = field(default_factory=dict)
+    inventories: Dict[str, int] = field(default_factory=dict)
+    pnls: Dict[str, float] = field(default_factory=dict)
+
+
+@dataclass
+class TimeseriesRecord:
+    episode: int
+    step: int
+    best_bid: Optional[float]
+    best_ask: Optional[float]
+    mid: Optional[float]
+    spread: Optional[float]
+    agents: Dict[str, Dict[str, Union[int, float]]] = field(default_factory=dict)
+    inventories: Dict[str, int] = field(default_factory=dict)
+    pnls: Dict[str, float] = field(default_factory=dict)
+    bids: List[List[Union[float, int]]] = field(default_factory=list)
+    asks: List[List[Union[float, int]]] = field(default_factory=list)
+    depth: Dict[str, List[List[Union[float, int]]]] = field(default_factory=dict)
+
+
 class MetricsLogger:
     """
     Repository-style simulation logger storing orders, trades, agent metrics,
-    and equilibrium results per run.
+    book snapshots, timeseries, and equilibrium results per run.
     """
 
     def __init__(self, base_dir: str = "data/runs"):
@@ -83,6 +117,8 @@ class MetricsLogger:
         self.agent_metrics: List[Dict[str, Any]] = []
         self.price_series: List[Dict[str, Any]] = []
         self.equilibrium_analysis: Optional[Dict[str, Any]] = None
+        self.book_snapshots: List[Dict[str, Any]] = []
+        self.timeseries: List[Dict[str, Any]] = []
 
     def start_run(
         self,
@@ -104,6 +140,8 @@ class MetricsLogger:
         self.agent_metrics = []
         self.price_series = []
         self.equilibrium_analysis = None
+        self.book_snapshots = []
+        self.timeseries = []
 
         run_path = os.path.join(self.base_dir, run_id)
         os.makedirs(run_path, exist_ok=True)
@@ -187,6 +225,104 @@ class MetricsLogger:
             reward=float(reward),
         )
         self.agent_metrics.append(asdict(record))
+
+    def log_book_snapshot(
+        self,
+        episode: int,
+        step: int,
+        best_bid: Optional[float],
+        best_ask: Optional[float],
+        mid: Optional[float],
+        spread: Optional[float],
+        bids: Optional[List[Any]] = None,
+        asks: Optional[List[Any]] = None,
+        depth: Optional[Dict[str, Any]] = None,
+        agents: Optional[Dict[str, Any]] = None,
+        inventories: Optional[Dict[str, int]] = None,
+        pnls: Optional[Dict[str, float]] = None,
+        run_id: Optional[str] = None,
+    ):
+        """Append a downsampled order book depth snapshot entry."""
+        bids_clean = []
+        asks_clean = []
+        if depth:
+            bids_clean = [list(x) if isinstance(x, (list, tuple)) else x for x in depth.get("bids", [])][:5]
+            asks_clean = [list(x) if isinstance(x, (list, tuple)) else x for x in depth.get("asks", [])][:5]
+        else:
+            if bids:
+                bids_clean = [list(x) if isinstance(x, (list, tuple)) else x for x in bids][:5]
+            if asks:
+                asks_clean = [list(x) if isinstance(x, (list, tuple)) else x for x in asks][:5]
+
+        depth_dict = {"bids": bids_clean, "asks": asks_clean}
+        agents_dict = agents or {}
+        inv_dict = inventories or {a: data.get("inventory", 0) for a, data in agents_dict.items()}
+        pnl_dict = pnls or {a: data.get("pnl", 0.0) for a, data in agents_dict.items()}
+
+        record = {
+            "episode": int(episode),
+            "step": int(step),
+            "best_bid": float(best_bid) if best_bid is not None else None,
+            "best_ask": float(best_ask) if best_ask is not None else None,
+            "mid": float(mid) if mid is not None else None,
+            "spread": float(spread) if spread is not None else None,
+            "bids": bids_clean,
+            "asks": asks_clean,
+            "depth": depth_dict,
+            "agents": agents_dict,
+            "inventories": inv_dict,
+            "pnls": pnl_dict,
+        }
+        self.book_snapshots.append(record)
+
+    def log_timeseries(
+        self,
+        episode: int,
+        step: int,
+        best_bid: Optional[float],
+        best_ask: Optional[float],
+        mid: Optional[float],
+        spread: Optional[float],
+        agents: Optional[Dict[str, Any]] = None,
+        inventories: Optional[Dict[str, int]] = None,
+        pnls: Optional[Dict[str, float]] = None,
+        bids: Optional[List[Any]] = None,
+        asks: Optional[List[Any]] = None,
+        depth: Optional[Dict[str, Any]] = None,
+        run_id: Optional[str] = None,
+    ):
+        """Append a telemetry timeseries point entry."""
+        bids_clean = []
+        asks_clean = []
+        if depth:
+            bids_clean = [list(x) if isinstance(x, (list, tuple)) else x for x in depth.get("bids", [])][:5]
+            asks_clean = [list(x) if isinstance(x, (list, tuple)) else x for x in depth.get("asks", [])][:5]
+        else:
+            if bids:
+                bids_clean = [list(x) if isinstance(x, (list, tuple)) else x for x in bids][:5]
+            if asks:
+                asks_clean = [list(x) if isinstance(x, (list, tuple)) else x for x in asks][:5]
+
+        depth_dict = {"bids": bids_clean, "asks": asks_clean}
+        agents_dict = agents or {}
+        inv_dict = inventories or {a: data.get("inventory", 0) for a, data in agents_dict.items()}
+        pnl_dict = pnls or {a: data.get("pnl", 0.0) for a, data in agents_dict.items()}
+
+        record = {
+            "episode": int(episode),
+            "step": int(step),
+            "best_bid": float(best_bid) if best_bid is not None else None,
+            "best_ask": float(best_ask) if best_ask is not None else None,
+            "mid": float(mid) if mid is not None else None,
+            "spread": float(spread) if spread is not None else None,
+            "agents": agents_dict,
+            "inventories": inv_dict,
+            "pnls": pnl_dict,
+            "bids": bids_clean,
+            "asks": asks_clean,
+            "depth": depth_dict,
+        }
+        self.timeseries.append(record)
 
     def log_equilibrium_analysis(
         self,
@@ -282,6 +418,18 @@ class MetricsLogger:
             with open(eq_file, "w") as f:
                 json.dump(self.equilibrium_analysis, f, indent=2)
 
+        # Save book snapshots (downsampled)
+        if self.book_snapshots:
+            book_file = os.path.join(run_path, "book_snapshots.json")
+            with open(book_file, "w") as f:
+                json.dump(self.book_snapshots, f, indent=2)
+
+        # Save timeseries
+        if self.timeseries:
+            timeseries_file = os.path.join(run_path, "timeseries.json")
+            with open(timeseries_file, "w") as f:
+                json.dump(self.timeseries, f, indent=2)
+
     def _flush_metadata(self):
         if not self.current_run:
             return
@@ -341,6 +489,26 @@ class MetricsLogger:
             return self.equilibrium_analysis
         return None
 
+    def get_book_snapshots(self, run_id: str) -> List[Dict[str, Any]]:
+        """Returns the downsampled order book depth snapshots."""
+        run_path = os.path.join(self.base_dir, run_id, "book_snapshots.json")
+        if os.path.exists(run_path):
+            with open(run_path, "r") as f:
+                return json.load(f)
+        if self.current_run and self.current_run.run_id == run_id:
+            return self.book_snapshots
+        return []
+
+    def get_timeseries(self, run_id: str) -> List[Dict[str, Any]]:
+        """Returns the telemetry time-series of prices, spreads, and agent states."""
+        run_path = os.path.join(self.base_dir, run_id, "timeseries.json")
+        if os.path.exists(run_path):
+            with open(run_path, "r") as f:
+                return json.load(f)
+        if self.current_run and self.current_run.run_id == run_id:
+            return self.timeseries
+        return []
+
     def list_runs(self) -> List[str]:
         """List all available run IDs in the base directory."""
         if not os.path.exists(self.base_dir):
@@ -365,3 +533,9 @@ def get_agent_metrics(run_id: str, agent_id: Optional[str] = None) -> List[Dict[
 
 def get_equilibrium_analysis(run_id: str) -> Optional[Dict[str, Any]]:
     return default_logger.get_equilibrium_analysis(run_id)
+
+def get_book_snapshots(run_id: str) -> List[Dict[str, Any]]:
+    return default_logger.get_book_snapshots(run_id)
+
+def get_timeseries(run_id: str) -> List[Dict[str, Any]]:
+    return default_logger.get_timeseries(run_id)
