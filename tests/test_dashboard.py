@@ -85,9 +85,210 @@ class TestDashboard(unittest.TestCase):
         self.assertIsInstance(fig_empty_trace, go.Figure)
 
     def test_app_module_imports(self):
-        """Tests that src.dashboard.app imports without syntax or dependency errors."""
+        """Tests that src.dashboard.app and modular tabs import without syntax or dependency errors."""
         import src.dashboard.app as app
+        import src.dashboard.tab_stress as tab_stress
+        import src.dashboard.tab_validation as tab_validation
+        import src.dashboard.tab_nash as tab_nash
+
         self.assertTrue(hasattr(app, "main"))
+        self.assertTrue(hasattr(tab_stress, "render"))
+        self.assertTrue(hasattr(tab_validation, "render"))
+        self.assertTrue(hasattr(tab_nash, "render"))
+
+    def test_tab_missing_files_graceful_handling(self):
+        """Verifies that all three tab render() functions handle missing files gracefully without raising exceptions."""
+        from src.dashboard import tab_stress, tab_validation, tab_nash
+
+        # None run_dir
+        tab_stress.render(None)
+        tab_validation.render(None)
+        tab_nash.render(None)
+
+        # Non-existent run_dir
+        non_existent = "data/runs/definitely_not_a_real_run_dir_12345"
+        tab_stress.render(non_existent)
+        tab_validation.render(non_existent)
+        tab_nash.render(non_existent)
+
+    def test_tab_stress_chart_builders(self):
+        """Verifies that tab_stress chart builders produce valid Plotly figures."""
+        from src.dashboard.tab_stress import (
+            plot_stress_mid_comparison,
+            plot_stress_spread_comparison,
+            plot_stress_inventory_comparison,
+            plot_mm_resilience_bar_chart,
+        )
+
+        fig_mid = plot_stress_mid_comparison([100.0, 101.0, 100.5], [100.0, 95.0, 92.0])
+        self.assertIsInstance(fig_mid, go.Figure)
+        self.assertEqual(len(fig_mid.data), 2)
+
+        fig_sp = plot_stress_spread_comparison([0.5, 0.5, 0.6], [0.5, 2.5, 4.0])
+        self.assertIsInstance(fig_sp, go.Figure)
+        self.assertEqual(len(fig_sp.data), 2)
+
+        fig_inv = plot_stress_inventory_comparison([0, 5, -2], [0, -20, -40])
+        self.assertIsInstance(fig_inv, go.Figure)
+        self.assertEqual(len(fig_inv.data), 2)
+
+        sc_data = {
+            "MarketMakerAgent": {"max_drawdown_mid": 5.2, "peak_spread": 4.5, "mm_max_abs_inventory": 30, "adverse_selection_loss": 85.0},
+            "AvellanedaStoikovMM": {"max_drawdown_mid": 3.1, "peak_spread": 3.8, "mm_max_abs_inventory": 18, "adverse_selection_loss": 32.0},
+        }
+        fig_bars = plot_mm_resilience_bar_chart(sc_data)
+        self.assertIsInstance(fig_bars, go.Figure)
+        self.assertEqual(len(fig_bars.data), 2)
+
+    def test_tab_validation_chart_builders(self):
+        """Verifies that tab_validation chart builders produce valid Plotly figures."""
+        import numpy as np
+        from src.dashboard.tab_validation import (
+            plot_return_histogram_with_normal,
+            plot_qq_plot,
+            plot_return_acf_bar_chart,
+            plot_squared_return_acf_bar_chart,
+        )
+
+        returns = np.array([-0.03, -0.015, -0.005, 0.0, 0.002, 0.008, 0.02, 0.035, -0.01, 0.005])
+        fig_hist = plot_return_histogram_with_normal(returns)
+        self.assertIsInstance(fig_hist, go.Figure)
+        self.assertEqual(len(fig_hist.data), 2)  # empirical hist + normal curve
+
+        fig_qq = plot_qq_plot(returns)
+        self.assertIsInstance(fig_qq, go.Figure)
+        self.assertEqual(len(fig_qq.data), 2)  # quantiles + normal reference line
+
+        ret_lags = {"lag_1": -0.02, "lag_2": 0.01, "lag_3": 0.04, "lag_4": -0.03, "lag_5": 0.01}
+        fig_ret_acf = plot_return_acf_bar_chart(ret_lags, threshold=0.10)
+        self.assertIsInstance(fig_ret_acf, go.Figure)
+
+        sq_lags = {f"lag_{i}": 0.2 / i for i in range(1, 11)}
+        fig_sq_acf = plot_squared_return_acf_bar_chart(sq_lags)
+        self.assertIsInstance(fig_sq_acf, go.Figure)
+        self.assertEqual(len(fig_sq_acf.data), 2)  # bar + trend line
+
+    def test_tab_nash_chart_builders(self):
+        """Verifies that tab_nash payoff heatmap produces valid Plotly figures with standard errors."""
+        from src.dashboard.tab_nash import plot_payoff_heatmap
+
+        matrix = [[25.0, -10.0], [5.0, 15.0]]
+        se = [[1.5, 2.0], [0.8, 1.2]]
+        strats = ["Strategy 1", "Strategy 2"]
+
+        fig_heat = plot_payoff_heatmap(matrix, standard_errors=se, strategies=strats)
+        self.assertIsInstance(fig_heat, go.Figure)
+        self.assertEqual(len(fig_heat.data), 1)
+
+        # Without standard errors
+        fig_heat_no_se = plot_payoff_heatmap(matrix, standard_errors=None, strategies=strats)
+        self.assertIsInstance(fig_heat_no_se, go.Figure)
+
+    def test_tab_renders_with_populated_temp_files(self):
+        """Verifies that tab modules execute their render() pipeline with valid mock JSON data files."""
+        import tempfile
+        import json
+        import os
+        from src.dashboard import tab_stress, tab_validation, tab_nash
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            # 1. Stress report mock
+            stress_report = {
+                "run_id": "test_stress",
+                "config": {"cycles": 20, "seed": 42},
+                "scenarios": {
+                    "flash_crash": {
+                        "MarketMakerAgent": {
+                            "scenario_name": "flash_crash",
+                            "mm_type": "MarketMakerAgent",
+                            "max_drawdown_mid": 5.0,
+                            "peak_spread": 4.0,
+                            "baseline_spread": 0.5,
+                            "spread_diff": 3.5,
+                            "spread_ratio": 8.0,
+                            "mm_max_abs_inventory": 40,
+                            "mm_pnl_stressed": -50.0,
+                            "mm_pnl_baseline": 20.0,
+                            "mm_pnl_vs_baseline": -70.0,
+                            "adverse_selection_loss": 60.0,
+                            "recovered": True,
+                            "recovery_time": 8,
+                        },
+                        "AvellanedaStoikovMM": {
+                            "scenario_name": "flash_crash",
+                            "mm_type": "AvellanedaStoikovMM",
+                            "max_drawdown_mid": 3.0,
+                            "peak_spread": 2.5,
+                            "baseline_spread": 0.5,
+                            "spread_diff": 2.0,
+                            "spread_ratio": 5.0,
+                            "mm_max_abs_inventory": 15,
+                            "mm_pnl_stressed": -10.0,
+                            "mm_pnl_baseline": 25.0,
+                            "mm_pnl_vs_baseline": -35.0,
+                            "adverse_selection_loss": 20.0,
+                            "recovered": True,
+                            "recovery_time": 4,
+                        },
+                        "comparison": {
+                            "pnl_vs_baseline_advantage_as": 35.0,
+                            "inventory_reduction_as": 25,
+                            "adverse_selection_reduction_as": 40.0,
+                            "more_resilient_agent": "AvellanedaStoikovMM",
+                        },
+                    }
+                },
+            }
+            with open(os.path.join(tmp_dir, "stress_report.json"), "w") as f:
+                json.dump(stress_report, f)
+
+            tab_stress.render(tmp_dir)
+
+            # 2. Validation report mock
+            val_report = {
+                "overall_passed": True,
+                "summary": {"passed_checks": 5, "total_checks": 5},
+                "resample_interval": 5,
+                "num_resampled_observations": 100,
+                "stylized_facts": {
+                    "excess_kurtosis": {"passed": True, "raw_kurtosis": 4.5, "criterion": "raw > 3.0", "description": "Heavy tails"},
+                    "hill_tail_index": {"passed": True, "tail_index": 3.2, "criterion": "2.0 <= alpha <= 5.0", "description": "Tail index"},
+                    "return_autocorrelation": {"passed": True, "lags": {"lag_1": 0.02, "lag_2": -0.01}, "threshold": 0.10, "criterion": "|ACF| < 0.10", "description": "No linear ACF"},
+                    "volatility_clustering": {"passed": True, "lags": {"lag_1": 0.12, "lag_2": 0.08}, "criterion": "Decaying squared ACF", "description": "ARCH effect"},
+                    "spread_volatility_correlation": {"passed": True, "correlation": 0.35, "criterion": "corr > 0", "description": "Spread vol corr"},
+                },
+            }
+            with open(os.path.join(tmp_dir, "validation_report.json"), "w") as f:
+                json.dump(val_report, f)
+
+            tab_validation.render(tmp_dir)
+
+            # 3. Equilibrium analysis mock
+            eq_analysis = {
+                "run_id": "test_eq",
+                "method": "support_enumeration",
+                "strategies": ["MM", "AS_MM"],
+                "payoff_matrix": [[10.0, -2.0], [4.0, 8.0]],
+                "standard_errors": [[1.0, 0.5], [0.4, 0.8]],
+                "equilibrium_candidates": [
+                    {
+                        "equilibrium_id": 1,
+                        "player_1_strategy": [1.0, 0.0],
+                        "player_2_strategy": [1.0, 0.0],
+                        "player_1_payoff": 10.0,
+                        "player_2_payoff": 10.0,
+                        "is_pure": True,
+                    }
+                ],
+                "best_response_trace": [
+                    {"step": 0, "p": [0.5, 0.5], "q": [0.5, 0.5]},
+                    {"step": 1, "p": [1.0, 0.0], "q": [1.0, 0.0]},
+                ],
+            }
+            with open(os.path.join(tmp_dir, "equilibrium_analysis.json"), "w") as f:
+                json.dump(eq_analysis, f)
+
+            tab_nash.render(tmp_dir)
 
 
 if __name__ == "__main__":
