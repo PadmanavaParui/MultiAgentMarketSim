@@ -509,6 +509,22 @@ class MetricsLogger:
             return self.timeseries
         return []
 
+    def get_validation_report(self, run_id: str) -> Optional[Dict[str, Any]]:
+        """Returns the econometric stylized facts validation report if present."""
+        run_path = os.path.join(self.base_dir, run_id, "validation_report.json")
+        if os.path.exists(run_path):
+            with open(run_path, "r") as f:
+                return json.load(f)
+        return None
+
+    def get_stress_report(self, run_id: str) -> Optional[Dict[str, Any]]:
+        """Returns the stress testing resilience report if present."""
+        run_path = os.path.join(self.base_dir, run_id, "stress_report.json")
+        if os.path.exists(run_path):
+            with open(run_path, "r") as f:
+                return json.load(f)
+        return None
+
     def list_runs(self) -> List[str]:
         """List all available run IDs in the base directory."""
         if not os.path.exists(self.base_dir):
@@ -539,3 +555,10 @@ def get_book_snapshots(run_id: str) -> List[Dict[str, Any]]:
 
 def get_timeseries(run_id: str) -> List[Dict[str, Any]]:
     return default_logger.get_timeseries(run_id)
+
+def get_validation_report(run_id: str) -> Optional[Dict[str, Any]]:
+    return default_logger.get_validation_report(run_id)
+
+def get_stress_report(run_id: str) -> Optional[Dict[str, Any]]:
+    return default_logger.get_stress_report(run_id)
+

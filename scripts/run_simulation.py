@@ -42,6 +42,7 @@ def run_simulation(
     verbose: bool = True,
     snapshot_interval: int = 5,
     custom_agent_configs: Optional[Dict[str, Dict[str, Any]]] = None,
+    validate: bool = False,
 ) -> MetricsLogger:
     """
     Executes a multi-episode market simulation run and logs all records.
@@ -346,6 +347,24 @@ def run_simulation(
         if verbose:
             print(f"\nRun [{run_id}] completed successfully. Saved to {output_dir}/{run_id}")
 
+        if validate:
+            try:
+                from src.validation.stylized_facts import validate_stylized_facts
+                val_report = validate_stylized_facts(
+                    run_id=run_id,
+                    data_dir=output_dir,
+                    timeseries_data=logger.timeseries,
+                    resample_interval=snapshot_interval if snapshot_interval > 0 else 5,
+                    save_report=True,
+                )
+                if verbose:
+                    passed = val_report.get("summary", {}).get("passed_checks", 0)
+                    total = val_report.get("summary", {}).get("total_checks", 5)
+                    print(f"[Validation] Stylized facts validated ({passed}/{total} passed). Saved to {output_dir}/{run_id}/validation_report.json")
+            except Exception as val_err:
+                if verbose:
+                    print(f"[Validation] Notice: {val_err}")
+
     except Exception as e:
         logger.finish_run(status="SIMULATION_INVALID", error_message=str(e))
         if verbose:
@@ -372,6 +391,11 @@ if __name__ == "__main__":
         default=5,
         help="Step interval for book snapshots and timeseries telemetry (default 5)",
     )
+    parser.add_argument(
+        "--validate",
+        action="store_true",
+        help="Validate stylized facts post-run and save validation_report.json",
+    )
     args = parser.parse_args()
 
     run_simulation(
@@ -382,4 +406,5 @@ if __name__ == "__main__":
         run_id=args.run_id,
         output_dir=args.output_dir,
         snapshot_interval=args.snapshot_interval,
+        validate=args.validate,
     )

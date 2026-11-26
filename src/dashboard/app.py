@@ -197,6 +197,7 @@ def main():
         "🎯 Game Theory & Nash Equilibria",
         "📉 Convergence Diagnostics",
         "📋 Run Info & Reproducibility",
+        "🔬 Econometric Stylized Facts",
     ])
 
     # TAB 1: Market & Price Action
@@ -359,6 +360,59 @@ def main():
             "Re-running with the identical seed reproduces the exact trade sequence bit-for-bit."
         )
 
+    # TAB 6: Econometric Stylized Facts
+    with tabs[5]:
+        st.subheader("Microstructure Stylized Facts & Empirical Validation")
+        st.markdown(
+            "Evaluates price telemetry against canonical empirical properties of financial asset returns "
+            "(Cont 2001; Bouchaud & Potters 2003) with fixed-interval resampling to avoid bid-ask bounce."
+        )
+
+        val_report = logger.get_validation_report(selected_run_id) if selected_run_id else None
+
+        if not val_report and selected_run_id:
+            col_b1, _ = st.columns([1, 3])
+            with col_b1:
+                if st.button("Run Stylized Facts Validation", key="btn_run_val"):
+                    try:
+                        from src.validation.stylized_facts import validate_stylized_facts
+                        val_report = validate_stylized_facts(run_id=selected_run_id, data_dir="data/runs", resample_interval=5)
+                        st.success("Validation computed successfully!")
+                    except Exception as ve:
+                        st.error(f"Validation failed: {ve}")
+
+        if val_report:
+            summary = val_report.get("summary", {})
+            facts = val_report.get("stylized_facts", {})
+            passed_count = summary.get("passed_checks", 0)
+            total_count = summary.get("total_checks", 5)
+
+            col_m1, col_m2, col_m3 = st.columns(3)
+            with col_m1:
+                st.metric("Overall Validation", "PASSED" if val_report.get("overall_passed") else "FAILED")
+            with col_m2:
+                st.metric("Passed Checks", f"{passed_count} / {total_count}")
+            with col_m3:
+                st.metric("Resample Interval", f"{val_report.get('resample_interval', 5)} steps")
+
+            st.markdown("### Stylized Facts Scorecard")
+            scorecard_rows = []
+            for name, d in facts.items():
+                p_badge = "✅ PASS" if d.get("passed") else "❌ FAIL"
+                scorecard_rows.append({
+                    "Stylized Fact": name.replace("_", " ").title(),
+                    "Status": p_badge,
+                    "Criterion": d.get("criterion", ""),
+                    "Theoretical Description": d.get("description", ""),
+                })
+            render_dataframe(scorecard_rows)
+
+            with st.expander("Detailed Metric Values"):
+                st.json(facts)
+        else:
+            st.info("No validation report available for this run. Click 'Run Stylized Facts Validation' or execute with `--validate`.")
+
 
 if __name__ == "__main__":
     main()
+
