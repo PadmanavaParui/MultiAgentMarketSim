@@ -196,13 +196,32 @@ class MetricsLogger:
         method: str = "LEMKE_HOWSON",
         strategies: Optional[List[str]] = None,
         best_response_trace: Optional[List[Any]] = None,
+        standard_errors: Optional[Any] = None,
     ):
-        """Save post-hoc game theoretic equilibrium analysis."""
+        """Save post-hoc game theoretic equilibrium analysis with per-cell standard errors."""
         matrix_list = (
             payoff_matrix.tolist()
             if isinstance(payoff_matrix, np.ndarray)
             else payoff_matrix
         )
+
+        se_list = None
+        if standard_errors is not None:
+            if isinstance(standard_errors, np.ndarray):
+                se_list = standard_errors.tolist()
+            elif isinstance(standard_errors, dict):
+                se_list = {
+                    k: (v.tolist() if isinstance(v, np.ndarray) else v)
+                    for k, v in standard_errors.items()
+                }
+            elif isinstance(standard_errors, (tuple, list)):
+                se_list = [
+                    (x.tolist() if isinstance(x, np.ndarray) else x)
+                    for x in standard_errors
+                ]
+            else:
+                se_list = standard_errors
+
         self.equilibrium_analysis = {
             "run_id": run_id,
             "method": method,
@@ -210,6 +229,7 @@ class MetricsLogger:
             "strategies": strategies or [],
             "equilibrium_candidates": equilibrium_candidates,
             "best_response_trace": best_response_trace or [],
+            "standard_errors": se_list,
             "computed_at": datetime.now(timezone.utc).isoformat(),
         }
 
