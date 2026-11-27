@@ -3,4050 +3,4050 @@
     "run_id": "demo_main",
     "agent_id": "rl_0",
     "episode": 1,
-    "pnl": -15.299999999999272,
-    "sharpe_ratio": -0.022398808178790256,
-    "inventory": -75,
-    "reward": -15.299999999999272
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 1,
-    "pnl": 204.79999999999927,
-    "sharpe_ratio": 0.2921406587327459,
-    "inventory": 68,
-    "reward": 204.79999999999927
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 1,
-    "pnl": -189.50000000000364,
-    "sharpe_ratio": -0.5240118394608732,
-    "inventory": 7,
-    "reward": -189.50000000000364
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 2,
-    "pnl": 60.60499999999229,
-    "sharpe_ratio": 0.07499690093601179,
-    "inventory": -27,
-    "reward": 60.60499999999229
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 2,
-    "pnl": 119.98999999999614,
-    "sharpe_ratio": 0.17794006397207165,
-    "inventory": 40,
-    "reward": 119.98999999999614
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 2,
-    "pnl": -180.59500000000298,
-    "sharpe_ratio": -0.2653224649093724,
-    "inventory": -13,
-    "reward": -180.59500000000298
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 3,
-    "pnl": 104.11000000000786,
-    "sharpe_ratio": 0.09443974057840779,
-    "inventory": -18,
-    "reward": 104.11000000000786
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 3,
-    "pnl": -3.0350000000034925,
-    "sharpe_ratio": -0.0026144228876017594,
-    "inventory": -59,
-    "reward": -3.0350000000034925
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 3,
-    "pnl": -101.07499999999891,
-    "sharpe_ratio": -0.11184795094973768,
-    "inventory": 77,
-    "reward": -101.07499999999891
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 4,
-    "pnl": -4.899999999994179,
-    "sharpe_ratio": -0.0073914167611253525,
-    "inventory": -70,
-    "reward": -4.899999999994179
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 4,
-    "pnl": 201.7800000000061,
-    "sharpe_ratio": 0.22181717216618654,
-    "inventory": 32,
-    "reward": 201.7800000000061
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 4,
-    "pnl": -196.88000000000648,
-    "sharpe_ratio": -0.19103313758386956,
-    "inventory": 38,
-    "reward": -196.88000000000648
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 5,
-    "pnl": 57.899999999996,
-    "sharpe_ratio": 0.24998061804995975,
-    "inventory": 39,
-    "reward": 57.899999999996
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 5,
-    "pnl": 136.20999999998457,
-    "sharpe_ratio": 0.23889016003996955,
-    "inventory": -56,
-    "reward": 136.20999999998457
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 5,
-    "pnl": -194.10999999998785,
-    "sharpe_ratio": -0.316390850354815,
-    "inventory": 17,
-    "reward": -194.10999999998785
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 6,
-    "pnl": 46.030000000002474,
-    "sharpe_ratio": 0.06105221962268102,
-    "inventory": 90,
-    "reward": 46.030000000002474
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 6,
-    "pnl": 198.10000000001673,
-    "sharpe_ratio": 0.46095502932237964,
-    "inventory": -20,
-    "reward": 198.10000000001673
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 6,
-    "pnl": -244.13000000001557,
-    "sharpe_ratio": -0.3360890449365743,
-    "inventory": -70,
-    "reward": -244.13000000001557
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 7,
-    "pnl": 33.289999999995416,
-    "sharpe_ratio": 0.06200260874351047,
-    "inventory": -49,
-    "reward": 33.289999999995416
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 7,
-    "pnl": 184.76000000000022,
-    "sharpe_ratio": 0.23238084304309856,
-    "inventory": 113,
-    "reward": 184.76000000000022
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 7,
-    "pnl": -218.04999999999563,
-    "sharpe_ratio": -0.45505843484468367,
-    "inventory": -64,
-    "reward": -218.04999999999563
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 8,
-    "pnl": 12.000000000003638,
-    "sharpe_ratio": 0.01995989021384811,
-    "inventory": 100,
-    "reward": 12.000000000003638
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 8,
-    "pnl": 133.5400000000027,
-    "sharpe_ratio": 0.10728045824196525,
-    "inventory": -92,
-    "reward": 133.5400000000027
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 8,
-    "pnl": -145.53999999997723,
-    "sharpe_ratio": -0.10916707176756106,
-    "inventory": -8,
-    "reward": -145.53999999997723
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 9,
-    "pnl": 97.25000000000182,
-    "sharpe_ratio": 0.0213960327202681,
-    "inventory": 94,
-    "reward": 97.25000000000182
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 9,
-    "pnl": 136.87999999998283,
-    "sharpe_ratio": 0.039859276697424985,
-    "inventory": 1,
-    "reward": 136.87999999998283
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 9,
-    "pnl": -234.1299999999901,
-    "sharpe_ratio": -0.12124833701021312,
-    "inventory": -95,
-    "reward": -234.1299999999901
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 10,
-    "pnl": 446.5699999999997,
-    "sharpe_ratio": 0.1378046282044215,
-    "inventory": 92,
-    "reward": 446.5699999999997
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 10,
-    "pnl": -504.4300000000203,
-    "sharpe_ratio": -0.12908973781112232,
-    "inventory": 3,
-    "reward": -504.4300000000203
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 10,
-    "pnl": 57.860000000011496,
-    "sharpe_ratio": 0.034570514144584515,
-    "inventory": -95,
-    "reward": 57.860000000011496
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 11,
-    "pnl": 207.53000000000247,
-    "sharpe_ratio": 0.05769763613331388,
-    "inventory": 100,
-    "reward": 207.53000000000247
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 11,
-    "pnl": 0.6450000000022555,
-    "sharpe_ratio": 0.00023795391356646817,
-    "inventory": -3,
-    "reward": 0.6450000000022555
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 11,
-    "pnl": -208.1750000000011,
-    "sharpe_ratio": -0.1409596650351904,
-    "inventory": -97,
-    "reward": -208.1750000000011
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 12,
-    "pnl": 4.559999999997672,
-    "sharpe_ratio": 0.015590134037875644,
-    "inventory": 20,
-    "reward": 4.559999999997672
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 12,
-    "pnl": 244.14499999997133,
-    "sharpe_ratio": 0.5301058279757068,
-    "inventory": 27,
-    "reward": 244.14499999997133
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 12,
-    "pnl": -248.70499999997446,
-    "sharpe_ratio": -0.48216487889939785,
-    "inventory": -47,
-    "reward": -248.70499999997446
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 13,
-    "pnl": -4.640000000001237,
-    "sharpe_ratio": -0.035887089628763635,
-    "inventory": -10,
-    "reward": -4.640000000001237
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 13,
-    "pnl": 119.53999999999724,
-    "sharpe_ratio": 0.21688594991903176,
-    "inventory": -52,
-    "reward": 119.53999999999724
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 13,
-    "pnl": -114.89999999999236,
-    "sharpe_ratio": -0.20503380269789206,
-    "inventory": 62,
-    "reward": -114.89999999999236
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 14,
-    "pnl": 239.03999999999724,
-    "sharpe_ratio": 0.11113619407242117,
-    "inventory": 93,
-    "reward": 239.03999999999724
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 14,
-    "pnl": -13.509999999989304,
-    "sharpe_ratio": -0.006197783528471002,
-    "inventory": -83,
-    "reward": -13.509999999989304
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 14,
-    "pnl": -225.52999999998428,
-    "sharpe_ratio": -0.33617955699731783,
-    "inventory": -10,
-    "reward": -225.52999999998428
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 15,
-    "pnl": -13.80999999999949,
-    "sharpe_ratio": -0.06474324902287802,
-    "inventory": 10,
-    "reward": -13.80999999999949
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 15,
-    "pnl": 259.1599999999962,
-    "sharpe_ratio": 0.39249885600230416,
-    "inventory": -34,
-    "reward": 259.1599999999962
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 15,
-    "pnl": -245.34999999999854,
-    "sharpe_ratio": -0.39215407256618523,
-    "inventory": 24,
-    "reward": -245.34999999999854
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 16,
-    "pnl": -4.0900000000019645,
-    "sharpe_ratio": -0.03625024108837563,
-    "inventory": 0,
-    "reward": -4.0900000000019645
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 16,
-    "pnl": 162.2749999999869,
-    "sharpe_ratio": 0.2620697530209093,
-    "inventory": -27,
-    "reward": 162.2749999999869
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 16,
-    "pnl": -158.1850000000013,
-    "sharpe_ratio": -0.2574091669942081,
-    "inventory": 27,
-    "reward": -158.1850000000013
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 17,
-    "pnl": 36.974999999996726,
-    "sharpe_ratio": 0.08869971614167299,
-    "inventory": 31,
-    "reward": 36.974999999996726
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 17,
-    "pnl": 76.83500000001368,
-    "sharpe_ratio": 0.18154247789771336,
-    "inventory": -15,
-    "reward": 76.83500000001368
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 17,
-    "pnl": -113.81000000001404,
-    "sharpe_ratio": -0.36373944233650396,
-    "inventory": -16,
-    "reward": -113.81000000001404
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 18,
-    "pnl": 123.65999999999985,
-    "sharpe_ratio": 0.05299773857341232,
-    "inventory": 81,
-    "reward": 123.65999999999985
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 18,
-    "pnl": 109.22999999997228,
-    "sharpe_ratio": 0.05160515092366994,
-    "inventory": -21,
-    "reward": 109.22999999997228
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 18,
-    "pnl": -232.88999999999578,
-    "sharpe_ratio": -0.29025598241514006,
-    "inventory": -60,
-    "reward": -232.88999999999578
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 19,
-    "pnl": 85.18999999999869,
-    "sharpe_ratio": 0.14825592523881556,
-    "inventory": -50,
-    "reward": 85.18999999999869
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 19,
-    "pnl": 140.8550000000032,
-    "sharpe_ratio": 0.1701386767699514,
-    "inventory": -23,
-    "reward": 140.8550000000032
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 19,
-    "pnl": -226.0450000000037,
-    "sharpe_ratio": -0.20907947695443607,
-    "inventory": 73,
-    "reward": -226.0450000000037
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 20,
-    "pnl": 508.2999999999993,
-    "sharpe_ratio": 0.11892004093231008,
-    "inventory": 91,
-    "reward": 508.2999999999993
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 20,
-    "pnl": -499.8499999999967,
-    "sharpe_ratio": -0.10618248147576334,
-    "inventory": -21,
-    "reward": -499.8499999999967
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 20,
-    "pnl": -8.44999999999709,
-    "sharpe_ratio": -0.006564373453423983,
-    "inventory": -70,
-    "reward": -8.44999999999709
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 21,
-    "pnl": -16.279999999998836,
-    "sharpe_ratio": -0.0608908170150649,
-    "inventory": 10,
-    "reward": -16.279999999998836
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 21,
-    "pnl": 130.91999999999825,
-    "sharpe_ratio": 0.07740975134449048,
-    "inventory": -84,
-    "reward": 130.91999999999825
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 21,
-    "pnl": -114.63999999999942,
-    "sharpe_ratio": -0.07467262677775283,
-    "inventory": 74,
-    "reward": -114.63999999999942
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 22,
-    "pnl": 29.539999999997235,
-    "sharpe_ratio": 0.041740169875490854,
-    "inventory": 110,
-    "reward": 29.539999999997235
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 22,
-    "pnl": 157.99500000000262,
-    "sharpe_ratio": 0.3032576825694351,
-    "inventory": -35,
-    "reward": 157.99500000000262
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 22,
-    "pnl": -187.53500000002532,
-    "sharpe_ratio": -0.21584587284707563,
-    "inventory": -75,
-    "reward": -187.53500000002532
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 23,
-    "pnl": 18.25,
-    "sharpe_ratio": 0.020888816345523545,
-    "inventory": 90,
-    "reward": 18.25
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 23,
-    "pnl": 190.1650000000027,
-    "sharpe_ratio": 0.441355312570668,
-    "inventory": 5,
-    "reward": 190.1650000000027
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 23,
-    "pnl": -208.41499999999542,
-    "sharpe_ratio": -0.2536134999886491,
-    "inventory": -95,
-    "reward": -208.41499999999542
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 24,
-    "pnl": -1.7099999999991269,
-    "sharpe_ratio": -0.006982248738042884,
-    "inventory": 21,
-    "reward": -1.7099999999991269
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 24,
-    "pnl": 151.84000000000196,
-    "sharpe_ratio": 0.2998060757406337,
-    "inventory": 23,
-    "reward": 151.84000000000196
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 24,
-    "pnl": -150.13000000000466,
-    "sharpe_ratio": -0.24475567400904003,
-    "inventory": -44,
-    "reward": -150.13000000000466
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 25,
-    "pnl": 187.64000000000306,
-    "sharpe_ratio": 0.16541517916922768,
-    "inventory": -56,
-    "reward": 187.64000000000306
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 25,
-    "pnl": -102.05999999999585,
-    "sharpe_ratio": -0.06197652488996656,
-    "inventory": -25,
-    "reward": -102.05999999999585
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 25,
-    "pnl": -85.57999999999993,
-    "sharpe_ratio": -0.08769992948159026,
-    "inventory": 81,
-    "reward": -85.57999999999993
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 26,
-    "pnl": -59.22000000000298,
-    "sharpe_ratio": -0.07768160174005295,
-    "inventory": 100,
-    "reward": -59.22000000000298
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 26,
-    "pnl": 250.71499999999105,
-    "sharpe_ratio": 0.4421234983913444,
-    "inventory": -21,
-    "reward": 250.71499999999105
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 26,
-    "pnl": -191.49499999999534,
-    "sharpe_ratio": -0.27890587497550834,
-    "inventory": -79,
-    "reward": -191.49499999999534
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 27,
-    "pnl": -0.08000000000174623,
-    "sharpe_ratio": -0.0004034302291233108,
-    "inventory": 38,
-    "reward": -0.08000000000174623
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 27,
-    "pnl": 194.9400000000096,
-    "sharpe_ratio": 0.39199112580894235,
-    "inventory": 15,
-    "reward": 194.9400000000096
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 27,
-    "pnl": -194.86000000000968,
-    "sharpe_ratio": -0.34044410360161204,
-    "inventory": -53,
-    "reward": -194.86000000000968
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 28,
-    "pnl": -14.529999999998836,
-    "sharpe_ratio": -0.053234165910316135,
-    "inventory": -50,
-    "reward": -14.529999999998836
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 28,
-    "pnl": 226.42000000000007,
-    "sharpe_ratio": 0.3476800210351173,
-    "inventory": -44,
-    "reward": 226.42000000000007
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 28,
-    "pnl": -211.89000000002125,
-    "sharpe_ratio": -0.30631425932890194,
-    "inventory": 94,
-    "reward": -211.89000000002125
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 29,
-    "pnl": 10.899999999997817,
-    "sharpe_ratio": 0.011004274359541842,
-    "inventory": 100,
-    "reward": 10.899999999997817
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 29,
-    "pnl": 150.59499999998116,
-    "sharpe_ratio": 0.2262921756859253,
-    "inventory": -5,
-    "reward": 150.59499999998116
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 29,
-    "pnl": -161.49499999998625,
-    "sharpe_ratio": -0.2604607395807995,
-    "inventory": -95,
-    "reward": -161.49499999998625
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 30,
-    "pnl": 71.9799999999941,
-    "sharpe_ratio": 0.04954952991799208,
-    "inventory": -99,
-    "reward": 71.9799999999941
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 30,
-    "pnl": 51.940000000005966,
-    "sharpe_ratio": 0.019644129938968472,
-    "inventory": 146,
-    "reward": 51.940000000005966
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 30,
-    "pnl": -123.92000000001644,
-    "sharpe_ratio": -0.0885033890481692,
-    "inventory": -47,
-    "reward": -123.92000000001644
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 31,
-    "pnl": 63.54999999999745,
-    "sharpe_ratio": 0.14837647900437378,
-    "inventory": -7,
-    "reward": 63.54999999999745
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 31,
-    "pnl": 83.57000000001426,
-    "sharpe_ratio": 0.13806285531636214,
-    "inventory": -89,
-    "reward": 83.57000000001426
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 31,
-    "pnl": -147.1200000000099,
-    "sharpe_ratio": -0.3673486044888926,
-    "inventory": 96,
-    "reward": -147.1200000000099
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 32,
-    "pnl": 92.72000000000116,
-    "sharpe_ratio": 0.11016585689133326,
-    "inventory": 104,
-    "reward": 92.72000000000116
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 32,
-    "pnl": 29.210000000006403,
-    "sharpe_ratio": 0.05004578479328244,
-    "inventory": -16,
-    "reward": 29.210000000006403
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 32,
-    "pnl": -121.9300000000112,
-    "sharpe_ratio": -0.14258857488931878,
-    "inventory": -88,
-    "reward": -121.9300000000112
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 33,
-    "pnl": 17.650000000001455,
-    "sharpe_ratio": 0.052215837077055474,
-    "inventory": 30,
-    "reward": 17.650000000001455
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 33,
-    "pnl": 155.61500000000524,
-    "sharpe_ratio": 0.2763000769134468,
-    "inventory": -77,
-    "reward": 155.61500000000524
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 33,
-    "pnl": -173.26500000001033,
-    "sharpe_ratio": -0.416047374751753,
-    "inventory": 47,
-    "reward": -173.26500000001033
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 34,
-    "pnl": 139.82999999999083,
-    "sharpe_ratio": 0.06653555657372508,
-    "inventory": 10,
-    "reward": 139.82999999999083
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 34,
-    "pnl": 57.97500000000582,
-    "sharpe_ratio": 0.04144518912906291,
-    "inventory": -55,
-    "reward": 57.97500000000582
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 34,
-    "pnl": -197.80500000000575,
-    "sharpe_ratio": -0.1975494614993998,
-    "inventory": 45,
-    "reward": -197.80500000000575
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 35,
-    "pnl": 1.1500000000014552,
-    "sharpe_ratio": 0.009712476009019026,
-    "inventory": 30,
-    "reward": 1.1500000000014552
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 35,
-    "pnl": 129.15999999999985,
-    "sharpe_ratio": 0.23623325146131594,
-    "inventory": 44,
-    "reward": 129.15999999999985
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 35,
-    "pnl": -130.30999999999403,
-    "sharpe_ratio": -0.21843573964925456,
-    "inventory": -74,
-    "reward": -130.30999999999403
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 36,
-    "pnl": 0.6000000000003638,
-    "sharpe_ratio": 0.0028248016124826107,
-    "inventory": -20,
-    "reward": 0.6000000000003638
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 36,
-    "pnl": 166.16499999999724,
-    "sharpe_ratio": 0.2988770467202877,
-    "inventory": 57,
-    "reward": 166.16499999999724
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 36,
-    "pnl": -166.76499999999942,
-    "sharpe_ratio": -0.37085564232085927,
+    "pnl": -53.445000000005166,
+    "sharpe_ratio": -0.11035058207287654,
     "inventory": -37,
-    "reward": -166.76499999999942
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 37,
-    "pnl": 51.45999999999913,
-    "sharpe_ratio": 0.04199497686952625,
-    "inventory": 64,
-    "reward": 51.45999999999913
+    "reward": -53.445000000005166
   },
   {
     "run_id": "demo_main",
     "agent_id": "mm_0",
-    "episode": 37,
-    "pnl": 134.83499999999185,
-    "sharpe_ratio": 0.14755105262870674,
-    "inventory": 9,
-    "reward": 134.83499999999185
+    "episode": 1,
+    "pnl": 321.2999999999993,
+    "sharpe_ratio": 0.5861739400494853,
+    "inventory": 34,
+    "reward": 321.2999999999993
   },
   {
     "run_id": "demo_main",
     "agent_id": "zi_0",
-    "episode": 37,
-    "pnl": -186.2950000000019,
-    "sharpe_ratio": -0.31448931887498804,
-    "inventory": -73,
-    "reward": -186.2950000000019
+    "episode": 1,
+    "pnl": -267.8549999999923,
+    "sharpe_ratio": -0.6003164570026599,
+    "inventory": 3,
+    "reward": -267.8549999999923
   },
   {
     "run_id": "demo_main",
     "agent_id": "rl_0",
-    "episode": 38,
-    "pnl": 43.289999999999054,
-    "sharpe_ratio": 0.042245849955559356,
-    "inventory": -7,
-    "reward": 43.289999999999054
+    "episode": 2,
+    "pnl": 17.950000000002547,
+    "sharpe_ratio": 0.02564166869892194,
+    "inventory": 32,
+    "reward": 17.950000000002547
   },
   {
     "run_id": "demo_main",
     "agent_id": "mm_0",
-    "episode": 38,
-    "pnl": 162.37999999998647,
-    "sharpe_ratio": 0.1636627500604261,
-    "inventory": -44,
-    "reward": 162.37999999998647
+    "episode": 2,
+    "pnl": 224.8800000000083,
+    "sharpe_ratio": 0.4368093331950102,
+    "inventory": 4,
+    "reward": 224.8800000000083
   },
   {
     "run_id": "demo_main",
     "agent_id": "zi_0",
-    "episode": 38,
-    "pnl": -205.6699999999837,
-    "sharpe_ratio": -0.2964101212612361,
-    "inventory": 51,
-    "reward": -205.6699999999837
+    "episode": 2,
+    "pnl": -242.83000000000357,
+    "sharpe_ratio": -0.2604023504433146,
+    "inventory": -36,
+    "reward": -242.83000000000357
   },
   {
     "run_id": "demo_main",
     "agent_id": "rl_0",
-    "episode": 39,
-    "pnl": 11.415000000009968,
-    "sharpe_ratio": 0.013056582639275218,
-    "inventory": -53,
-    "reward": 11.415000000009968
+    "episode": 3,
+    "pnl": 26.43000000000029,
+    "sharpe_ratio": 0.032386882798945575,
+    "inventory": -70,
+    "reward": 26.43000000000029
   },
   {
     "run_id": "demo_main",
     "agent_id": "mm_0",
-    "episode": 39,
-    "pnl": 234.2599999999984,
-    "sharpe_ratio": 0.33712468663879197,
-    "inventory": 38,
-    "reward": 234.2599999999984
+    "episode": 3,
+    "pnl": 165.68999999999505,
+    "sharpe_ratio": 0.22561465477759005,
+    "inventory": 27,
+    "reward": 165.68999999999505
   },
   {
     "run_id": "demo_main",
     "agent_id": "zi_0",
-    "episode": 39,
-    "pnl": -245.6750000000102,
-    "sharpe_ratio": -0.3678328422835004,
-    "inventory": 15,
-    "reward": -245.6750000000102
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 40,
-    "pnl": 7.19999999999709,
-    "sharpe_ratio": 0.010470415920237851,
-    "inventory": -98,
-    "reward": 7.19999999999709
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 40,
-    "pnl": 77.28999999999905,
-    "sharpe_ratio": 0.12281659489543037,
-    "inventory": 55,
-    "reward": 77.28999999999905
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 40,
-    "pnl": -84.49000000000524,
-    "sharpe_ratio": -0.08307467433673059,
+    "episode": 3,
+    "pnl": -192.11999999999534,
+    "sharpe_ratio": -0.1997613495561742,
     "inventory": 43,
-    "reward": -84.49000000000524
+    "reward": -192.11999999999534
   },
   {
     "run_id": "demo_main",
     "agent_id": "rl_0",
-    "episode": 41,
-    "pnl": 35.94500000000335,
-    "sharpe_ratio": 0.06697840257256084,
-    "inventory": 29,
-    "reward": 35.94500000000335
+    "episode": 4,
+    "pnl": 37.9700000000048,
+    "sharpe_ratio": 0.04121924143783029,
+    "inventory": -36,
+    "reward": 37.9700000000048
   },
   {
     "run_id": "demo_main",
     "agent_id": "mm_0",
-    "episode": 41,
-    "pnl": 82.92500000000473,
-    "sharpe_ratio": 0.1305103871439881,
-    "inventory": -17,
-    "reward": 82.92500000000473
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 41,
-    "pnl": -118.87000000000626,
-    "sharpe_ratio": -0.3585049936478644,
-    "inventory": -12,
-    "reward": -118.87000000000626
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 42,
-    "pnl": 27.479999999999563,
-    "sharpe_ratio": 0.027705264591265592,
-    "inventory": -76,
-    "reward": 27.479999999999563
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 42,
-    "pnl": 109.53500000000349,
-    "sharpe_ratio": 0.2132273916737901,
-    "inventory": -3,
-    "reward": 109.53500000000349
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 42,
-    "pnl": -137.01500000000306,
-    "sharpe_ratio": -0.19795195464146045,
-    "inventory": 79,
-    "reward": -137.01500000000306
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 43,
-    "pnl": 40.85000000000218,
-    "sharpe_ratio": 0.055143836910191806,
-    "inventory": -78,
-    "reward": 40.85000000000218
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 43,
-    "pnl": 144.70000000000073,
-    "sharpe_ratio": 0.2496595772656058,
-    "inventory": 42,
-    "reward": 144.70000000000073
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 43,
-    "pnl": -185.5500000000011,
-    "sharpe_ratio": -0.33005491665951336,
-    "inventory": 36,
-    "reward": -185.5500000000011
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 44,
-    "pnl": 35.905000000000655,
-    "sharpe_ratio": 0.051122736361329364,
-    "inventory": 83,
-    "reward": 35.905000000000655
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 44,
-    "pnl": 175.52000000000044,
-    "sharpe_ratio": 0.3006834512879889,
-    "inventory": -58,
-    "reward": 175.52000000000044
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 44,
-    "pnl": -211.42499999999563,
-    "sharpe_ratio": -0.5269979231528689,
-    "inventory": -25,
-    "reward": -211.42499999999563
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 45,
-    "pnl": 329.0699999999997,
-    "sharpe_ratio": 0.1319664850567262,
-    "inventory": 81,
-    "reward": 329.0699999999997
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 45,
-    "pnl": -240.66999999999098,
-    "sharpe_ratio": -0.07795933638712327,
-    "inventory": -44,
-    "reward": -240.66999999999098
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 45,
-    "pnl": -88.39999999999964,
-    "sharpe_ratio": -0.08967089522504479,
-    "inventory": -37,
-    "reward": -88.39999999999964
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 46,
-    "pnl": -18.250000000003638,
-    "sharpe_ratio": -0.016840882058434502,
-    "inventory": -100,
-    "reward": -18.250000000003638
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 46,
-    "pnl": 229.70000000000437,
-    "sharpe_ratio": 0.31092901852605564,
-    "inventory": 42,
-    "reward": 229.70000000000437
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 46,
-    "pnl": -211.45000000000437,
-    "sharpe_ratio": -0.32777613876287054,
-    "inventory": 58,
-    "reward": -211.45000000000437
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 47,
-    "pnl": 39.49999999999454,
-    "sharpe_ratio": 0.08408987900957532,
-    "inventory": 35,
-    "reward": 39.49999999999454
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 47,
-    "pnl": 139.91999999999643,
-    "sharpe_ratio": 0.2742632425544804,
-    "inventory": -8,
-    "reward": 139.91999999999643
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 47,
-    "pnl": -179.4199999999928,
-    "sharpe_ratio": -0.3741234488566385,
-    "inventory": -27,
-    "reward": -179.4199999999928
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 48,
-    "pnl": -1.000000000001819,
-    "sharpe_ratio": -0.004063401688867342,
-    "inventory": 0,
-    "reward": -1.000000000001819
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 48,
-    "pnl": 195.60000000000764,
-    "sharpe_ratio": 0.27277297995699296,
-    "inventory": -44,
-    "reward": 195.60000000000764
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 48,
-    "pnl": -194.60000000000582,
-    "sharpe_ratio": -0.25183651494671816,
-    "inventory": 44,
-    "reward": -194.60000000000582
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 49,
-    "pnl": 142.68999999999141,
-    "sharpe_ratio": 0.04129277834650085,
-    "inventory": -100,
-    "reward": 142.68999999999141
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 49,
-    "pnl": -0.27999999999883585,
-    "sharpe_ratio": -0.00011915934995955121,
-    "inventory": 26,
-    "reward": -0.27999999999883585
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 49,
-    "pnl": -142.4100000000053,
-    "sharpe_ratio": -0.10961316110433496,
-    "inventory": 74,
-    "reward": -142.4100000000053
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 50,
-    "pnl": 98.6450000000059,
-    "sharpe_ratio": 0.3773197446923999,
-    "inventory": -23,
-    "reward": 98.6450000000059
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 50,
-    "pnl": 122.50500000000466,
-    "sharpe_ratio": 0.3490139781324652,
-    "inventory": -29,
-    "reward": 122.50500000000466
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 50,
-    "pnl": -221.1500000000069,
-    "sharpe_ratio": -0.5169362602234306,
-    "inventory": 52,
-    "reward": -221.1500000000069
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 51,
-    "pnl": 87.66000000000349,
-    "sharpe_ratio": 0.11378954746025814,
-    "inventory": 50,
-    "reward": 87.66000000000349
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 51,
-    "pnl": 122.97000000000662,
-    "sharpe_ratio": 0.06884982158105264,
-    "inventory": -101,
-    "reward": 122.97000000000662
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 51,
-    "pnl": -210.62999999999556,
-    "sharpe_ratio": -0.18349578465514538,
-    "inventory": 51,
-    "reward": -210.62999999999556
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 52,
-    "pnl": 46.669999999996435,
-    "sharpe_ratio": 0.057542430359514396,
-    "inventory": -96,
-    "reward": 46.669999999996435
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 52,
-    "pnl": 154.9700000000048,
-    "sharpe_ratio": 0.2755208078084417,
-    "inventory": 44,
-    "reward": 154.9700000000048
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 52,
-    "pnl": -201.63999999999942,
-    "sharpe_ratio": -0.3717316587943858,
-    "inventory": 52,
-    "reward": -201.63999999999942
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 53,
-    "pnl": 6.079999999998108,
-    "sharpe_ratio": 0.005045488695573077,
-    "inventory": 98,
-    "reward": 6.079999999998108
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 53,
-    "pnl": 204.56999999998698,
-    "sharpe_ratio": 0.29284048695830067,
-    "inventory": -29,
-    "reward": 204.56999999998698
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 53,
-    "pnl": -210.65000000001055,
-    "sharpe_ratio": -0.1712452166316682,
-    "inventory": -69,
-    "reward": -210.65000000001055
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 54,
-    "pnl": 69.04000000000087,
-    "sharpe_ratio": 0.06874021242646802,
-    "inventory": 98,
-    "reward": 69.04000000000087
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 54,
-    "pnl": 128.32499999999345,
-    "sharpe_ratio": 0.13954823298381477,
-    "inventory": -51,
-    "reward": 128.32499999999345
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 54,
-    "pnl": -197.36500000001251,
-    "sharpe_ratio": -0.19418904190639935,
-    "inventory": -47,
-    "reward": -197.36500000001251
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 55,
-    "pnl": -30.520000000004075,
-    "sharpe_ratio": -0.11764654813736497,
-    "inventory": 40,
-    "reward": -30.520000000004075
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 55,
-    "pnl": 144.00000000000546,
-    "sharpe_ratio": 0.2773046154098813,
-    "inventory": 58,
-    "reward": 144.00000000000546
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 55,
-    "pnl": -113.47999999999774,
-    "sharpe_ratio": -0.17169512207828302,
-    "inventory": -98,
-    "reward": -113.47999999999774
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 56,
-    "pnl": 85.16500000000997,
-    "sharpe_ratio": 0.05868719361693658,
-    "inventory": -121,
-    "reward": 85.16500000000997
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 56,
-    "pnl": 70.52999999999702,
-    "sharpe_ratio": 0.07765560246868304,
-    "inventory": 96,
-    "reward": 70.52999999999702
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 56,
-    "pnl": -155.6949999999997,
-    "sharpe_ratio": -0.11954013449891655,
-    "inventory": 25,
-    "reward": -155.6949999999997
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 57,
-    "pnl": 61.23500000000422,
-    "sharpe_ratio": 0.18080216382983336,
-    "inventory": -47,
-    "reward": 61.23500000000422
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 57,
-    "pnl": 97.41499999999724,
-    "sharpe_ratio": 0.16159013365642463,
-    "inventory": -43,
-    "reward": 97.41499999999724
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 57,
-    "pnl": -158.64999999999782,
-    "sharpe_ratio": -0.21471285564467943,
-    "inventory": 90,
-    "reward": -158.64999999999782
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 58,
-    "pnl": 658.409999999998,
-    "sharpe_ratio": 0.042576440710992966,
-    "inventory": 100,
-    "reward": 658.409999999998
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 58,
-    "pnl": -682.239999999998,
-    "sharpe_ratio": -0.05219555992195758,
-    "inventory": -21,
-    "reward": -682.239999999998
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 58,
-    "pnl": 23.829999999989013,
-    "sharpe_ratio": 0.007356480509295672,
-    "inventory": -79,
-    "reward": 23.829999999989013
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 59,
-    "pnl": 38.15999999999258,
-    "sharpe_ratio": 0.07581382169488363,
-    "inventory": 64,
-    "reward": 38.15999999999258
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 59,
-    "pnl": 131.87999999998647,
-    "sharpe_ratio": 0.2745632074657293,
-    "inventory": 0,
-    "reward": 131.87999999998647
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 59,
-    "pnl": -170.03999999998632,
-    "sharpe_ratio": -0.46375316021320573,
-    "inventory": -64,
-    "reward": -170.03999999998632
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 60,
-    "pnl": 60.07000000000153,
-    "sharpe_ratio": 0.08897768131148712,
-    "inventory": 141,
-    "reward": 60.07000000000153
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 60,
-    "pnl": 4.330000000007203,
-    "sharpe_ratio": 0.010134643910453316,
-    "inventory": -44,
-    "reward": 4.330000000007203
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 60,
-    "pnl": -64.40000000000327,
-    "sharpe_ratio": -0.11556238327422219,
-    "inventory": -97,
-    "reward": -64.40000000000327
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 61,
-    "pnl": 127.84499999999207,
-    "sharpe_ratio": 0.06843265455384329,
-    "inventory": -97,
-    "reward": 127.84499999999207
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 61,
-    "pnl": 107.03999999999905,
-    "sharpe_ratio": 0.09919145746762537,
-    "inventory": 38,
-    "reward": 107.03999999999905
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 61,
-    "pnl": -234.88500000000204,
-    "sharpe_ratio": -0.23432892979723488,
-    "inventory": 59,
-    "reward": -234.88500000000204
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 62,
-    "pnl": -8.94000000000051,
-    "sharpe_ratio": -0.03299778171880652,
-    "inventory": 4,
-    "reward": -8.94000000000051
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 62,
-    "pnl": 135.4600000000064,
-    "sharpe_ratio": 0.1803304114532405,
-    "inventory": -53,
-    "reward": 135.4600000000064
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 62,
-    "pnl": -126.51999999999316,
-    "sharpe_ratio": -0.18759318111715453,
-    "inventory": 49,
-    "reward": -126.51999999999316
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 63,
-    "pnl": 188.28999999999542,
-    "sharpe_ratio": 0.07605935795381236,
-    "inventory": 190,
-    "reward": 188.28999999999542
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 63,
-    "pnl": -211.725000000004,
-    "sharpe_ratio": -0.06559325680767092,
-    "inventory": -97,
-    "reward": -211.725000000004
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 63,
-    "pnl": 23.434999999994034,
-    "sharpe_ratio": 0.009416637353481338,
-    "inventory": -93,
-    "reward": 23.434999999994034
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 64,
-    "pnl": 341.7099999999991,
-    "sharpe_ratio": 0.07572872899760849,
-    "inventory": -75,
-    "reward": 341.7099999999991
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 64,
-    "pnl": -358.7699999999968,
-    "sharpe_ratio": -0.059656741369258026,
-    "inventory": 75,
-    "reward": -358.7699999999968
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 64,
-    "pnl": 17.060000000004948,
-    "sharpe_ratio": 0.01007597415712218,
-    "inventory": 0,
-    "reward": 17.060000000004948
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 65,
-    "pnl": 59.460000000002765,
-    "sharpe_ratio": 0.1370451315382192,
-    "inventory": 34,
-    "reward": 59.460000000002765
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 65,
-    "pnl": 157.81000000000495,
-    "sharpe_ratio": 0.31229137408070085,
-    "inventory": 35,
-    "reward": 157.81000000000495
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 65,
-    "pnl": -217.26999999999862,
-    "sharpe_ratio": -0.2869433124842237,
-    "inventory": -69,
-    "reward": -217.26999999999862
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 66,
-    "pnl": 22.470000000004802,
-    "sharpe_ratio": 0.02159246628024199,
-    "inventory": 75,
-    "reward": 22.470000000004802
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 66,
-    "pnl": 137.39999999999418,
-    "sharpe_ratio": 0.20724252956657294,
-    "inventory": -35,
-    "reward": 137.39999999999418
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 66,
-    "pnl": -159.87000000000808,
-    "sharpe_ratio": -0.2292278804190773,
-    "inventory": -40,
-    "reward": -159.87000000000808
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 67,
-    "pnl": 78.33499999999731,
-    "sharpe_ratio": 0.053659837915544246,
-    "inventory": -101,
-    "reward": 78.33499999999731
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 67,
-    "pnl": 121.09499999999753,
-    "sharpe_ratio": 0.16752734335655217,
-    "inventory": 55,
-    "reward": 121.09499999999753
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 67,
-    "pnl": -199.42999999999847,
-    "sharpe_ratio": -0.1294162864557733,
-    "inventory": 46,
-    "reward": -199.42999999999847
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 68,
-    "pnl": 74.29500000000189,
-    "sharpe_ratio": 0.08809701206151654,
-    "inventory": 57,
-    "reward": 74.29500000000189
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 68,
-    "pnl": 92.25500000000284,
-    "sharpe_ratio": 0.15125641517035845,
-    "inventory": -9,
-    "reward": 92.25500000000284
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 68,
-    "pnl": -166.550000000012,
-    "sharpe_ratio": -0.34572180884017845,
-    "inventory": -48,
-    "reward": -166.550000000012
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 69,
-    "pnl": 37.39999999999054,
-    "sharpe_ratio": 0.017162895246201106,
-    "inventory": -125,
-    "reward": 37.39999999999054
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 69,
-    "pnl": 188.36999999999716,
-    "sharpe_ratio": 0.1476632042133538,
-    "inventory": 34,
-    "reward": 188.36999999999716
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 69,
-    "pnl": -225.7700000000059,
-    "sharpe_ratio": -0.19043807481800404,
-    "inventory": 91,
-    "reward": -225.7700000000059
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 70,
-    "pnl": 689.7599999999875,
-    "sharpe_ratio": 0.16166660347638712,
-    "inventory": -125,
-    "reward": 689.7599999999875
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 70,
-    "pnl": -376.8500000000022,
-    "sharpe_ratio": -0.10932172312800555,
-    "inventory": 29,
-    "reward": -376.8500000000022
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 70,
-    "pnl": -312.90999999999076,
-    "sharpe_ratio": -0.20768634103265238,
-    "inventory": 96,
-    "reward": -312.90999999999076
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 71,
-    "pnl": 10.419999999998254,
-    "sharpe_ratio": 0.016909351560734233,
-    "inventory": 80,
-    "reward": 10.419999999998254
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 71,
-    "pnl": 171.61999999998807,
-    "sharpe_ratio": 0.24964590220994787,
-    "inventory": -103,
-    "reward": 171.61999999998807
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 71,
-    "pnl": -182.03999999999542,
-    "sharpe_ratio": -0.3816518497429098,
-    "inventory": 23,
-    "reward": -182.03999999999542
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 72,
-    "pnl": 59.279999999998836,
-    "sharpe_ratio": 0.0793260187966783,
-    "inventory": 13,
-    "reward": 59.279999999998836
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 72,
-    "pnl": 111.45999999998821,
-    "sharpe_ratio": 0.20182161615421476,
-    "inventory": 32,
-    "reward": 111.45999999998821
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 72,
-    "pnl": -170.74000000000342,
-    "sharpe_ratio": -0.32719363924348244,
-    "inventory": -45,
-    "reward": -170.74000000000342
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 73,
-    "pnl": 48.2400000000016,
-    "sharpe_ratio": 0.04782231823340336,
-    "inventory": -92,
-    "reward": 48.2400000000016
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 73,
-    "pnl": 155.50000000000364,
-    "sharpe_ratio": 0.11605502928045504,
-    "inventory": 4,
-    "reward": 155.50000000000364
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 73,
-    "pnl": -203.73999999999432,
-    "sharpe_ratio": -0.2856427432857274,
-    "inventory": 88,
-    "reward": -203.73999999999432
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 74,
-    "pnl": 38.27999999999702,
-    "sharpe_ratio": 0.022891918172636614,
-    "inventory": 118,
-    "reward": 38.27999999999702
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 74,
-    "pnl": 132.57999999999265,
-    "sharpe_ratio": 0.1185466539475692,
-    "inventory": -33,
-    "reward": 132.57999999999265
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 74,
-    "pnl": -170.86000000000058,
-    "sharpe_ratio": -0.1214813457204352,
-    "inventory": -85,
-    "reward": -170.86000000000058
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 75,
-    "pnl": 214.17999999999302,
-    "sharpe_ratio": 0.09977464347087997,
-    "inventory": -92,
-    "reward": 214.17999999999302
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 75,
-    "pnl": -10.440000000005966,
-    "sharpe_ratio": -0.006019475716481797,
-    "inventory": 62,
-    "reward": -10.440000000005966
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 75,
-    "pnl": -203.73999999999978,
-    "sharpe_ratio": -0.2702771632588228,
-    "inventory": 30,
-    "reward": -203.73999999999978
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 76,
-    "pnl": 28.830000000001746,
-    "sharpe_ratio": 0.05288165178920611,
-    "inventory": -100,
-    "reward": 28.830000000001746
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 76,
-    "pnl": 147.23000000000684,
-    "sharpe_ratio": 0.3038165316200803,
-    "inventory": 63,
-    "reward": 147.23000000000684
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 76,
-    "pnl": -176.06000000000859,
-    "sharpe_ratio": -0.3710193728672716,
-    "inventory": 37,
-    "reward": -176.06000000000859
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 77,
-    "pnl": 610.7849999999962,
-    "sharpe_ratio": 0.16249012218669237,
-    "inventory": -95,
-    "reward": 610.7849999999962
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 77,
-    "pnl": -485.1600000000035,
-    "sharpe_ratio": -0.13221147950718,
-    "inventory": 54,
-    "reward": -485.1600000000035
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 77,
-    "pnl": -125.62500000000182,
-    "sharpe_ratio": -0.07847294133899013,
-    "inventory": 41,
-    "reward": -125.62500000000182
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 78,
-    "pnl": 98.16000000000167,
-    "sharpe_ratio": 0.08680046962006564,
-    "inventory": 122,
-    "reward": 98.16000000000167
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 78,
-    "pnl": 99.95999999999731,
-    "sharpe_ratio": 0.09309214415982077,
-    "inventory": -52,
-    "reward": 99.95999999999731
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 78,
-    "pnl": -198.1200000000208,
-    "sharpe_ratio": -0.15778728771748626,
-    "inventory": -70,
-    "reward": -198.1200000000208
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 79,
-    "pnl": -78.95999999999549,
-    "sharpe_ratio": -0.014748185063293505,
-    "inventory": -199,
-    "reward": -78.95999999999549
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 79,
-    "pnl": 148.27000000000226,
-    "sharpe_ratio": 0.038047760275574556,
-    "inventory": 125,
-    "reward": 148.27000000000226
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 79,
-    "pnl": -69.31000000000131,
-    "sharpe_ratio": -0.04177220985995536,
-    "inventory": 74,
-    "reward": -69.31000000000131
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 80,
-    "pnl": 5.9799999999959255,
-    "sharpe_ratio": 0.006163032626794053,
-    "inventory": -100,
-    "reward": 5.9799999999959255
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 80,
-    "pnl": 221.25,
-    "sharpe_ratio": 0.2696228974565943,
-    "inventory": 64,
-    "reward": 221.25
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 80,
-    "pnl": -227.23000000000684,
-    "sharpe_ratio": -0.4087463089125328,
-    "inventory": 36,
-    "reward": -227.23000000000684
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 81,
-    "pnl": 23.599999999998545,
-    "sharpe_ratio": 0.020651027069070377,
-    "inventory": -105,
-    "reward": 23.599999999998545
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 81,
-    "pnl": 192.31000000000495,
-    "sharpe_ratio": 0.1347619139216067,
-    "inventory": 97,
-    "reward": 192.31000000000495
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 81,
-    "pnl": -215.90999999999804,
-    "sharpe_ratio": -0.37773171555077417,
-    "inventory": 8,
-    "reward": -215.90999999999804
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 82,
-    "pnl": 130.07500000000255,
-    "sharpe_ratio": 0.07026042450353402,
-    "inventory": -99,
-    "reward": 130.07500000000255
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 82,
-    "pnl": 23.4800000000032,
-    "sharpe_ratio": 0.010257833621435232,
-    "inventory": 40,
-    "reward": 23.4800000000032
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 82,
-    "pnl": -153.55499999999302,
-    "sharpe_ratio": -0.1868312361001607,
-    "inventory": 59,
-    "reward": -153.55499999999302
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 83,
-    "pnl": 27.424999999993815,
-    "sharpe_ratio": 0.11355964131434668,
-    "inventory": 13,
-    "reward": 27.424999999993815
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 83,
-    "pnl": 102.77499999999782,
-    "sharpe_ratio": 0.2798321438522969,
-    "inventory": -11,
-    "reward": 102.77499999999782
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 83,
-    "pnl": -130.20000000000073,
-    "sharpe_ratio": -0.3692544563462688,
-    "inventory": -2,
-    "reward": -130.20000000000073
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 84,
-    "pnl": 235.62999999999374,
-    "sharpe_ratio": 0.1532623695865815,
-    "inventory": -100,
-    "reward": 235.62999999999374
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 84,
-    "pnl": -51.0199999999968,
-    "sharpe_ratio": -0.03741288621128937,
-    "inventory": 71,
-    "reward": -51.0199999999968
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 84,
-    "pnl": -184.61000000000422,
-    "sharpe_ratio": -0.3568677952172452,
-    "inventory": 29,
-    "reward": -184.61000000000422
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 85,
-    "pnl": -22.8700000000008,
-    "sharpe_ratio": -0.043079824115470636,
-    "inventory": -130,
-    "reward": -22.8700000000008
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 85,
-    "pnl": 272.145000000015,
-    "sharpe_ratio": 0.3189794604152984,
-    "inventory": 149,
-    "reward": 272.145000000015
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 85,
-    "pnl": -249.2750000000069,
-    "sharpe_ratio": -0.5260723500468888,
-    "inventory": -19,
-    "reward": -249.2750000000069
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 86,
-    "pnl": -25.109999999995125,
-    "sharpe_ratio": -0.053995201136736136,
-    "inventory": -74,
-    "reward": -25.109999999995125
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 86,
-    "pnl": 208.15000000000873,
-    "sharpe_ratio": 0.4579649982030482,
-    "inventory": 2,
-    "reward": 208.15000000000873
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 86,
-    "pnl": -183.0400000000118,
-    "sharpe_ratio": -0.3761624978675557,
-    "inventory": 72,
-    "reward": -183.0400000000118
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 87,
-    "pnl": -14.75,
-    "sharpe_ratio": -0.12722225433710616,
-    "inventory": 10,
-    "reward": -14.75
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 87,
-    "pnl": 48.48999999999796,
-    "sharpe_ratio": 0.07148983486242988,
-    "inventory": 68,
-    "reward": 48.48999999999796
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 87,
-    "pnl": -33.74000000000342,
-    "sharpe_ratio": -0.048377492987346234,
-    "inventory": -78,
-    "reward": -33.74000000000342
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 88,
-    "pnl": -3.5099999999983993,
-    "sharpe_ratio": -0.012546138460526273,
-    "inventory": 15,
-    "reward": -3.5099999999983993
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 88,
-    "pnl": 200.39999999999964,
-    "sharpe_ratio": 0.4343511202834945,
-    "inventory": 41,
-    "reward": 200.39999999999964
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 88,
-    "pnl": -196.89000000000306,
-    "sharpe_ratio": -0.4078715184067843,
-    "inventory": -56,
-    "reward": -196.89000000000306
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 89,
-    "pnl": 460.53000000000065,
-    "sharpe_ratio": 0.1300754001038951,
-    "inventory": 82,
-    "reward": 460.53000000000065
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 89,
-    "pnl": -329.12000000001353,
-    "sharpe_ratio": -0.09701991195621124,
-    "inventory": -28,
-    "reward": -329.12000000001353
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 89,
-    "pnl": -131.40999999999258,
-    "sharpe_ratio": -0.12571306186836612,
-    "inventory": -54,
-    "reward": -131.40999999999258
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 90,
-    "pnl": 31.890000000003056,
-    "sharpe_ratio": 0.02716794214492548,
-    "inventory": -94,
-    "reward": 31.890000000003056
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 90,
-    "pnl": 115.97500000000218,
-    "sharpe_ratio": 0.11011061586707983,
-    "inventory": 35,
-    "reward": 115.97500000000218
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 90,
-    "pnl": -147.86499999999978,
-    "sharpe_ratio": -0.19573483396968566,
-    "inventory": 59,
-    "reward": -147.86499999999978
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 91,
-    "pnl": 3.164999999999054,
-    "sharpe_ratio": 0.00940659052217005,
-    "inventory": 9,
-    "reward": 3.164999999999054
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 91,
-    "pnl": 188.01000000001295,
-    "sharpe_ratio": 0.451326561631472,
-    "inventory": 22,
-    "reward": 188.01000000001295
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 91,
-    "pnl": -191.17500000001746,
-    "sharpe_ratio": -0.3536601375971099,
-    "inventory": -31,
-    "reward": -191.17500000001746
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 92,
-    "pnl": 36.97499999999491,
-    "sharpe_ratio": 0.02055089568230023,
-    "inventory": -53,
-    "reward": 36.97499999999491
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 92,
-    "pnl": 211.11499999999796,
-    "sharpe_ratio": 0.08912399283662707,
-    "inventory": 81,
-    "reward": 211.11499999999796
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 92,
-    "pnl": -248.0899999999856,
-    "sharpe_ratio": -0.32698547281498186,
-    "inventory": -28,
-    "reward": -248.0899999999856
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 93,
-    "pnl": 4.249999999998181,
-    "sharpe_ratio": 0.016491825524109716,
-    "inventory": 5,
-    "reward": 4.249999999998181
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 93,
-    "pnl": 173.88999999999578,
-    "sharpe_ratio": 0.21541783969404654,
-    "inventory": -56,
-    "reward": 173.88999999999578
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 93,
-    "pnl": -178.14000000000306,
-    "sharpe_ratio": -0.2814589983902193,
-    "inventory": 51,
-    "reward": -178.14000000000306
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 94,
-    "pnl": 87.88999999999942,
-    "sharpe_ratio": 0.034992023512926955,
-    "inventory": -33,
-    "reward": 87.88999999999942
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 94,
-    "pnl": 122.60000000000036,
-    "sharpe_ratio": 0.050919595677215,
-    "inventory": 0,
-    "reward": 122.60000000000036
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 94,
-    "pnl": -210.4900000000016,
-    "sharpe_ratio": -0.26835014205874597,
-    "inventory": 33,
-    "reward": -210.4900000000016
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 95,
-    "pnl": -24.68000000000393,
-    "sharpe_ratio": -0.08160928107684276,
-    "inventory": -18,
-    "reward": -24.68000000000393
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 95,
-    "pnl": 223.89000000000306,
-    "sharpe_ratio": 0.378521012334836,
-    "inventory": 4,
-    "reward": 223.89000000000306
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 95,
-    "pnl": -199.21000000001004,
-    "sharpe_ratio": -0.43990899271332484,
-    "inventory": 14,
-    "reward": -199.21000000001004
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 96,
-    "pnl": 57.92999999998938,
-    "sharpe_ratio": 0.05761870616005884,
-    "inventory": -144,
-    "reward": 57.92999999998938
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 96,
-    "pnl": 149.05999999999221,
-    "sharpe_ratio": 0.20185880224122163,
-    "inventory": 74,
-    "reward": 149.05999999999221
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 96,
-    "pnl": -206.9900000000016,
-    "sharpe_ratio": -0.23750006442080857,
-    "inventory": 70,
-    "reward": -206.9900000000016
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 97,
-    "pnl": -15.310000000003129,
-    "sharpe_ratio": -0.11546043174460804,
-    "inventory": 10,
-    "reward": -15.310000000003129
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 97,
-    "pnl": 93.15000000000691,
-    "sharpe_ratio": 0.21472514017616412,
-    "inventory": 25,
-    "reward": 93.15000000000691
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 97,
-    "pnl": -77.84000000000924,
-    "sharpe_ratio": -0.18296573045641043,
-    "inventory": -35,
-    "reward": -77.84000000000924
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 98,
-    "pnl": 127.2799999999952,
-    "sharpe_ratio": 0.17381455735490356,
-    "inventory": 69,
-    "reward": 127.2799999999952
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 98,
-    "pnl": 54.100000000000364,
-    "sharpe_ratio": 0.06339991532685488,
-    "inventory": -60,
-    "reward": 54.100000000000364
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 98,
-    "pnl": -181.37999999999374,
-    "sharpe_ratio": -0.3696776352217587,
-    "inventory": -9,
-    "reward": -181.37999999999374
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 99,
-    "pnl": 129.95499999999083,
-    "sharpe_ratio": 0.04318360424851152,
-    "inventory": -61,
-    "reward": 129.95499999999083
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 99,
-    "pnl": 50.674999999991996,
-    "sharpe_ratio": 0.030320358312351983,
-    "inventory": -11,
-    "reward": 50.674999999991996
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 99,
-    "pnl": -180.63000000000102,
-    "sharpe_ratio": -0.11396511059319864,
-    "inventory": 72,
-    "reward": -180.63000000000102
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 100,
-    "pnl": 103.22000000000116,
-    "sharpe_ratio": 0.10072941537836037,
-    "inventory": 67,
-    "reward": 103.22000000000116
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 100,
-    "pnl": 130.5600000000013,
-    "sharpe_ratio": 0.10205173523394043,
-    "inventory": 17,
-    "reward": 130.5600000000013
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 100,
-    "pnl": -233.77999999998792,
-    "sharpe_ratio": -0.25729957524640834,
-    "inventory": -84,
-    "reward": -233.77999999998792
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 101,
-    "pnl": 45.83999999999833,
-    "sharpe_ratio": 0.09676329086440072,
-    "inventory": 20,
-    "reward": 45.83999999999833
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 101,
-    "pnl": 131.21999999999935,
-    "sharpe_ratio": 0.23987750531678756,
-    "inventory": -12,
-    "reward": 131.21999999999935
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 101,
-    "pnl": -177.0599999999995,
-    "sharpe_ratio": -0.3302137627570488,
-    "inventory": -8,
-    "reward": -177.0599999999995
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 102,
-    "pnl": 189.27999999999884,
-    "sharpe_ratio": 0.10791730960675043,
-    "inventory": -100,
-    "reward": 189.27999999999884
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 102,
-    "pnl": 31.950000000006185,
-    "sharpe_ratio": 0.03107368410456745,
-    "inventory": 13,
-    "reward": 31.950000000006185
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 102,
-    "pnl": -221.23000000000138,
-    "sharpe_ratio": -0.2039610090848432,
-    "inventory": 87,
-    "reward": -221.23000000000138
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 103,
-    "pnl": 45.1699999999928,
-    "sharpe_ratio": 0.11248860484558532,
-    "inventory": 11,
-    "reward": 45.1699999999928
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 103,
-    "pnl": 121.16999999999098,
-    "sharpe_ratio": 0.1632097838861756,
-    "inventory": 23,
-    "reward": 121.16999999999098
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 103,
-    "pnl": -166.33999999999833,
-    "sharpe_ratio": -0.2610373505947327,
-    "inventory": -34,
-    "reward": -166.33999999999833
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 104,
-    "pnl": 88.45000000000073,
-    "sharpe_ratio": 0.10698019747773962,
-    "inventory": -115,
-    "reward": 88.45000000000073
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 104,
-    "pnl": 107.77000000000953,
-    "sharpe_ratio": 0.08716154056477134,
-    "inventory": 80,
-    "reward": 107.77000000000953
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 104,
-    "pnl": -196.22000000000116,
-    "sharpe_ratio": -0.1807082656612308,
-    "inventory": 35,
-    "reward": -196.22000000000116
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 105,
-    "pnl": 32.909999999999854,
-    "sharpe_ratio": 0.021009839469882496,
-    "inventory": -8,
-    "reward": 32.909999999999854
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 105,
-    "pnl": 193.96000000000095,
-    "sharpe_ratio": 0.10677278286201287,
-    "inventory": -31,
-    "reward": 193.96000000000095
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 105,
-    "pnl": -226.86999999999534,
-    "sharpe_ratio": -0.3736567552359916,
-    "inventory": 39,
-    "reward": -226.86999999999534
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 106,
-    "pnl": 56.810000000008586,
-    "sharpe_ratio": 0.048270396450080924,
-    "inventory": 75,
-    "reward": 56.810000000008586
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 106,
-    "pnl": 155.2399999999816,
-    "sharpe_ratio": 0.12041323954224982,
-    "inventory": -117,
-    "reward": 155.2399999999816
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 106,
-    "pnl": -212.04999999999927,
-    "sharpe_ratio": -0.21289369526787832,
-    "inventory": 42,
-    "reward": -212.04999999999927
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 107,
-    "pnl": 58.309999999990396,
-    "sharpe_ratio": 0.05604497859378229,
-    "inventory": 38,
-    "reward": 58.309999999990396
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 107,
-    "pnl": 145.95000000000073,
-    "sharpe_ratio": 0.14783568131812327,
-    "inventory": -8,
-    "reward": 145.95000000000073
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 107,
-    "pnl": -204.26000000000386,
-    "sharpe_ratio": -0.5442604999923247,
-    "inventory": -30,
-    "reward": -204.26000000000386
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 108,
-    "pnl": 281.12000000001353,
-    "sharpe_ratio": 0.13921233618669673,
-    "inventory": -100,
-    "reward": 281.12000000001353
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 108,
-    "pnl": -103.65000000000691,
-    "sharpe_ratio": -0.06106052793642755,
-    "inventory": 3,
-    "reward": -103.65000000000691
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 108,
-    "pnl": -177.47000000000116,
-    "sharpe_ratio": -0.20673372527624767,
-    "inventory": 97,
-    "reward": -177.47000000000116
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 109,
-    "pnl": 18.945000000006985,
-    "sharpe_ratio": 0.057837139807717465,
-    "inventory": 57,
-    "reward": 18.945000000006985
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 109,
-    "pnl": 107.24500000000626,
-    "sharpe_ratio": 0.1800527044573226,
-    "inventory": -45,
-    "reward": 107.24500000000626
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 109,
-    "pnl": -126.19000000000597,
-    "sharpe_ratio": -0.26740965792037624,
-    "inventory": -12,
-    "reward": -126.19000000000597
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 110,
-    "pnl": 116.12999999998829,
-    "sharpe_ratio": 0.041300455572087,
-    "inventory": -90,
-    "reward": 116.12999999998829
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 110,
-    "pnl": 44.520000000002256,
-    "sharpe_ratio": 0.019990104592690988,
-    "inventory": 70,
-    "reward": 44.520000000002256
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 110,
-    "pnl": -160.64999999999054,
-    "sharpe_ratio": -0.1481647909943105,
-    "inventory": 20,
-    "reward": -160.64999999999054
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 111,
-    "pnl": 12.189999999995052,
-    "sharpe_ratio": 0.006583158933460771,
-    "inventory": -100,
-    "reward": 12.189999999995052
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 111,
-    "pnl": 197.30500000000575,
-    "sharpe_ratio": 0.1608572011381851,
-    "inventory": 39,
-    "reward": 197.30500000000575
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 111,
-    "pnl": -209.49500000000626,
-    "sharpe_ratio": -0.1546795597964412,
-    "inventory": 61,
-    "reward": -209.49500000000626
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 112,
-    "pnl": 9.680000000000291,
-    "sharpe_ratio": 0.019639110950961738,
-    "inventory": 3,
-    "reward": 9.680000000000291
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 112,
-    "pnl": 124.9700000000048,
-    "sharpe_ratio": 0.20995798295865048,
-    "inventory": -48,
-    "reward": 124.9700000000048
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 112,
-    "pnl": -134.64999999999418,
-    "sharpe_ratio": -0.391840610439987,
-    "inventory": 45,
-    "reward": -134.64999999999418
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 113,
-    "pnl": 94.91000000000167,
-    "sharpe_ratio": 0.13999235792874143,
-    "inventory": 30,
-    "reward": 94.91000000000167
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 113,
-    "pnl": 63.21500000000378,
-    "sharpe_ratio": 0.104627622422819,
-    "inventory": -45,
-    "reward": 63.21500000000378
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 113,
-    "pnl": -158.12499999999272,
-    "sharpe_ratio": -0.33370665950886313,
-    "inventory": 15,
-    "reward": -158.12499999999272
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 114,
-    "pnl": 118.3799999999992,
-    "sharpe_ratio": 0.12197808144879964,
-    "inventory": 58,
-    "reward": 118.3799999999992
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 114,
-    "pnl": 2.5199999999913416,
-    "sharpe_ratio": 0.0027102779804603957,
-    "inventory": 27,
-    "reward": 2.5199999999913416
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 114,
-    "pnl": -120.90000000001055,
-    "sharpe_ratio": -0.2097731531785604,
-    "inventory": -85,
-    "reward": -120.90000000001055
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 115,
-    "pnl": 181.77999999999156,
-    "sharpe_ratio": 0.11314315498594382,
-    "inventory": -58,
-    "reward": 181.77999999999156
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 115,
-    "pnl": 54.53500000000349,
-    "sharpe_ratio": 0.030355912598083675,
-    "inventory": 41,
-    "reward": 54.53500000000349
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 115,
-    "pnl": -236.31500000000597,
-    "sharpe_ratio": -0.4286261403630062,
-    "inventory": 17,
-    "reward": -236.31500000000597
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 116,
-    "pnl": 235.76999999999498,
-    "sharpe_ratio": 0.06554525384066068,
-    "inventory": 193,
-    "reward": 235.76999999999498
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 116,
-    "pnl": -6.04000000000633,
-    "sharpe_ratio": -0.0020279342867233555,
-    "inventory": -144,
-    "reward": -6.04000000000633
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 116,
-    "pnl": -229.7299999999832,
-    "sharpe_ratio": -0.2604410474343036,
-    "inventory": -49,
-    "reward": -229.7299999999832
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 117,
-    "pnl": 24.270000000007713,
-    "sharpe_ratio": 0.04369326853402132,
-    "inventory": -80,
-    "reward": 24.270000000007713
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 117,
-    "pnl": 130.53999999999724,
-    "sharpe_ratio": 0.29863269437256895,
-    "inventory": 89,
-    "reward": 130.53999999999724
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 117,
-    "pnl": -154.8099999999995,
-    "sharpe_ratio": -0.2938647896751652,
-    "inventory": -9,
-    "reward": -154.8099999999995
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 118,
-    "pnl": 142.3399999999874,
-    "sharpe_ratio": 0.015057279135757261,
-    "inventory": -95,
-    "reward": 142.3399999999874
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 118,
-    "pnl": 0.9599999999973079,
-    "sharpe_ratio": 0.00012144449163665475,
-    "inventory": 12,
-    "reward": 0.9599999999973079
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 118,
-    "pnl": -143.29999999999927,
-    "sharpe_ratio": -0.062123816579079186,
-    "inventory": 83,
-    "reward": -143.29999999999927
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 119,
-    "pnl": 55.20000000000073,
-    "sharpe_ratio": 0.04681859985817403,
-    "inventory": 78,
-    "reward": 55.20000000000073
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 119,
-    "pnl": 216.9949999999917,
-    "sharpe_ratio": 0.2554628752839943,
-    "inventory": -47,
-    "reward": 216.9949999999917
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 119,
-    "pnl": -272.19500000000335,
-    "sharpe_ratio": -0.22214170653248175,
-    "inventory": -31,
-    "reward": -272.19500000000335
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 120,
-    "pnl": 96.40999999999076,
-    "sharpe_ratio": 0.13037005688567282,
-    "inventory": -114,
-    "reward": 96.40999999999076
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 120,
-    "pnl": 102.92000000000189,
-    "sharpe_ratio": 0.28026920841154085,
-    "inventory": 32,
-    "reward": 102.92000000000189
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 120,
-    "pnl": -199.32999999999265,
-    "sharpe_ratio": -0.24421254665475317,
-    "inventory": 82,
-    "reward": -199.32999999999265
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 121,
-    "pnl": 152.66999999999643,
-    "sharpe_ratio": 0.06220279017229903,
-    "inventory": -32,
-    "reward": 152.66999999999643
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 121,
-    "pnl": 49.04000000000451,
-    "sharpe_ratio": 0.032066874409236695,
-    "inventory": -42,
-    "reward": 49.04000000000451
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 121,
-    "pnl": -201.71000000000276,
-    "sharpe_ratio": -0.1588905248370832,
-    "inventory": 74,
-    "reward": -201.71000000000276
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 122,
-    "pnl": 594.9799999999996,
-    "sharpe_ratio": 0.14564320151400523,
-    "inventory": 118,
-    "reward": 594.9799999999996
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 122,
-    "pnl": -293.43999999999323,
-    "sharpe_ratio": -0.08863796902238626,
-    "inventory": -52,
-    "reward": -293.43999999999323
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 122,
-    "pnl": -301.54000000000815,
-    "sharpe_ratio": -0.17759788476844823,
-    "inventory": -66,
-    "reward": -301.54000000000815
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 123,
-    "pnl": 42.60000000001128,
-    "sharpe_ratio": 0.05680093465853758,
-    "inventory": -20,
-    "reward": 42.60000000001128
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 123,
-    "pnl": 150.9200000000128,
-    "sharpe_ratio": 0.16083158871648784,
-    "inventory": 24,
-    "reward": 150.9200000000128
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 123,
-    "pnl": -193.52000000000226,
-    "sharpe_ratio": -0.37015769696980705,
-    "inventory": -4,
-    "reward": -193.52000000000226
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 124,
-    "pnl": 34.92000000000735,
-    "sharpe_ratio": 0.05259399308396033,
-    "inventory": 82,
-    "reward": 34.92000000000735
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 124,
-    "pnl": 121.47999999999047,
-    "sharpe_ratio": 0.22472635901975796,
-    "inventory": -32,
-    "reward": 121.47999999999047
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 124,
-    "pnl": -156.4000000000051,
-    "sharpe_ratio": -0.23650199065467467,
-    "inventory": -50,
-    "reward": -156.4000000000051
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 125,
-    "pnl": 275.27999999999156,
-    "sharpe_ratio": 0.03124908793291601,
-    "inventory": -92,
-    "reward": 275.27999999999156
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 125,
-    "pnl": -279.76000000000386,
-    "sharpe_ratio": -0.03157473546117867,
-    "inventory": -7,
-    "reward": -279.76000000000386
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 125,
-    "pnl": 4.480000000003201,
-    "sharpe_ratio": 0.0019541173038730474,
-    "inventory": 99,
-    "reward": 4.480000000003201
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 126,
-    "pnl": 71.31500000000051,
-    "sharpe_ratio": 0.06089923637270634,
-    "inventory": 105,
-    "reward": 71.31500000000051
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 126,
-    "pnl": 120.19499999999971,
-    "sharpe_ratio": 0.1679699824877918,
-    "inventory": -39,
-    "reward": 120.19499999999971
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 126,
-    "pnl": -191.51000000000204,
-    "sharpe_ratio": -0.22181344896109295,
-    "inventory": -66,
-    "reward": -191.51000000000204
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 127,
-    "pnl": 41.744999999993524,
-    "sharpe_ratio": 0.05810730912382503,
-    "inventory": -53,
-    "reward": 41.744999999993524
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 127,
-    "pnl": 79.56500000000233,
-    "sharpe_ratio": 0.15544388145728844,
-    "inventory": -47,
-    "reward": 79.56500000000233
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 127,
-    "pnl": -121.31000000000131,
-    "sharpe_ratio": -0.21127258853667283,
-    "inventory": 100,
-    "reward": -121.31000000000131
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 128,
-    "pnl": 62.31999999999971,
-    "sharpe_ratio": 0.06572680502671305,
-    "inventory": -51,
-    "reward": 62.31999999999971
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 128,
-    "pnl": 106.07999999999811,
-    "sharpe_ratio": 0.1373926069967402,
-    "inventory": 30,
-    "reward": 106.07999999999811
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 128,
-    "pnl": -168.39999999999236,
-    "sharpe_ratio": -0.3697929115596383,
-    "inventory": 21,
-    "reward": -168.39999999999236
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 129,
-    "pnl": 438.96999999999935,
-    "sharpe_ratio": 0.12370053497843156,
-    "inventory": -91,
-    "reward": 438.96999999999935
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 129,
-    "pnl": -236.0200000000077,
-    "sharpe_ratio": -0.08349183655158124,
-    "inventory": -6,
-    "reward": -236.0200000000077
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 129,
-    "pnl": -202.95000000000255,
-    "sharpe_ratio": -0.15467172328942203,
-    "inventory": 97,
-    "reward": -202.95000000000255
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 130,
-    "pnl": 14.87000000000262,
-    "sharpe_ratio": 0.04871347828514477,
-    "inventory": 25,
-    "reward": 14.87000000000262
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 130,
-    "pnl": 113.46000000001732,
-    "sharpe_ratio": 0.232559224248582,
+    "episode": 4,
+    "pnl": 188.71999999999935,
+    "sharpe_ratio": 0.3866302927495593,
     "inventory": -15,
-    "reward": 113.46000000001732
+    "reward": 188.71999999999935
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 4,
+    "pnl": -226.69000000000233,
+    "sharpe_ratio": -0.18842808095112198,
+    "inventory": 51,
+    "reward": -226.69000000000233
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 5,
+    "pnl": 36.81999999999607,
+    "sharpe_ratio": 0.08934804669865226,
+    "inventory": -10,
+    "reward": 36.81999999999607
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 5,
+    "pnl": 208.3199999999979,
+    "sharpe_ratio": 0.28733579307098733,
+    "inventory": -24,
+    "reward": 208.3199999999979
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 5,
+    "pnl": -245.13999999999942,
+    "sharpe_ratio": -0.27677594303456293,
+    "inventory": 34,
+    "reward": -245.13999999999942
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 6,
+    "pnl": -4.539999999997235,
+    "sharpe_ratio": -0.013436732132057172,
+    "inventory": 30,
+    "reward": -4.539999999997235
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 6,
+    "pnl": 130.79999999999382,
+    "sharpe_ratio": 0.1402465503462394,
+    "inventory": 25,
+    "reward": 130.79999999999382
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 6,
+    "pnl": -126.26000000000568,
+    "sharpe_ratio": -0.1349985409224812,
+    "inventory": -55,
+    "reward": -126.26000000000568
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 7,
+    "pnl": 31.529999999997017,
+    "sharpe_ratio": 0.06381368742570073,
+    "inventory": -8,
+    "reward": 31.529999999997017
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 7,
+    "pnl": 207.3100000000013,
+    "sharpe_ratio": 0.24950627172781217,
+    "inventory": 62,
+    "reward": 207.3100000000013
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 7,
+    "pnl": -238.84000000000378,
+    "sharpe_ratio": -0.393541919676619,
+    "inventory": -54,
+    "reward": -238.84000000000378
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 8,
+    "pnl": 572.4200000000001,
+    "sharpe_ratio": 0.19119343781761677,
+    "inventory": 96,
+    "reward": 572.4200000000001
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 8,
+    "pnl": -268.2199999999939,
+    "sharpe_ratio": -0.11081076450536102,
+    "inventory": -49,
+    "reward": -268.2199999999939
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 8,
+    "pnl": -304.20000000000437,
+    "sharpe_ratio": -0.19820094566467925,
+    "inventory": -47,
+    "reward": -304.20000000000437
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 9,
+    "pnl": 433.9400000000005,
+    "sharpe_ratio": 0.14096296592945043,
+    "inventory": 92,
+    "reward": 433.9400000000005
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 9,
+    "pnl": -189.5450000000019,
+    "sharpe_ratio": -0.06969131533381928,
+    "inventory": 1,
+    "reward": -189.5450000000019
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 9,
+    "pnl": -244.39499999999316,
+    "sharpe_ratio": -0.16469612291422447,
+    "inventory": -93,
+    "reward": -244.39499999999316
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 10,
+    "pnl": 69.08499999999913,
+    "sharpe_ratio": 0.15335052689416245,
+    "inventory": -27,
+    "reward": 69.08499999999913
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 10,
+    "pnl": 118.85999999999149,
+    "sharpe_ratio": 0.1264236834088435,
+    "inventory": 34,
+    "reward": 118.85999999999149
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 10,
+    "pnl": -187.94499999999607,
+    "sharpe_ratio": -0.17846104510873748,
+    "inventory": -7,
+    "reward": -187.94499999999607
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 11,
+    "pnl": 511.4499999999971,
+    "sharpe_ratio": 0.12941858178852725,
+    "inventory": -57,
+    "reward": 511.4499999999971
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 11,
+    "pnl": -824.6099999999988,
+    "sharpe_ratio": -0.12331889506481102,
+    "inventory": 75,
+    "reward": -824.6099999999988
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 11,
+    "pnl": 313.15999999999804,
+    "sharpe_ratio": 0.1002564323723505,
+    "inventory": -18,
+    "reward": 313.15999999999804
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 12,
+    "pnl": -6.489999999997963,
+    "sharpe_ratio": -0.01667617088689197,
+    "inventory": 24,
+    "reward": -6.489999999997963
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 12,
+    "pnl": 267.51000000000204,
+    "sharpe_ratio": 0.4199452807866275,
+    "inventory": 8,
+    "reward": 267.51000000000204
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 12,
+    "pnl": -261.0199999999968,
+    "sharpe_ratio": -0.45015499455257574,
+    "inventory": -32,
+    "reward": -261.0199999999968
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 13,
+    "pnl": 604.260000000002,
+    "sharpe_ratio": 0.10465058292866052,
+    "inventory": 95,
+    "reward": 604.260000000002
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 13,
+    "pnl": -622.960000000001,
+    "sharpe_ratio": -0.11615103426502259,
+    "inventory": -8,
+    "reward": -622.960000000001
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 13,
+    "pnl": 18.699999999987995,
+    "sharpe_ratio": 0.01369053671343106,
+    "inventory": -87,
+    "reward": 18.699999999987995
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 14,
+    "pnl": 68.32000000000335,
+    "sharpe_ratio": 0.12207781559703,
+    "inventory": -30,
+    "reward": 68.32000000000335
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 14,
+    "pnl": 180.2200000000048,
+    "sharpe_ratio": 0.37942993935070285,
+    "inventory": -29,
+    "reward": 180.2200000000048
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 14,
+    "pnl": -248.53999999999542,
+    "sharpe_ratio": -0.3780007334607393,
+    "inventory": 59,
+    "reward": -248.53999999999542
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 15,
+    "pnl": 617.4900000000034,
+    "sharpe_ratio": 0.09672985610082185,
+    "inventory": -96,
+    "reward": 617.4900000000034
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 15,
+    "pnl": -419.81999999999425,
+    "sharpe_ratio": -0.06702177054575409,
+    "inventory": -1,
+    "reward": -419.81999999999425
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 15,
+    "pnl": -197.66999999999825,
+    "sharpe_ratio": -0.15403771772678235,
+    "inventory": 97,
+    "reward": -197.66999999999825
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 16,
+    "pnl": 451.7199999999957,
+    "sharpe_ratio": 0.14232602800020117,
+    "inventory": -92,
+    "reward": 451.7199999999957
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 16,
+    "pnl": -472.22999999999956,
+    "sharpe_ratio": -0.11103502004355406,
+    "inventory": 0,
+    "reward": -472.22999999999956
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 16,
+    "pnl": 20.510000000003856,
+    "sharpe_ratio": 0.007311901797190466,
+    "inventory": 92,
+    "reward": 20.510000000003856
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 17,
+    "pnl": 150.48999999999978,
+    "sharpe_ratio": 0.04626922489285202,
+    "inventory": -91,
+    "reward": 150.48999999999978
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 17,
+    "pnl": -91.92000000000007,
+    "sharpe_ratio": -0.03631260676236972,
+    "inventory": 1,
+    "reward": -91.92000000000007
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 17,
+    "pnl": -58.56999999999243,
+    "sharpe_ratio": -0.033271327581153094,
+    "inventory": 90,
+    "reward": -58.56999999999243
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 18,
+    "pnl": 10.950000000000728,
+    "sharpe_ratio": 0.027349074044169818,
+    "inventory": -9,
+    "reward": 10.950000000000728
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 18,
+    "pnl": 289.1000000000058,
+    "sharpe_ratio": 0.5647727690534995,
+    "inventory": -4,
+    "reward": 289.1000000000058
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 18,
+    "pnl": -300.05000000000473,
+    "sharpe_ratio": -0.4671306434159686,
+    "inventory": 13,
+    "reward": -300.05000000000473
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 19,
+    "pnl": 175.11999999999898,
+    "sharpe_ratio": 0.08632505879764968,
+    "inventory": -91,
+    "reward": 175.11999999999898
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 19,
+    "pnl": 215.78000000000065,
+    "sharpe_ratio": 0.16229533904231547,
+    "inventory": 23,
+    "reward": 215.78000000000065
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 19,
+    "pnl": -390.900000000016,
+    "sharpe_ratio": -0.2206124873298978,
+    "inventory": 68,
+    "reward": -390.900000000016
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 20,
+    "pnl": 781.7199999999993,
+    "sharpe_ratio": 0.14817533584255776,
+    "inventory": 90,
+    "reward": 781.7199999999993
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 20,
+    "pnl": -495.5400000000136,
+    "sharpe_ratio": -0.10875871226550396,
+    "inventory": -40,
+    "reward": -495.5400000000136
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 20,
+    "pnl": -286.1799999999912,
+    "sharpe_ratio": -0.2755018508118073,
+    "inventory": -50,
+    "reward": -286.1799999999912
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 21,
+    "pnl": -97.99500000000262,
+    "sharpe_ratio": -0.09865804595258751,
+    "inventory": -35,
+    "reward": -97.99500000000262
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 21,
+    "pnl": 15.034999999992579,
+    "sharpe_ratio": 0.00624757001555206,
+    "inventory": -49,
+    "reward": 15.034999999992579
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 21,
+    "pnl": 82.96000000001004,
+    "sharpe_ratio": 0.02487970866963561,
+    "inventory": 84,
+    "reward": 82.96000000001004
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 22,
+    "pnl": 3.280000000002474,
+    "sharpe_ratio": 0.00783845519833999,
+    "inventory": 63,
+    "reward": 3.280000000002474
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 22,
+    "pnl": 27.210000000000946,
+    "sharpe_ratio": 0.018908505029686704,
+    "inventory": 1,
+    "reward": 27.210000000000946
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 22,
+    "pnl": -30.4900000000016,
+    "sharpe_ratio": -0.02013363018947826,
+    "inventory": -64,
+    "reward": -30.4900000000016
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 23,
+    "pnl": -22.510000000002037,
+    "sharpe_ratio": -0.024068741167070497,
+    "inventory": 37,
+    "reward": -22.510000000002037
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 23,
+    "pnl": 239.84999999999673,
+    "sharpe_ratio": 0.37081661702350566,
+    "inventory": 55,
+    "reward": 239.84999999999673
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 23,
+    "pnl": -217.33999999998923,
+    "sharpe_ratio": -0.1971265588522768,
+    "inventory": -92,
+    "reward": -217.33999999998923
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 24,
+    "pnl": 753.994999999999,
+    "sharpe_ratio": 0.1720542426580211,
+    "inventory": -91,
+    "reward": 753.994999999999
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 24,
+    "pnl": -501.9150000000009,
+    "sharpe_ratio": -0.1225805449714618,
+    "inventory": -1,
+    "reward": -501.9150000000009
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 24,
+    "pnl": -252.08000000000175,
+    "sharpe_ratio": -0.2218064529691329,
+    "inventory": 92,
+    "reward": -252.08000000000175
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 25,
+    "pnl": 627.2700000000004,
+    "sharpe_ratio": 0.14091953124832346,
+    "inventory": 87,
+    "reward": 627.2700000000004
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 25,
+    "pnl": -405.8199999999997,
+    "sharpe_ratio": -0.106707048233755,
+    "inventory": -18,
+    "reward": -405.8199999999997
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 25,
+    "pnl": -221.45000000000073,
+    "sharpe_ratio": -0.14893438779551754,
+    "inventory": -69,
+    "reward": -221.45000000000073
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 26,
+    "pnl": 55.879999999991924,
+    "sharpe_ratio": 0.17846828287022642,
+    "inventory": -2,
+    "reward": 55.879999999991924
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 26,
+    "pnl": 5.349999999994907,
+    "sharpe_ratio": 0.004724444567512363,
+    "inventory": 74,
+    "reward": 5.349999999994907
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 26,
+    "pnl": -61.22999999998865,
+    "sharpe_ratio": -0.058591122973669356,
+    "inventory": -72,
+    "reward": -61.22999999998865
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 27,
+    "pnl": 55.32000000000153,
+    "sharpe_ratio": 0.10399293581865329,
+    "inventory": 4,
+    "reward": 55.32000000000153
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 27,
+    "pnl": 152.63999999999578,
+    "sharpe_ratio": 0.15331834301577713,
+    "inventory": 40,
+    "reward": 152.63999999999578
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 27,
+    "pnl": -207.95999999999913,
+    "sharpe_ratio": -0.28589169502454337,
+    "inventory": -44,
+    "reward": -207.95999999999913
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 28,
+    "pnl": 9.085000000002765,
+    "sharpe_ratio": 0.02749861678038097,
+    "inventory": -31,
+    "reward": 9.085000000002765
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 28,
+    "pnl": 175.9250000000011,
+    "sharpe_ratio": 0.22549427430255004,
+    "inventory": -63,
+    "reward": 175.9250000000011
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 28,
+    "pnl": -185.00999999999658,
+    "sharpe_ratio": -0.21891615209435414,
+    "inventory": 94,
+    "reward": -185.00999999999658
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 29,
+    "pnl": 37.55000000000109,
+    "sharpe_ratio": 0.05364402200262102,
+    "inventory": 65,
+    "reward": 37.55000000000109
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 29,
+    "pnl": 199.84000000000378,
+    "sharpe_ratio": 0.2674938187934666,
+    "inventory": 29,
+    "reward": 199.84000000000378
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 29,
+    "pnl": -237.3899999999976,
+    "sharpe_ratio": -0.18853666669917543,
+    "inventory": -94,
+    "reward": -237.3899999999976
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 30,
+    "pnl": 67.62000000000262,
+    "sharpe_ratio": 0.1467382292237091,
+    "inventory": 72,
+    "reward": 67.62000000000262
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 30,
+    "pnl": 146.89000000000306,
+    "sharpe_ratio": 0.16730174314664462,
+    "inventory": -3,
+    "reward": 146.89000000000306
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 30,
+    "pnl": -214.5100000000093,
+    "sharpe_ratio": -0.24010313644452802,
+    "inventory": -69,
+    "reward": -214.5100000000093
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 31,
+    "pnl": 156.72500000000218,
+    "sharpe_ratio": 0.09213675935912896,
+    "inventory": -53,
+    "reward": 156.72500000000218
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 31,
+    "pnl": -135.55499999999302,
+    "sharpe_ratio": -0.044712062793720905,
+    "inventory": -45,
+    "reward": -135.55499999999302
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 31,
+    "pnl": -21.17000000000553,
+    "sharpe_ratio": -0.013402255369269983,
+    "inventory": 98,
+    "reward": -21.17000000000553
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 32,
+    "pnl": 176.20000000000255,
+    "sharpe_ratio": 0.050338527583480744,
+    "inventory": -96,
+    "reward": 176.20000000000255
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 32,
+    "pnl": -333.6399999999994,
+    "sharpe_ratio": -0.059381049439254895,
+    "inventory": 1,
+    "reward": -333.6399999999994
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 32,
+    "pnl": 157.43999999999687,
+    "sharpe_ratio": 0.05721974177112341,
+    "inventory": 95,
+    "reward": 157.43999999999687
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 33,
+    "pnl": 156.0500000000029,
+    "sharpe_ratio": 0.04503293237319307,
+    "inventory": -86,
+    "reward": 156.0500000000029
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 33,
+    "pnl": -256.24999999999454,
+    "sharpe_ratio": -0.06744739577586047,
+    "inventory": -12,
+    "reward": -256.24999999999454
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 33,
+    "pnl": 100.20000000000073,
+    "sharpe_ratio": 0.049571702020983294,
+    "inventory": 98,
+    "reward": 100.20000000000073
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 34,
+    "pnl": 10.290000000002692,
+    "sharpe_ratio": 0.01274289261691007,
+    "inventory": -50,
+    "reward": 10.290000000002692
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 34,
+    "pnl": 221.60000000000218,
+    "sharpe_ratio": 0.3861175958653802,
+    "inventory": 30,
+    "reward": 221.60000000000218
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 34,
+    "pnl": -231.88999999999578,
+    "sharpe_ratio": -0.3664439311868007,
+    "inventory": 20,
+    "reward": -231.88999999999578
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 35,
+    "pnl": 26.44499999999971,
+    "sharpe_ratio": 0.07265147086524706,
+    "inventory": 35,
+    "reward": 26.44499999999971
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 35,
+    "pnl": 76.32999999999811,
+    "sharpe_ratio": 0.09151862229404555,
+    "inventory": 24,
+    "reward": 76.32999999999811
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 35,
+    "pnl": -102.77500000000327,
+    "sharpe_ratio": -0.10199419332693214,
+    "inventory": -59,
+    "reward": -102.77500000000327
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 36,
+    "pnl": 36.73999999999796,
+    "sharpe_ratio": 0.07961996538497114,
+    "inventory": -28,
+    "reward": 36.73999999999796
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 36,
+    "pnl": 176.95000000000073,
+    "sharpe_ratio": 0.16735141006164567,
+    "inventory": 72,
+    "reward": 176.95000000000073
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 36,
+    "pnl": -213.68999999999141,
+    "sharpe_ratio": -0.28575862659940965,
+    "inventory": -44,
+    "reward": -213.68999999999141
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 37,
+    "pnl": 543.3100000000013,
+    "sharpe_ratio": 0.12277065694230274,
+    "inventory": -89,
+    "reward": 543.3100000000013
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 37,
+    "pnl": -467.7900000000045,
+    "sharpe_ratio": -0.11163834748336762,
+    "inventory": 9,
+    "reward": -467.7900000000045
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 37,
+    "pnl": -75.52000000000044,
+    "sharpe_ratio": -0.059975956055567735,
+    "inventory": 80,
+    "reward": -75.52000000000044
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 38,
+    "pnl": 84.88999999999396,
+    "sharpe_ratio": 0.16768672842715018,
+    "inventory": -19,
+    "reward": 84.88999999999396
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 38,
+    "pnl": 157.72999999999956,
+    "sharpe_ratio": 0.25635237524215954,
+    "inventory": -38,
+    "reward": 157.72999999999956
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 38,
+    "pnl": -242.61999999999352,
+    "sharpe_ratio": -0.33053428879587166,
+    "inventory": 57,
+    "reward": -242.61999999999352
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 39,
+    "pnl": 63.63999999999942,
+    "sharpe_ratio": 0.12418168632921812,
+    "inventory": 3,
+    "reward": 63.63999999999942
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 39,
+    "pnl": 234.56999999999425,
+    "sharpe_ratio": 0.3411810467644325,
+    "inventory": -10,
+    "reward": 234.56999999999425
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 39,
+    "pnl": -298.2100000000064,
+    "sharpe_ratio": -0.3696230996649653,
+    "inventory": 7,
+    "reward": -298.2100000000064
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 40,
+    "pnl": 14.55999999999949,
+    "sharpe_ratio": 0.02470849226518991,
+    "inventory": 1,
+    "reward": 14.55999999999949
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 40,
+    "pnl": 112.20000000001346,
+    "sharpe_ratio": 0.11709458326468918,
+    "inventory": -27,
+    "reward": 112.20000000001346
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 40,
+    "pnl": -126.76000000000204,
+    "sharpe_ratio": -0.08851323242010231,
+    "inventory": 26,
+    "reward": -126.76000000000204
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 41,
+    "pnl": 259.5900000000074,
+    "sharpe_ratio": 0.08636467647738104,
+    "inventory": -90,
+    "reward": 259.5900000000074
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 41,
+    "pnl": -138.30499999999665,
+    "sharpe_ratio": -0.06782104856187715,
+    "inventory": 13,
+    "reward": -138.30499999999665
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 41,
+    "pnl": -121.28499999999985,
+    "sharpe_ratio": -0.06002900747861485,
+    "inventory": 77,
+    "reward": -121.28499999999985
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 42,
+    "pnl": 40.07999999999811,
+    "sharpe_ratio": 0.08668594799573179,
+    "inventory": -32,
+    "reward": 40.07999999999811
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 42,
+    "pnl": 159.42000000000917,
+    "sharpe_ratio": 0.2480112684886592,
+    "inventory": -33,
+    "reward": 159.42000000000917
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 42,
+    "pnl": -199.5,
+    "sharpe_ratio": -0.2066842705958355,
+    "inventory": 65,
+    "reward": -199.5
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 43,
+    "pnl": 85.22999999999956,
+    "sharpe_ratio": 0.06369201346167065,
+    "inventory": -91,
+    "reward": 85.22999999999956
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 43,
+    "pnl": 204.27000000000044,
+    "sharpe_ratio": 0.21506511835583875,
+    "inventory": 44,
+    "reward": 204.27000000000044
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 43,
+    "pnl": -289.4999999999927,
+    "sharpe_ratio": -0.3673910544424189,
+    "inventory": 47,
+    "reward": -289.4999999999927
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 44,
+    "pnl": 554.4900000000052,
+    "sharpe_ratio": 0.13388166588982783,
+    "inventory": -84,
+    "reward": 554.4900000000052
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 44,
+    "pnl": -267.0900000000056,
+    "sharpe_ratio": -0.07778123641369965,
+    "inventory": 10,
+    "reward": -267.0900000000056
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 44,
+    "pnl": -287.3999999999978,
+    "sharpe_ratio": -0.22403915446742548,
+    "inventory": 74,
+    "reward": -287.3999999999978
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 45,
+    "pnl": -4.040000000000873,
+    "sharpe_ratio": -0.005466075404356765,
+    "inventory": -62,
+    "reward": -4.040000000000873
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 45,
+    "pnl": 169.63000000000102,
+    "sharpe_ratio": 0.2724133145146253,
+    "inventory": -15,
+    "reward": 169.63000000000102
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 45,
+    "pnl": -165.5899999999965,
+    "sharpe_ratio": -0.13754890568042946,
+    "inventory": 77,
+    "reward": -165.5899999999965
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 46,
+    "pnl": 25.06999999999971,
+    "sharpe_ratio": 0.04765489702276971,
+    "inventory": -32,
+    "reward": 25.06999999999971
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 46,
+    "pnl": 191.29000000000815,
+    "sharpe_ratio": 0.3550883623558407,
+    "inventory": -6,
+    "reward": 191.29000000000815
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 46,
+    "pnl": -216.3600000000024,
+    "sharpe_ratio": -0.42059511714733805,
+    "inventory": 38,
+    "reward": -216.3600000000024
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 47,
+    "pnl": 363.9999999999927,
+    "sharpe_ratio": 0.0829441015227864,
+    "inventory": -88,
+    "reward": 363.9999999999927
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 47,
+    "pnl": -317.37999999999374,
+    "sharpe_ratio": -0.09421200978770031,
+    "inventory": -4,
+    "reward": -317.37999999999374
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 47,
+    "pnl": -46.61999999999898,
+    "sharpe_ratio": -0.01916345922109216,
+    "inventory": 92,
+    "reward": -46.61999999999898
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 48,
+    "pnl": 823.5699999999924,
+    "sharpe_ratio": 0.08228017519789922,
+    "inventory": -91,
+    "reward": 823.5699999999924
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 48,
+    "pnl": -534.6999999999989,
+    "sharpe_ratio": -0.06657392437332414,
+    "inventory": 1,
+    "reward": -534.6999999999989
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 48,
+    "pnl": -288.86999999999716,
+    "sharpe_ratio": -0.10647937692443742,
+    "inventory": 90,
+    "reward": -288.86999999999716
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 49,
+    "pnl": 617.53999999999,
+    "sharpe_ratio": 0.11509188870809128,
+    "inventory": -93,
+    "reward": 617.53999999999
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 49,
+    "pnl": -463.86999999999716,
+    "sharpe_ratio": -0.09946660883505816,
+    "inventory": -6,
+    "reward": -463.86999999999716
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 49,
+    "pnl": -153.6699999999928,
+    "sharpe_ratio": -0.1073365029203765,
+    "inventory": 99,
+    "reward": -153.6699999999928
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 50,
+    "pnl": 223.56000000000313,
+    "sharpe_ratio": 0.034849673540380474,
+    "inventory": -97,
+    "reward": 223.56000000000313
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 50,
+    "pnl": -144.86000000000058,
+    "sharpe_ratio": -0.03177737854840778,
+    "inventory": 9,
+    "reward": -144.86000000000058
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 50,
+    "pnl": -78.69999999999709,
+    "sharpe_ratio": -0.026163531722223916,
+    "inventory": 88,
+    "reward": -78.69999999999709
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 51,
+    "pnl": 14.269999999996799,
+    "sharpe_ratio": 0.02516142327064925,
+    "inventory": -37,
+    "reward": 14.269999999996799
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 51,
+    "pnl": 291.8600000000006,
+    "sharpe_ratio": 0.5706470006414308,
+    "inventory": -25,
+    "reward": 291.8600000000006
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 51,
+    "pnl": -306.12999999999374,
+    "sharpe_ratio": -0.3697421091893841,
+    "inventory": 62,
+    "reward": -306.12999999999374
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 52,
+    "pnl": 41.55000000000655,
+    "sharpe_ratio": 0.05798983200438739,
+    "inventory": -23,
+    "reward": 41.55000000000655
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 52,
+    "pnl": 184.51999999999316,
+    "sharpe_ratio": 0.3336181296503533,
+    "inventory": -23,
+    "reward": 184.51999999999316
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 52,
+    "pnl": -226.0699999999979,
+    "sharpe_ratio": -0.2684751175176068,
+    "inventory": 46,
+    "reward": -226.0699999999979
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 53,
+    "pnl": -23.2549999999992,
+    "sharpe_ratio": -0.01864632487487233,
+    "inventory": 71,
+    "reward": -23.2549999999992
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 53,
+    "pnl": 150.99500000000262,
+    "sharpe_ratio": 0.17032687310551883,
+    "inventory": -25,
+    "reward": 150.99500000000262
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 53,
+    "pnl": -127.73999999999796,
+    "sharpe_ratio": -0.09958235484322686,
+    "inventory": -46,
+    "reward": -127.73999999999796
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 54,
+    "pnl": 371.9400000000023,
+    "sharpe_ratio": 0.06706822313350519,
+    "inventory": -90,
+    "reward": 371.9400000000023
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 54,
+    "pnl": -560.560000000005,
+    "sharpe_ratio": -0.07358050120135337,
+    "inventory": 2,
+    "reward": -560.560000000005
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 54,
+    "pnl": 188.62000000000262,
+    "sharpe_ratio": 0.06853289337994639,
+    "inventory": 88,
+    "reward": 188.62000000000262
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 55,
+    "pnl": 600.1599999999999,
+    "sharpe_ratio": 0.11695822980049037,
+    "inventory": -91,
+    "reward": 600.1599999999999
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 55,
+    "pnl": -572.0799999999999,
+    "sharpe_ratio": -0.09511085883157244,
+    "inventory": 3,
+    "reward": -572.0799999999999
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 55,
+    "pnl": -28.080000000001746,
+    "sharpe_ratio": -0.01904021187811283,
+    "inventory": 88,
+    "reward": -28.080000000001746
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 56,
+    "pnl": 383.6299999999992,
+    "sharpe_ratio": 0.2033031141248137,
+    "inventory": -18,
+    "reward": 383.6299999999992
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 56,
+    "pnl": -1301.67,
+    "sharpe_ratio": -0.16343446932375946,
+    "inventory": 60,
+    "reward": -1301.67
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 56,
+    "pnl": 918.0400000000027,
+    "sharpe_ratio": 0.14935905518662546,
+    "inventory": -42,
+    "reward": 918.0400000000027
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 57,
+    "pnl": 20.820000000010623,
+    "sharpe_ratio": 0.01745975956666768,
+    "inventory": -73,
+    "reward": 20.820000000010623
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 57,
+    "pnl": 219.73999999999614,
+    "sharpe_ratio": 0.34135419371930675,
+    "inventory": -4,
+    "reward": 219.73999999999614
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 57,
+    "pnl": -240.5600000000013,
+    "sharpe_ratio": -0.2813738432894437,
+    "inventory": 77,
+    "reward": -240.5600000000013
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 58,
+    "pnl": 94.9099999999944,
+    "sharpe_ratio": 0.16393485380640785,
+    "inventory": -22,
+    "reward": 94.9099999999944
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 58,
+    "pnl": 104.76999999999498,
+    "sharpe_ratio": 0.2310508949250129,
+    "inventory": 28,
+    "reward": 104.76999999999498
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 58,
+    "pnl": -199.67999999999483,
+    "sharpe_ratio": -0.276514431074913,
+    "inventory": -6,
+    "reward": -199.67999999999483
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 59,
+    "pnl": 546.6499999999996,
+    "sharpe_ratio": 0.13488795461087283,
+    "inventory": -99,
+    "reward": 546.6499999999996
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 59,
+    "pnl": -525.0899999999929,
+    "sharpe_ratio": -0.12725196607220135,
+    "inventory": 32,
+    "reward": -525.0899999999929
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 59,
+    "pnl": -21.56000000000131,
+    "sharpe_ratio": -0.014109088605607825,
+    "inventory": 67,
+    "reward": -21.56000000000131
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 60,
+    "pnl": 674.6899999999969,
+    "sharpe_ratio": 0.059744585068286976,
+    "inventory": -93,
+    "reward": 674.6899999999969
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 60,
+    "pnl": -619.2599999999984,
+    "sharpe_ratio": -0.06004657093718598,
+    "inventory": 20,
+    "reward": -619.2599999999984
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 60,
+    "pnl": -55.43000000000393,
+    "sharpe_ratio": -0.03094207876854042,
+    "inventory": 73,
+    "reward": -55.43000000000393
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 61,
+    "pnl": 382.96500000000015,
+    "sharpe_ratio": 0.13240327120956055,
+    "inventory": -91,
+    "reward": 382.96500000000015
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 61,
+    "pnl": -9.540000000002692,
+    "sharpe_ratio": -0.005379752687833068,
+    "inventory": 12,
+    "reward": -9.540000000002692
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 61,
+    "pnl": -373.42499999999563,
+    "sharpe_ratio": -0.21561603909650337,
+    "inventory": 79,
+    "reward": -373.42499999999563
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 62,
+    "pnl": -27.905000000006112,
+    "sharpe_ratio": -0.030757254352966043,
+    "inventory": -61,
+    "reward": -27.905000000006112
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 62,
+    "pnl": 195.77499999999782,
+    "sharpe_ratio": 0.4248708456629282,
+    "inventory": 7,
+    "reward": 195.77499999999782
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 62,
+    "pnl": -167.86999999999534,
+    "sharpe_ratio": -0.19702324573332958,
+    "inventory": 54,
+    "reward": -167.86999999999534
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 63,
+    "pnl": 64.53500000000713,
+    "sharpe_ratio": 0.14749676860596062,
+    "inventory": -3,
+    "reward": 64.53500000000713
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 63,
+    "pnl": 207.53000000000793,
+    "sharpe_ratio": 0.3900256436654202,
+    "inventory": 2,
+    "reward": 207.53000000000793
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 63,
+    "pnl": -272.0650000000005,
+    "sharpe_ratio": -0.3521488726991889,
+    "inventory": 1,
+    "reward": -272.0650000000005
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 64,
+    "pnl": 261.27999999998974,
+    "sharpe_ratio": 0.044093960487529386,
+    "inventory": -50,
+    "reward": 261.27999999998974
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 64,
+    "pnl": -622.2100000000082,
+    "sharpe_ratio": -0.05794881007538315,
+    "inventory": 61,
+    "reward": -622.2100000000082
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 64,
+    "pnl": 360.93000000000757,
+    "sharpe_ratio": 0.06294684737319967,
+    "inventory": -11,
+    "reward": 360.93000000000757
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 65,
+    "pnl": -3.8800000000010186,
+    "sharpe_ratio": -0.007257049195498204,
+    "inventory": 36,
+    "reward": -3.8800000000010186
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 65,
+    "pnl": 290.47000000000844,
+    "sharpe_ratio": 0.40563497575846896,
+    "inventory": 35,
+    "reward": 290.47000000000844
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 65,
+    "pnl": -286.5900000000074,
+    "sharpe_ratio": -0.29795500583228013,
+    "inventory": -71,
+    "reward": -286.5900000000074
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 66,
+    "pnl": 304.80000000000655,
+    "sharpe_ratio": 0.13629846451393007,
+    "inventory": -67,
+    "reward": 304.80000000000655
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 66,
+    "pnl": -396.12999999999374,
+    "sharpe_ratio": -0.10784304137614995,
+    "inventory": -21,
+    "reward": -396.12999999999374
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 66,
+    "pnl": 91.32999999999083,
+    "sharpe_ratio": 0.054270978941516966,
+    "inventory": 88,
+    "reward": 91.32999999999083
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 67,
+    "pnl": 58.3700000000008,
+    "sharpe_ratio": 0.09145688132023264,
+    "inventory": -29,
+    "reward": 58.3700000000008
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 67,
+    "pnl": 133.36999999999534,
+    "sharpe_ratio": 0.1846809934779065,
+    "inventory": 9,
+    "reward": 133.36999999999534
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 67,
+    "pnl": -191.73999999999978,
+    "sharpe_ratio": -0.16305049693257165,
+    "inventory": 20,
+    "reward": -191.73999999999978
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 68,
+    "pnl": 757.4799999999905,
+    "sharpe_ratio": 0.0703814858105427,
+    "inventory": -98,
+    "reward": 757.4799999999905
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 68,
+    "pnl": -445.78999999999724,
+    "sharpe_ratio": -0.05297394840096175,
+    "inventory": 29,
+    "reward": -445.78999999999724
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 68,
+    "pnl": -311.68999999999687,
+    "sharpe_ratio": -0.10814598124015196,
+    "inventory": 69,
+    "reward": -311.68999999999687
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 69,
+    "pnl": 504.90000000000146,
+    "sharpe_ratio": 0.07615998786241814,
+    "inventory": -100,
+    "reward": 504.90000000000146
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 69,
+    "pnl": -476.5350000000017,
+    "sharpe_ratio": -0.08456907889172083,
+    "inventory": 5,
+    "reward": -476.5350000000017
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 69,
+    "pnl": -28.3650000000016,
+    "sharpe_ratio": -0.013748064960780002,
+    "inventory": 95,
+    "reward": -28.3650000000016
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 70,
+    "pnl": 759.0900000000074,
+    "sharpe_ratio": 0.09661312862260783,
+    "inventory": -77,
+    "reward": 759.0900000000074
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 70,
+    "pnl": -620.0199999999968,
+    "sharpe_ratio": -0.08049142487607228,
+    "inventory": 42,
+    "reward": -620.0199999999968
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 70,
+    "pnl": -139.07000000000698,
+    "sharpe_ratio": -0.08039103848225321,
+    "inventory": 35,
+    "reward": -139.07000000000698
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 71,
+    "pnl": 643.25,
+    "sharpe_ratio": 0.18303745925974757,
+    "inventory": -58,
+    "reward": 643.25
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 71,
+    "pnl": -446.5699999999979,
+    "sharpe_ratio": -0.13167165608023448,
+    "inventory": -37,
+    "reward": -446.5699999999979
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 71,
+    "pnl": -196.68000000000393,
+    "sharpe_ratio": -0.24534573291198283,
+    "inventory": 95,
+    "reward": -196.68000000000393
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 72,
+    "pnl": 555.8449999999993,
+    "sharpe_ratio": 0.0921099060760409,
+    "inventory": -99,
+    "reward": 555.8449999999993
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 72,
+    "pnl": -376.7649999999994,
+    "sharpe_ratio": -0.07094944806972844,
+    "inventory": 19,
+    "reward": -376.7649999999994
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 72,
+    "pnl": -179.07999999999993,
+    "sharpe_ratio": -0.1336944094518639,
+    "inventory": 80,
+    "reward": -179.07999999999993
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 73,
+    "pnl": 296.1949999999979,
+    "sharpe_ratio": 0.07768382985520217,
+    "inventory": -95,
+    "reward": 296.1949999999979
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 73,
+    "pnl": -324.4299999999985,
+    "sharpe_ratio": -0.06661397447282161,
+    "inventory": 2,
+    "reward": -324.4299999999985
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 73,
+    "pnl": 28.2350000000024,
+    "sharpe_ratio": 0.014790428239109983,
+    "inventory": 93,
+    "reward": 28.2350000000024
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 74,
+    "pnl": -63.100000000000364,
+    "sharpe_ratio": -0.07412893541837738,
+    "inventory": 24,
+    "reward": -63.100000000000364
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 74,
+    "pnl": 84.49999999999636,
+    "sharpe_ratio": 0.06263111606408618,
+    "inventory": 57,
+    "reward": 84.49999999999636
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 74,
+    "pnl": -21.399999999997817,
+    "sharpe_ratio": -0.011179944648386756,
+    "inventory": -81,
+    "reward": -21.399999999997817
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 75,
+    "pnl": 100.43999999999505,
+    "sharpe_ratio": 0.19099986725280108,
+    "inventory": -20,
+    "reward": 100.43999999999505
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 75,
+    "pnl": 134.0299999999952,
+    "sharpe_ratio": 0.150994030882377,
+    "inventory": 49,
+    "reward": 134.0299999999952
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 75,
+    "pnl": -234.4700000000048,
+    "sharpe_ratio": -0.38357724396724563,
+    "inventory": -29,
+    "reward": -234.4700000000048
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 76,
+    "pnl": 33.029999999998836,
+    "sharpe_ratio": 0.05167333449830675,
+    "inventory": -43,
+    "reward": 33.029999999998836
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 76,
+    "pnl": 202.8499999999931,
+    "sharpe_ratio": 0.3818973553791002,
+    "inventory": 10,
+    "reward": 202.8499999999931
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 76,
+    "pnl": -235.87999999998647,
+    "sharpe_ratio": -0.36955143893375125,
+    "inventory": 33,
+    "reward": -235.87999999998647
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 77,
+    "pnl": 358.6099999999933,
+    "sharpe_ratio": 0.11112801805386965,
+    "inventory": -94,
+    "reward": 358.6099999999933
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 77,
+    "pnl": -594.929999999993,
+    "sharpe_ratio": -0.11113695361207356,
+    "inventory": 24,
+    "reward": -594.929999999993
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 77,
+    "pnl": 236.3199999999979,
+    "sharpe_ratio": 0.09145177887718986,
+    "inventory": 70,
+    "reward": 236.3199999999979
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 78,
+    "pnl": 227.1899999999987,
+    "sharpe_ratio": 0.18561369487795,
+    "inventory": -68,
+    "reward": 227.1899999999987
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 78,
+    "pnl": -251.3100000000013,
+    "sharpe_ratio": -0.09843277900698807,
+    "inventory": -3,
+    "reward": -251.3100000000013
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 78,
+    "pnl": 24.119999999993524,
+    "sharpe_ratio": 0.014864729576664468,
+    "inventory": 71,
+    "reward": 24.119999999993524
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 79,
+    "pnl": 132.1700000000037,
+    "sharpe_ratio": 0.058385837473574446,
+    "inventory": -38,
+    "reward": 132.1700000000037
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 79,
+    "pnl": -40.10000000000582,
+    "sharpe_ratio": -0.026580748464079984,
+    "inventory": -61,
+    "reward": -40.10000000000582
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 79,
+    "pnl": -92.06999999999789,
+    "sharpe_ratio": -0.06813594806573937,
+    "inventory": 99,
+    "reward": -92.06999999999789
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 80,
+    "pnl": 4.11500000000342,
+    "sharpe_ratio": 0.007089300953782802,
+    "inventory": -63,
+    "reward": 4.11500000000342
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 80,
+    "pnl": 260.76500000000124,
+    "sharpe_ratio": 0.4321585153859156,
+    "inventory": 31,
+    "reward": 260.76500000000124
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 80,
+    "pnl": -264.8799999999974,
+    "sharpe_ratio": -0.47264376727604346,
+    "inventory": 32,
+    "reward": -264.8799999999974
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 81,
+    "pnl": 686.4100000000017,
+    "sharpe_ratio": 0.20632333908348022,
+    "inventory": -72,
+    "reward": 686.4100000000017
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 81,
+    "pnl": -500.09499999999935,
+    "sharpe_ratio": -0.15086103572245263,
+    "inventory": 47,
+    "reward": -500.09499999999935
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 81,
+    "pnl": -186.3149999999987,
+    "sharpe_ratio": -0.25088000564142177,
+    "inventory": 25,
+    "reward": -186.3149999999987
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 82,
+    "pnl": 296.1549999999952,
+    "sharpe_ratio": 0.14838576087537725,
+    "inventory": -49,
+    "reward": 296.1549999999952
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 82,
+    "pnl": -437.11499999999614,
+    "sharpe_ratio": -0.0933042000023043,
+    "inventory": 23,
+    "reward": -437.11499999999614
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 82,
+    "pnl": 140.96000000000095,
+    "sharpe_ratio": 0.049206707472049915,
+    "inventory": 26,
+    "reward": 140.96000000000095
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 83,
+    "pnl": 36.42000000000553,
+    "sharpe_ratio": 0.06151624776362591,
+    "inventory": -28,
+    "reward": 36.42000000000553
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 83,
+    "pnl": 165.89500000000044,
+    "sharpe_ratio": 0.3972018184295186,
+    "inventory": 13,
+    "reward": 165.89500000000044
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 83,
+    "pnl": -202.31500000000779,
+    "sharpe_ratio": -0.4076646948613173,
+    "inventory": 15,
+    "reward": -202.31500000000779
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 84,
+    "pnl": 624.2100000000028,
+    "sharpe_ratio": 0.10874661359696068,
+    "inventory": -72,
+    "reward": 624.2100000000028
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 84,
+    "pnl": -637.7400000000016,
+    "sharpe_ratio": -0.091868928898089,
+    "inventory": 50,
+    "reward": -637.7400000000016
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 84,
+    "pnl": 13.530000000006112,
+    "sharpe_ratio": 0.008428293596935945,
+    "inventory": 22,
+    "reward": 13.530000000006112
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 85,
+    "pnl": 623.0799999999945,
+    "sharpe_ratio": 0.19904011453674483,
+    "inventory": -96,
+    "reward": 623.0799999999945
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 85,
+    "pnl": -551.8400000000038,
+    "sharpe_ratio": -0.15449465687129235,
+    "inventory": 19,
+    "reward": -551.8400000000038
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 85,
+    "pnl": -71.23999999998523,
+    "sharpe_ratio": -0.05947921563303357,
+    "inventory": 77,
+    "reward": -71.23999999998523
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 86,
+    "pnl": 305.8650000000016,
+    "sharpe_ratio": 0.09334132672425677,
+    "inventory": -65,
+    "reward": 305.8650000000016
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 86,
+    "pnl": 11.56000000000131,
+    "sharpe_ratio": 0.0042972676748761806,
+    "inventory": -18,
+    "reward": 11.56000000000131
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 86,
+    "pnl": -317.4250000000029,
+    "sharpe_ratio": -0.2979218171664314,
+    "inventory": 83,
+    "reward": -317.4250000000029
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 87,
+    "pnl": 314.02000000000044,
+    "sharpe_ratio": 0.1452865188866567,
+    "inventory": -63,
+    "reward": 314.02000000000044
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 87,
+    "pnl": -564.2700000000004,
+    "sharpe_ratio": -0.14266231590818992,
+    "inventory": 19,
+    "reward": -564.2700000000004
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 87,
+    "pnl": 250.25000000000364,
+    "sharpe_ratio": 0.12349004176337702,
+    "inventory": 44,
+    "reward": 250.25000000000364
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 88,
+    "pnl": 585.2400000000016,
+    "sharpe_ratio": 0.14449135406845193,
+    "inventory": -68,
+    "reward": 585.2400000000016
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 88,
+    "pnl": -534.8000000000084,
+    "sharpe_ratio": -0.11781482491192641,
+    "inventory": 11,
+    "reward": -534.8000000000084
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 88,
+    "pnl": -50.44000000000233,
+    "sharpe_ratio": -0.05914116928906203,
+    "inventory": 57,
+    "reward": -50.44000000000233
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 89,
+    "pnl": 65.65999999999804,
+    "sharpe_ratio": 0.15128026282202117,
+    "inventory": -30,
+    "reward": 65.65999999999804
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 89,
+    "pnl": 147.14499999999316,
+    "sharpe_ratio": 0.21053180851186196,
+    "inventory": -41,
+    "reward": 147.14499999999316
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 89,
+    "pnl": -212.8050000000003,
+    "sharpe_ratio": -0.22067729677635037,
+    "inventory": 71,
+    "reward": -212.8050000000003
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 90,
+    "pnl": 621.5549999999948,
+    "sharpe_ratio": 0.19507875325699847,
+    "inventory": -93,
+    "reward": 621.5549999999948
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 90,
+    "pnl": -197.80999999999403,
+    "sharpe_ratio": -0.08486379376715081,
+    "inventory": 18,
+    "reward": -197.80999999999403
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 90,
+    "pnl": -423.7450000000008,
+    "sharpe_ratio": -0.2839263211209383,
+    "inventory": 75,
+    "reward": -423.7450000000008
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 91,
+    "pnl": 324.09000000001106,
+    "sharpe_ratio": 0.10964484189020622,
+    "inventory": -64,
+    "reward": 324.09000000001106
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 91,
+    "pnl": -525.8899999999976,
+    "sharpe_ratio": -0.11321096935806546,
+    "inventory": -32,
+    "reward": -525.8899999999976
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 91,
+    "pnl": 201.80000000000655,
+    "sharpe_ratio": 0.0882212177037321,
+    "inventory": 96,
+    "reward": 201.80000000000655
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 92,
+    "pnl": 285.9699999999975,
+    "sharpe_ratio": 0.09178264995574281,
+    "inventory": -100,
+    "reward": 285.9699999999975
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 92,
+    "pnl": -557.5599999999977,
+    "sharpe_ratio": -0.09363307368619798,
+    "inventory": 4,
+    "reward": -557.5599999999977
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 92,
+    "pnl": 271.5899999999947,
+    "sharpe_ratio": 0.07866510138654509,
+    "inventory": 96,
+    "reward": 271.5899999999947
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 93,
+    "pnl": 590.1600000000053,
+    "sharpe_ratio": 0.07283207360563054,
+    "inventory": -99,
+    "reward": 590.1600000000053
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 93,
+    "pnl": -487.38000000000466,
+    "sharpe_ratio": -0.06154153991912934,
+    "inventory": 6,
+    "reward": -487.38000000000466
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 93,
+    "pnl": -102.78000000000429,
+    "sharpe_ratio": -0.06933932577738287,
+    "inventory": 93,
+    "reward": -102.78000000000429
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 94,
+    "pnl": 433.1350000000057,
+    "sharpe_ratio": 0.09922519087836973,
+    "inventory": -87,
+    "reward": 433.1350000000057
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 94,
+    "pnl": -443.8399999999983,
+    "sharpe_ratio": -0.0918885484186366,
+    "inventory": -2,
+    "reward": -443.8399999999983
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 94,
+    "pnl": 10.705000000001746,
+    "sharpe_ratio": 0.005907628534054529,
+    "inventory": 89,
+    "reward": 10.705000000001746
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 95,
+    "pnl": -23.160000000001673,
+    "sharpe_ratio": -0.03585577116107823,
+    "inventory": -30,
+    "reward": -23.160000000001673
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 95,
+    "pnl": 259.84000000000015,
+    "sharpe_ratio": 0.4511507101927689,
+    "inventory": 5,
+    "reward": 259.84000000000015
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 95,
+    "pnl": -236.6800000000003,
+    "sharpe_ratio": -0.3935007879209662,
+    "inventory": 25,
+    "reward": -236.6800000000003
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 96,
+    "pnl": -13.769999999996799,
+    "sharpe_ratio": -0.029469771947430574,
+    "inventory": -54,
+    "reward": -13.769999999996799
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 96,
+    "pnl": 224.0400000000045,
+    "sharpe_ratio": 0.2536249638530421,
+    "inventory": -4,
+    "reward": 224.0400000000045
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 96,
+    "pnl": -210.27000000000044,
+    "sharpe_ratio": -0.17488492272603054,
+    "inventory": 58,
+    "reward": -210.27000000000044
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 97,
+    "pnl": 267.0650000000023,
+    "sharpe_ratio": 0.12155309706742433,
+    "inventory": -81,
+    "reward": 267.0650000000023
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 97,
+    "pnl": -510.4199999999928,
+    "sharpe_ratio": -0.11036568850369217,
+    "inventory": -6,
+    "reward": -510.4199999999928
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 97,
+    "pnl": 243.35499999999774,
+    "sharpe_ratio": 0.0820519794156543,
+    "inventory": 87,
+    "reward": 243.35499999999774
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 98,
+    "pnl": 84.21999999999753,
+    "sharpe_ratio": 0.04929927174733119,
+    "inventory": -90,
+    "reward": 84.21999999999753
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 98,
+    "pnl": 38.9700000000048,
+    "sharpe_ratio": 0.018571906554129398,
+    "inventory": 36,
+    "reward": 38.9700000000048
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 98,
+    "pnl": -123.19000000000233,
+    "sharpe_ratio": -0.11097821712903591,
+    "inventory": 54,
+    "reward": -123.19000000000233
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 99,
+    "pnl": 379.8000000000102,
+    "sharpe_ratio": 0.10809429175514373,
+    "inventory": -90,
+    "reward": 379.8000000000102
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 99,
+    "pnl": -277.350000000004,
+    "sharpe_ratio": -0.09925521792881209,
+    "inventory": -6,
+    "reward": -277.350000000004
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 99,
+    "pnl": -102.45000000000073,
+    "sharpe_ratio": -0.05286928585264556,
+    "inventory": 96,
+    "reward": -102.45000000000073
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 100,
+    "pnl": 622.8000000000029,
+    "sharpe_ratio": 0.09560845894226278,
+    "inventory": -92,
+    "reward": 622.8000000000029
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 100,
+    "pnl": -318.55500000000393,
+    "sharpe_ratio": -0.06728369593211052,
+    "inventory": 35,
+    "reward": -318.55500000000393
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 100,
+    "pnl": -304.2450000000008,
+    "sharpe_ratio": -0.1480113811014597,
+    "inventory": 57,
+    "reward": -304.2450000000008
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 101,
+    "pnl": 275.1399999999958,
+    "sharpe_ratio": 0.0421039486459228,
+    "inventory": -96,
+    "reward": 275.1399999999958
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 101,
+    "pnl": -316.22999999999956,
+    "sharpe_ratio": -0.04675150324650569,
+    "inventory": 2,
+    "reward": -316.22999999999956
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 101,
+    "pnl": 41.090000000000146,
+    "sharpe_ratio": 0.018331149552906118,
+    "inventory": 94,
+    "reward": 41.090000000000146
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 102,
+    "pnl": 60.55999999999767,
+    "sharpe_ratio": 0.06112780487633463,
+    "inventory": -64,
+    "reward": 60.55999999999767
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 102,
+    "pnl": 169.73500000000422,
+    "sharpe_ratio": 0.33133591174522975,
+    "inventory": -11,
+    "reward": 169.73500000000422
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 102,
+    "pnl": -230.29499999999462,
+    "sharpe_ratio": -0.21211944164927918,
+    "inventory": 75,
+    "reward": -230.29499999999462
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 103,
+    "pnl": 523.3000000000011,
+    "sharpe_ratio": 0.056277478013828486,
+    "inventory": -93,
+    "reward": 523.3000000000011
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 103,
+    "pnl": -487.480000000005,
+    "sharpe_ratio": -0.0510882440259918,
+    "inventory": 5,
+    "reward": -487.480000000005
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 103,
+    "pnl": -35.82000000000335,
+    "sharpe_ratio": -0.01977754046879638,
+    "inventory": 88,
+    "reward": -35.82000000000335
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 104,
+    "pnl": 119.20000000000073,
+    "sharpe_ratio": 0.22953946048040713,
+    "inventory": -10,
+    "reward": 119.20000000000073
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 104,
+    "pnl": 116.45000000000255,
+    "sharpe_ratio": 0.15146534854713126,
+    "inventory": -24,
+    "reward": 116.45000000000255
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 104,
+    "pnl": -235.65000000000327,
+    "sharpe_ratio": -0.20696296125291458,
+    "inventory": 34,
+    "reward": -235.65000000000327
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 105,
+    "pnl": 530.4499999999989,
+    "sharpe_ratio": 0.12446803283764754,
+    "inventory": -98,
+    "reward": 530.4499999999989
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 105,
+    "pnl": -213.81000000000677,
+    "sharpe_ratio": -0.07647627521942964,
+    "inventory": 3,
+    "reward": -213.81000000000677
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 105,
+    "pnl": -316.6399999999994,
+    "sharpe_ratio": -0.1730377572461658,
+    "inventory": 95,
+    "reward": -316.6399999999994
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 106,
+    "pnl": 9.125,
+    "sharpe_ratio": 0.006172642419586868,
+    "inventory": -59,
+    "reward": 9.125
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 106,
+    "pnl": 263.2899999999936,
+    "sharpe_ratio": 0.3030028018384378,
+    "inventory": 30,
+    "reward": 263.2899999999936
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 106,
+    "pnl": -272.41499999999724,
+    "sharpe_ratio": -0.2898825540751308,
+    "inventory": 29,
+    "reward": -272.41499999999724
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 107,
+    "pnl": 288.0199999999986,
+    "sharpe_ratio": 0.06847916393587791,
+    "inventory": -98,
+    "reward": 288.0199999999986
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 107,
+    "pnl": -147.5300000000043,
+    "sharpe_ratio": -0.04824950124300053,
+    "inventory": 16,
+    "reward": -147.5300000000043
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 107,
+    "pnl": -140.48999999999978,
+    "sharpe_ratio": -0.08697217094393134,
+    "inventory": 82,
+    "reward": -140.48999999999978
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 108,
+    "pnl": -12.474999999994907,
+    "sharpe_ratio": -0.014628140440674533,
+    "inventory": -31,
+    "reward": -12.474999999994907
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 108,
+    "pnl": 249.43999999999323,
+    "sharpe_ratio": 0.38218894166807627,
+    "inventory": -12,
+    "reward": 249.43999999999323
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 108,
+    "pnl": -236.9649999999965,
+    "sharpe_ratio": -0.44945414704865977,
+    "inventory": 43,
+    "reward": -236.9649999999965
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 109,
+    "pnl": 562.6200000000026,
+    "sharpe_ratio": 0.08074765580913139,
+    "inventory": -84,
+    "reward": 562.6200000000026
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 109,
+    "pnl": -248.2699999999968,
+    "sharpe_ratio": -0.043250009383505754,
+    "inventory": 48,
+    "reward": -248.2699999999968
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 109,
+    "pnl": -314.34999999999854,
+    "sharpe_ratio": -0.18915971375425458,
+    "inventory": 36,
+    "reward": -314.34999999999854
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 110,
+    "pnl": 615.9100000000035,
+    "sharpe_ratio": 0.11521753946363365,
+    "inventory": -85,
+    "reward": 615.9100000000035
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 110,
+    "pnl": -511.21999999999935,
+    "sharpe_ratio": -0.08753300918649087,
+    "inventory": 2,
+    "reward": -511.21999999999935
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 110,
+    "pnl": -104.69000000000415,
+    "sharpe_ratio": -0.048027819426807346,
+    "inventory": 83,
+    "reward": -104.69000000000415
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 111,
+    "pnl": 18.049999999993815,
+    "sharpe_ratio": 0.026056274814252964,
+    "inventory": -36,
+    "reward": 18.049999999993815
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 111,
+    "pnl": 171.87500000000364,
+    "sharpe_ratio": 0.3474401753960733,
+    "inventory": -13,
+    "reward": 171.87500000000364
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 111,
+    "pnl": -189.9250000000029,
+    "sharpe_ratio": -0.2024008536569795,
+    "inventory": 49,
+    "reward": -189.9250000000029
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 112,
+    "pnl": 34.6200000000008,
+    "sharpe_ratio": 0.0796092071329605,
+    "inventory": -30,
+    "reward": 34.6200000000008
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 112,
+    "pnl": 157.36000000000058,
+    "sharpe_ratio": 0.22787412520520808,
+    "inventory": -7,
+    "reward": 157.36000000000058
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 112,
+    "pnl": -191.9800000000032,
+    "sharpe_ratio": -0.37684014585269693,
+    "inventory": 37,
+    "reward": -191.9800000000032
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 113,
+    "pnl": 483.4349999999977,
+    "sharpe_ratio": 0.15311522976795625,
+    "inventory": -85,
+    "reward": 483.4349999999977
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 113,
+    "pnl": -322.11999999999534,
+    "sharpe_ratio": -0.12517884805995402,
+    "inventory": -8,
+    "reward": -322.11999999999534
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 113,
+    "pnl": -161.31500000000597,
+    "sharpe_ratio": -0.1560989323568875,
+    "inventory": 93,
+    "reward": -161.31500000000597
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 114,
+    "pnl": 71.05499999999665,
+    "sharpe_ratio": 0.1376023960916117,
+    "inventory": 1,
+    "reward": 71.05499999999665
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 114,
+    "pnl": 171.37000000000262,
+    "sharpe_ratio": 0.180755871889207,
+    "inventory": 50,
+    "reward": 171.37000000000262
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 114,
+    "pnl": -242.42499999999563,
+    "sharpe_ratio": -0.27119224398193637,
+    "inventory": -51,
+    "reward": -242.42499999999563
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 115,
+    "pnl": 606.6399999999958,
+    "sharpe_ratio": 0.1472254791321332,
+    "inventory": -98,
+    "reward": 606.6399999999958
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 115,
+    "pnl": -505.4300000000003,
+    "sharpe_ratio": -0.12462091321115076,
+    "inventory": 4,
+    "reward": -505.4300000000003
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 115,
+    "pnl": -101.20999999999913,
+    "sharpe_ratio": -0.05892711114873967,
+    "inventory": 94,
+    "reward": -101.20999999999913
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 116,
+    "pnl": 46.859999999996944,
+    "sharpe_ratio": 0.08524741181043875,
+    "inventory": -25,
+    "reward": 46.859999999996944
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 116,
+    "pnl": 225.32000000001062,
+    "sharpe_ratio": 0.3398246668455814,
+    "inventory": 0,
+    "reward": 225.32000000001062
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 116,
+    "pnl": -272.1800000000003,
+    "sharpe_ratio": -0.5607657144339724,
+    "inventory": 25,
+    "reward": -272.1800000000003
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 117,
+    "pnl": 75.5,
+    "sharpe_ratio": 0.035062869216912186,
+    "inventory": -80,
+    "reward": 75.5
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 117,
+    "pnl": 88.58000000000902,
+    "sharpe_ratio": 0.030536087907201588,
+    "inventory": 54,
+    "reward": 88.58000000000902
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 117,
+    "pnl": -164.0799999999981,
+    "sharpe_ratio": -0.12385909795687233,
+    "inventory": 26,
+    "reward": -164.0799999999981
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 118,
+    "pnl": 387.8300000000054,
+    "sharpe_ratio": 0.039287658946574086,
+    "inventory": -100,
+    "reward": 387.8300000000054
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 118,
+    "pnl": -361.5199999999986,
+    "sharpe_ratio": -0.03867993056286127,
+    "inventory": 8,
+    "reward": -361.5199999999986
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 118,
+    "pnl": -26.30999999999949,
+    "sharpe_ratio": -0.008853534942338842,
+    "inventory": 92,
+    "reward": -26.30999999999949
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 119,
+    "pnl": 399.744999999999,
+    "sharpe_ratio": 0.1204441456496835,
+    "inventory": 91,
+    "reward": 399.744999999999
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 119,
+    "pnl": -64.10499999999956,
+    "sharpe_ratio": -0.02612318472404517,
+    "inventory": -21,
+    "reward": -64.10499999999956
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 119,
+    "pnl": -335.64000000000124,
+    "sharpe_ratio": -0.2002923259431617,
+    "inventory": -70,
+    "reward": -335.64000000000124
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 120,
+    "pnl": 306.5700000000088,
+    "sharpe_ratio": 0.1504465282250711,
+    "inventory": -93,
+    "reward": 306.5700000000088
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 120,
+    "pnl": 42.99999999999636,
+    "sharpe_ratio": 0.03921117017456039,
+    "inventory": 34,
+    "reward": 42.99999999999636
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 120,
+    "pnl": -349.5699999999997,
+    "sharpe_ratio": -0.283426083148191,
+    "inventory": 59,
+    "reward": -349.5699999999997
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 121,
+    "pnl": 25.68500000000131,
+    "sharpe_ratio": 0.021260307250536223,
+    "inventory": -25,
+    "reward": 25.68500000000131
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 121,
+    "pnl": 226.64500000000226,
+    "sharpe_ratio": 0.33739352913094245,
+    "inventory": -31,
+    "reward": 226.64500000000226
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 121,
+    "pnl": -252.3299999999981,
+    "sharpe_ratio": -0.23787897874115146,
+    "inventory": 56,
+    "reward": -252.3299999999981
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 122,
+    "pnl": 78.1400000000067,
+    "sharpe_ratio": 0.1343513060082069,
+    "inventory": -46,
+    "reward": 78.1400000000067
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 122,
+    "pnl": 163.12999999999738,
+    "sharpe_ratio": 0.3142191400514714,
+    "inventory": -34,
+    "reward": 163.12999999999738
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 122,
+    "pnl": -241.2700000000059,
+    "sharpe_ratio": -0.25960392116979025,
+    "inventory": 80,
+    "reward": -241.2700000000059
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 123,
+    "pnl": 671.0400000000009,
+    "sharpe_ratio": 0.1349176516040485,
+    "inventory": -82,
+    "reward": 671.0400000000009
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 123,
+    "pnl": -354.39500000000044,
+    "sharpe_ratio": -0.08379928512726721,
+    "inventory": -11,
+    "reward": -354.39500000000044
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 123,
+    "pnl": -316.6449999999986,
+    "sharpe_ratio": -0.25988252374232695,
+    "inventory": 93,
+    "reward": -316.6449999999986
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 124,
+    "pnl": 455.1849999999977,
+    "sharpe_ratio": 0.09241277744433607,
+    "inventory": -73,
+    "reward": 455.1849999999977
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 124,
+    "pnl": -444.244999999999,
+    "sharpe_ratio": -0.08841208795154465,
+    "inventory": -21,
+    "reward": -444.244999999999
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 124,
+    "pnl": -10.940000000002328,
+    "sharpe_ratio": -0.006790675963094081,
+    "inventory": 94,
+    "reward": -10.940000000002328
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 125,
+    "pnl": 177.36500000000524,
+    "sharpe_ratio": 0.05245482283975067,
+    "inventory": -95,
+    "reward": 177.36500000000524
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 125,
+    "pnl": -398.9100000000017,
+    "sharpe_ratio": -0.07063111885843879,
+    "inventory": -2,
+    "reward": -398.9100000000017
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 125,
+    "pnl": 221.5450000000037,
+    "sharpe_ratio": 0.07870535433428381,
+    "inventory": 97,
+    "reward": 221.5450000000037
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 126,
+    "pnl": 159.72999999999956,
+    "sharpe_ratio": 0.06541908925453348,
+    "inventory": -82,
+    "reward": 159.72999999999956
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 126,
+    "pnl": -374.5800000000072,
+    "sharpe_ratio": -0.06606790314487394,
+    "inventory": -16,
+    "reward": -374.5800000000072
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 126,
+    "pnl": 214.8499999999931,
+    "sharpe_ratio": 0.05861686279077715,
+    "inventory": 98,
+    "reward": 214.8499999999931
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 127,
+    "pnl": 72.75499999999738,
+    "sharpe_ratio": 0.07374000621380992,
+    "inventory": -63,
+    "reward": 72.75499999999738
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 127,
+    "pnl": 132.35499999999956,
+    "sharpe_ratio": 0.17369265428297023,
+    "inventory": -35,
+    "reward": 132.35499999999956
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 127,
+    "pnl": -205.1100000000024,
+    "sharpe_ratio": -0.2556802499204194,
+    "inventory": 98,
+    "reward": -205.1100000000024
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 128,
+    "pnl": 282.18999999999505,
+    "sharpe_ratio": 0.07396358631166544,
+    "inventory": -100,
+    "reward": 282.18999999999505
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 128,
+    "pnl": -52.609999999993306,
+    "sharpe_ratio": -0.020581493465993965,
+    "inventory": 48,
+    "reward": -52.609999999993306
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 128,
+    "pnl": -229.57999999999447,
+    "sharpe_ratio": -0.15188651935881917,
+    "inventory": 52,
+    "reward": -229.57999999999447
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 129,
+    "pnl": 507.62999999999374,
+    "sharpe_ratio": 0.11652492238297257,
+    "inventory": -92,
+    "reward": 507.62999999999374
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 129,
+    "pnl": -289.3749999999927,
+    "sharpe_ratio": -0.07907966260788202,
+    "inventory": -5,
+    "reward": -289.3749999999927
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 129,
+    "pnl": -218.25500000000102,
+    "sharpe_ratio": -0.16950798646711565,
+    "inventory": 97,
+    "reward": -218.25500000000102
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 130,
+    "pnl": 70.96500000000378,
+    "sharpe_ratio": 0.12712147583070446,
+    "inventory": -5,
+    "reward": 70.96500000000378
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 130,
+    "pnl": 86.42000000000371,
+    "sharpe_ratio": 0.1273926783186622,
+    "inventory": 14,
+    "reward": 86.42000000000371
   },
   {
     "run_id": "demo_main",
     "agent_id": "zi_0",
     "episode": 130,
-    "pnl": -128.33000000001994,
-    "sharpe_ratio": -0.27632186532501657,
-    "inventory": -10,
-    "reward": -128.33000000001994
+    "pnl": -157.38500000000568,
+    "sharpe_ratio": -0.2665666090963684,
+    "inventory": -9,
+    "reward": -157.38500000000568
   },
   {
     "run_id": "demo_main",
     "agent_id": "rl_0",
     "episode": 131,
-    "pnl": 54.10500000000138,
-    "sharpe_ratio": 0.053157949852373404,
-    "inventory": 87,
-    "reward": 54.10500000000138
+    "pnl": 92.10999999999694,
+    "sharpe_ratio": 0.13804197295632875,
+    "inventory": -46,
+    "reward": 92.10999999999694
   },
   {
     "run_id": "demo_main",
     "agent_id": "mm_0",
     "episode": 131,
-    "pnl": 103.31999999999607,
-    "sharpe_ratio": 0.1257278168061693,
-    "inventory": -148,
-    "reward": 103.31999999999607
+    "pnl": 61.04000000000087,
+    "sharpe_ratio": 0.061451131195064033,
+    "inventory": -12,
+    "reward": 61.04000000000087
   },
   {
     "run_id": "demo_main",
     "agent_id": "zi_0",
     "episode": 131,
-    "pnl": -157.42499999999382,
-    "sharpe_ratio": -0.302033631072349,
-    "inventory": 61,
-    "reward": -157.42499999999382
+    "pnl": -153.14999999998872,
+    "sharpe_ratio": -0.16651104995955787,
+    "inventory": 58,
+    "reward": -153.14999999998872
   },
   {
     "run_id": "demo_main",
     "agent_id": "rl_0",
     "episode": 132,
-    "pnl": 588.8500000000022,
-    "sharpe_ratio": 0.10130697260258738,
-    "inventory": -103,
-    "reward": 588.8500000000022
+    "pnl": 326.0799999999963,
+    "sharpe_ratio": 0.14078891452831296,
+    "inventory": -76,
+    "reward": 326.0799999999963
   },
   {
     "run_id": "demo_main",
     "agent_id": "mm_0",
     "episode": 132,
-    "pnl": -438.93000000000393,
-    "sharpe_ratio": -0.09823428319674482,
-    "inventory": 10,
-    "reward": -438.93000000000393
+    "pnl": -481.4400000000005,
+    "sharpe_ratio": -0.09274386484596846,
+    "inventory": -6,
+    "reward": -481.4400000000005
   },
   {
     "run_id": "demo_main",
     "agent_id": "zi_0",
     "episode": 132,
-    "pnl": -149.9199999999928,
-    "sharpe_ratio": -0.07763738228706221,
-    "inventory": 93,
-    "reward": -149.9199999999928
+    "pnl": 155.36000000000422,
+    "sharpe_ratio": 0.05173838031653492,
+    "inventory": 82,
+    "reward": 155.36000000000422
   },
   {
     "run_id": "demo_main",
     "agent_id": "rl_0",
     "episode": 133,
-    "pnl": 79.550000000012,
-    "sharpe_ratio": 0.05520115414919302,
-    "inventory": -124,
-    "reward": 79.550000000012
+    "pnl": 40.68000000000029,
+    "sharpe_ratio": 0.04135786484198943,
+    "inventory": -65,
+    "reward": 40.68000000000029
   },
   {
     "run_id": "demo_main",
     "agent_id": "mm_0",
     "episode": 133,
-    "pnl": 67.82999999999447,
-    "sharpe_ratio": 0.08820034091348689,
-    "inventory": 71,
-    "reward": 67.82999999999447
+    "pnl": 174.89999999998327,
+    "sharpe_ratio": 0.273849829713069,
+    "inventory": 22,
+    "reward": 174.89999999998327
   },
   {
     "run_id": "demo_main",
     "agent_id": "zi_0",
     "episode": 133,
-    "pnl": -147.37999999999738,
-    "sharpe_ratio": -0.19153408577370917,
-    "inventory": 53,
-    "reward": -147.37999999999738
+    "pnl": -215.58000000000175,
+    "sharpe_ratio": -0.2239695485674362,
+    "inventory": 43,
+    "reward": -215.58000000000175
   },
   {
     "run_id": "demo_main",
     "agent_id": "rl_0",
     "episode": 134,
-    "pnl": 985.3799999999974,
-    "sharpe_ratio": 0.09901390737993039,
+    "pnl": 5.694999999999709,
+    "sharpe_ratio": 0.009967013956643178,
+    "inventory": 43,
+    "reward": 5.694999999999709
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 134,
+    "pnl": 125.75,
+    "sharpe_ratio": 0.10957108727966663,
+    "inventory": 32,
+    "reward": 125.75
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 134,
+    "pnl": -131.44500000000335,
+    "sharpe_ratio": -0.10356360559314418,
+    "inventory": -75,
+    "reward": -131.44500000000335
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 135,
+    "pnl": 69.70999999999913,
+    "sharpe_ratio": 0.04097130822878263,
     "inventory": -94,
-    "reward": 985.3799999999974
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 134,
-    "pnl": -1068.0800000000017,
-    "sharpe_ratio": -0.09519464478361493,
-    "inventory": 17,
-    "reward": -1068.0800000000017
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 134,
-    "pnl": 82.70000000000255,
-    "sharpe_ratio": 0.04177263400018859,
-    "inventory": 77,
-    "reward": 82.70000000000255
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 135,
-    "pnl": 547.3849999999929,
-    "sharpe_ratio": 0.1088994421994847,
-    "inventory": -99,
-    "reward": 547.3849999999929
+    "reward": 69.70999999999913
   },
   {
     "run_id": "demo_main",
     "agent_id": "mm_0",
     "episode": 135,
-    "pnl": -394.38500000000386,
-    "sharpe_ratio": -0.1032445000374593,
-    "inventory": -1,
-    "reward": -394.38500000000386
+    "pnl": 167.36000000000058,
+    "sharpe_ratio": 0.15578303964801535,
+    "inventory": 12,
+    "reward": 167.36000000000058
   },
   {
     "run_id": "demo_main",
     "agent_id": "zi_0",
     "episode": 135,
-    "pnl": -153.00000000000364,
-    "sharpe_ratio": -0.07754868138125307,
-    "inventory": 100,
-    "reward": -153.00000000000364
+    "pnl": -237.07000000000698,
+    "sharpe_ratio": -0.21692179534931064,
+    "inventory": 82,
+    "reward": -237.07000000000698
   },
   {
     "run_id": "demo_main",
     "agent_id": "rl_0",
     "episode": 136,
-    "pnl": 654.1149999999998,
-    "sharpe_ratio": 0.07979073551976701,
-    "inventory": -97,
-    "reward": 654.1149999999998
+    "pnl": 272.38499999999294,
+    "sharpe_ratio": 0.12705669698647135,
+    "inventory": -53,
+    "reward": 272.38499999999294
   },
   {
     "run_id": "demo_main",
     "agent_id": "mm_0",
     "episode": 136,
-    "pnl": -350.52000000000044,
-    "sharpe_ratio": -0.06208925895884997,
-    "inventory": 42,
-    "reward": -350.52000000000044
+    "pnl": -413.375,
+    "sharpe_ratio": -0.10475267944233776,
+    "inventory": 37,
+    "reward": -413.375
   },
   {
     "run_id": "demo_main",
     "agent_id": "zi_0",
     "episode": 136,
-    "pnl": -303.59499999999935,
-    "sharpe_ratio": -0.10697435683076321,
-    "inventory": 55,
-    "reward": -303.59499999999935
+    "pnl": 140.99000000000342,
+    "sharpe_ratio": 0.07323718629769478,
+    "inventory": 16,
+    "reward": 140.99000000000342
   },
   {
     "run_id": "demo_main",
     "agent_id": "rl_0",
     "episode": 137,
-    "pnl": 281.8700000000081,
-    "sharpe_ratio": 0.0648623882810485,
-    "inventory": -94,
-    "reward": 281.8700000000081
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 137,
-    "pnl": -248.5400000000045,
-    "sharpe_ratio": -0.056402541081099856,
-    "inventory": -4,
-    "reward": -248.5400000000045
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 137,
-    "pnl": -33.32999999999993,
-    "sharpe_ratio": -0.02401181321122243,
-    "inventory": 98,
-    "reward": -33.32999999999993
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 138,
-    "pnl": 35.25500000000284,
-    "sharpe_ratio": 0.052369406942610316,
-    "inventory": -97,
-    "reward": 35.25500000000284
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 138,
-    "pnl": 155.33499999998094,
-    "sharpe_ratio": 0.46336748302225095,
-    "inventory": 23,
-    "reward": 155.33499999998094
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 138,
-    "pnl": -190.59000000000196,
-    "sharpe_ratio": -0.273209387237181,
-    "inventory": 74,
-    "reward": -190.59000000000196
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 139,
-    "pnl": 413.7999999999902,
-    "sharpe_ratio": 0.10281738289996722,
-    "inventory": -98,
-    "reward": 413.7999999999902
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 139,
-    "pnl": -224.11499999999978,
-    "sharpe_ratio": -0.06942567350823589,
-    "inventory": 19,
-    "reward": -224.11499999999978
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 139,
-    "pnl": -189.68500000000495,
-    "sharpe_ratio": -0.1453892789279012,
-    "inventory": 79,
-    "reward": -189.68500000000495
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 140,
-    "pnl": 576.6700000000001,
-    "sharpe_ratio": 0.09940886594889635,
-    "inventory": -95,
-    "reward": 576.6700000000001
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 140,
-    "pnl": -356.6299999999992,
-    "sharpe_ratio": -0.0781243925127475,
-    "inventory": 18,
-    "reward": -356.6299999999992
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 140,
-    "pnl": -220.0400000000027,
-    "sharpe_ratio": -0.11676291077377551,
-    "inventory": 77,
-    "reward": -220.0400000000027
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 141,
-    "pnl": 11.065000000002328,
-    "sharpe_ratio": 0.014401301467028851,
-    "inventory": 55,
-    "reward": 11.065000000002328
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 141,
-    "pnl": 115.48999999999432,
-    "sharpe_ratio": 0.13798631487767626,
-    "inventory": -26,
-    "reward": 115.48999999999432
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 141,
-    "pnl": -126.55499999999665,
-    "sharpe_ratio": -0.3764625317224623,
-    "inventory": -29,
-    "reward": -126.55499999999665
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 142,
-    "pnl": 74.03999999998996,
-    "sharpe_ratio": 0.08189414724592753,
-    "inventory": -136,
-    "reward": 74.03999999998996
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 142,
-    "pnl": 99.05499999999302,
-    "sharpe_ratio": 0.1949033400904738,
-    "inventory": 73,
-    "reward": 99.05499999999302
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 142,
-    "pnl": -173.09500000000116,
-    "sharpe_ratio": -0.17218618720763068,
-    "inventory": 63,
-    "reward": -173.09500000000116
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 143,
-    "pnl": 21.09000000001106,
-    "sharpe_ratio": 0.022898583314968874,
-    "inventory": -144,
-    "reward": 21.09000000001106
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 143,
-    "pnl": 161.21000000000276,
-    "sharpe_ratio": 0.37015915302699237,
-    "inventory": 51,
-    "reward": 161.21000000000276
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 143,
-    "pnl": -182.3000000000029,
-    "sharpe_ratio": -0.23027569257302466,
-    "inventory": 93,
-    "reward": -182.3000000000029
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 144,
-    "pnl": 391.9800000000032,
-    "sharpe_ratio": 0.1010278468268122,
-    "inventory": -99,
-    "reward": 391.9800000000032
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 144,
-    "pnl": -215.38999999999578,
-    "sharpe_ratio": -0.07898480672620446,
-    "inventory": 6,
-    "reward": -215.38999999999578
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 144,
-    "pnl": -176.59000000000196,
-    "sharpe_ratio": -0.1066858065845322,
-    "inventory": 93,
-    "reward": -176.59000000000196
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 145,
-    "pnl": 967.0500000000029,
-    "sharpe_ratio": 0.24224362373658886,
-    "inventory": -112,
-    "reward": 967.0500000000029
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 145,
-    "pnl": -598.8000000000029,
-    "sharpe_ratio": -0.1964161717400977,
-    "inventory": 60,
-    "reward": -598.8000000000029
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 145,
-    "pnl": -368.25000000000364,
-    "sharpe_ratio": -0.2547625306874458,
-    "inventory": 52,
-    "reward": -368.25000000000364
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 146,
-    "pnl": 18.924999999997453,
-    "sharpe_ratio": 0.025998493161453605,
-    "inventory": -97,
-    "reward": 18.924999999997453
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 146,
-    "pnl": 119.62000000000626,
-    "sharpe_ratio": 0.21650227519840326,
-    "inventory": 78,
-    "reward": 119.62000000000626
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 146,
-    "pnl": -138.545000000011,
-    "sharpe_ratio": -0.2680148568992516,
-    "inventory": 19,
-    "reward": -138.545000000011
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 147,
-    "pnl": 787.4199999999964,
-    "sharpe_ratio": 0.18294175667754237,
-    "inventory": -95,
-    "reward": 787.4199999999964
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 147,
-    "pnl": -572.5300000000007,
-    "sharpe_ratio": -0.15645500512122243,
-    "inventory": 74,
-    "reward": -572.5300000000007
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 147,
-    "pnl": -214.89000000000306,
-    "sharpe_ratio": -0.1466326594080484,
-    "inventory": 21,
-    "reward": -214.89000000000306
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 148,
-    "pnl": 609.0099999999984,
-    "sharpe_ratio": 0.12091588258124837,
-    "inventory": -120,
-    "reward": 609.0099999999984
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "mm_0",
-    "episode": 148,
-    "pnl": -321.149999999996,
-    "sharpe_ratio": -0.086697040162453,
-    "inventory": 36,
-    "reward": -321.149999999996
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "zi_0",
-    "episode": 148,
-    "pnl": -287.8600000000024,
-    "sharpe_ratio": -0.19509974557342527,
-    "inventory": 84,
-    "reward": -287.8600000000024
-  },
-  {
-    "run_id": "demo_main",
-    "agent_id": "rl_0",
-    "episode": 149,
-    "pnl": 505.9200000000019,
-    "sharpe_ratio": 0.1525044113432585,
+    "pnl": 218.74999999999818,
+    "sharpe_ratio": 0.08041505516183281,
     "inventory": -92,
-    "reward": 505.9200000000019
+    "reward": 218.74999999999818
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 137,
+    "pnl": -154.82000000000153,
+    "sharpe_ratio": -0.04786368656348969,
+    "inventory": -4,
+    "reward": -154.82000000000153
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 137,
+    "pnl": -63.93000000000211,
+    "sharpe_ratio": -0.034892127481734446,
+    "inventory": 96,
+    "reward": -63.93000000000211
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 138,
+    "pnl": 30.06500000000233,
+    "sharpe_ratio": 0.06400404359376885,
+    "inventory": -27,
+    "reward": 30.06500000000233
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 138,
+    "pnl": 126.53000000000247,
+    "sharpe_ratio": 0.2073235762621618,
+    "inventory": -46,
+    "reward": 126.53000000000247
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 138,
+    "pnl": -156.59499999999753,
+    "sharpe_ratio": -0.16453395929104334,
+    "inventory": 73,
+    "reward": -156.59499999999753
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 139,
+    "pnl": 450.2349999999933,
+    "sharpe_ratio": 0.12906418176242312,
+    "inventory": -85,
+    "reward": 450.2349999999933
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 139,
+    "pnl": -264.83000000000357,
+    "sharpe_ratio": -0.08823292879764856,
+    "inventory": -6,
+    "reward": -264.83000000000357
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 139,
+    "pnl": -185.40499999999702,
+    "sharpe_ratio": -0.15525184039631548,
+    "inventory": 91,
+    "reward": -185.40499999999702
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 140,
+    "pnl": 674.2100000000028,
+    "sharpe_ratio": 0.1387358904258999,
+    "inventory": -92,
+    "reward": 674.2100000000028
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 140,
+    "pnl": -398.9899999999998,
+    "sharpe_ratio": -0.11595605166090892,
+    "inventory": 17,
+    "reward": -398.9899999999998
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 140,
+    "pnl": -275.2199999999975,
+    "sharpe_ratio": -0.13100903990369528,
+    "inventory": 75,
+    "reward": -275.2199999999975
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 141,
+    "pnl": 30.159999999999854,
+    "sharpe_ratio": 0.05808293689049537,
+    "inventory": -28,
+    "reward": 30.159999999999854
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 141,
+    "pnl": 206.73000000000502,
+    "sharpe_ratio": 0.3662216983747226,
+    "inventory": 39,
+    "reward": 206.73000000000502
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 141,
+    "pnl": -236.88999999999578,
+    "sharpe_ratio": -0.495710117252974,
+    "inventory": -11,
+    "reward": -236.88999999999578
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 142,
+    "pnl": 35.999999999992724,
+    "sharpe_ratio": 0.05139906192461171,
+    "inventory": -9,
+    "reward": 35.999999999992724
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 142,
+    "pnl": 17.92000000000189,
+    "sharpe_ratio": 0.014550106363623368,
+    "inventory": -30,
+    "reward": 17.92000000000189
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 142,
+    "pnl": -53.92000000000189,
+    "sharpe_ratio": -0.03061451505525036,
+    "inventory": 39,
+    "reward": -53.92000000000189
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 143,
+    "pnl": 9.490000000007058,
+    "sharpe_ratio": 0.01307669625836301,
+    "inventory": -55,
+    "reward": 9.490000000007058
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 143,
+    "pnl": 220.39999999999418,
+    "sharpe_ratio": 0.3015697817738325,
+    "inventory": -29,
+    "reward": 220.39999999999418
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 143,
+    "pnl": -229.89000000000306,
+    "sharpe_ratio": -0.17794786797643988,
+    "inventory": 84,
+    "reward": -229.89000000000306
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 144,
+    "pnl": 378.66000000000713,
+    "sharpe_ratio": 0.10912013943025264,
+    "inventory": -92,
+    "reward": 378.66000000000713
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 144,
+    "pnl": -146.35000000000218,
+    "sharpe_ratio": -0.056460528202465755,
+    "inventory": 9,
+    "reward": -146.35000000000218
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 144,
+    "pnl": -232.31000000000859,
+    "sharpe_ratio": -0.1498318628052862,
+    "inventory": 83,
+    "reward": -232.31000000000859
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 145,
+    "pnl": 36.5199999999968,
+    "sharpe_ratio": 0.04207294151354204,
+    "inventory": 90,
+    "reward": 36.5199999999968
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 145,
+    "pnl": 167.92000000000553,
+    "sharpe_ratio": 0.15640308916822548,
+    "inventory": -11,
+    "reward": 167.92000000000553
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 145,
+    "pnl": -204.4399999999987,
+    "sharpe_ratio": -0.2093769909281689,
+    "inventory": -79,
+    "reward": -204.4399999999987
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 146,
+    "pnl": 403.5500000000011,
+    "sharpe_ratio": 0.08208709986475848,
+    "inventory": 92,
+    "reward": 403.5500000000011
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 146,
+    "pnl": -230.9449999999997,
+    "sharpe_ratio": -0.05137450485829967,
+    "inventory": 7,
+    "reward": -230.9449999999997
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 146,
+    "pnl": -172.60500000000684,
+    "sharpe_ratio": -0.1585161646493436,
+    "inventory": -99,
+    "reward": -172.60500000000684
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 147,
+    "pnl": 16.390000000001237,
+    "sharpe_ratio": 0.022060965088341215,
+    "inventory": 90,
+    "reward": 16.390000000001237
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 147,
+    "pnl": 209.51000000000204,
+    "sharpe_ratio": 0.25244381076622613,
+    "inventory": -3,
+    "reward": 209.51000000000204
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 147,
+    "pnl": -225.9000000000051,
+    "sharpe_ratio": -0.16966470871954442,
+    "inventory": -87,
+    "reward": -225.9000000000051
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 148,
+    "pnl": 493.75,
+    "sharpe_ratio": 0.06899445426393774,
+    "inventory": -83,
+    "reward": 493.75
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "mm_0",
+    "episode": 148,
+    "pnl": -233.1899999999987,
+    "sharpe_ratio": -0.04532444953688934,
+    "inventory": -11,
+    "reward": -233.1899999999987
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "zi_0",
+    "episode": 148,
+    "pnl": -260.5599999999995,
+    "sharpe_ratio": -0.11156058667645108,
+    "inventory": 94,
+    "reward": -260.5599999999995
+  },
+  {
+    "run_id": "demo_main",
+    "agent_id": "rl_0",
+    "episode": 149,
+    "pnl": 464.27999999999884,
+    "sharpe_ratio": 0.07241505756614598,
+    "inventory": -92,
+    "reward": 464.27999999999884
   },
   {
     "run_id": "demo_main",
     "agent_id": "mm_0",
     "episode": 149,
-    "pnl": -211.93499999999221,
-    "sharpe_ratio": -0.08493811761991682,
-    "inventory": 17,
-    "reward": -211.93499999999221
+    "pnl": -698.6200000000008,
+    "sharpe_ratio": -0.07539243821549575,
+    "inventory": -5,
+    "reward": -698.6200000000008
   },
   {
     "run_id": "demo_main",
     "agent_id": "zi_0",
     "episode": 149,
-    "pnl": -293.98499999999876,
-    "sharpe_ratio": -0.22634287665894445,
-    "inventory": 75,
-    "reward": -293.98499999999876
+    "pnl": 234.3399999999965,
+    "sharpe_ratio": 0.06296084572865064,
+    "inventory": 97,
+    "reward": 234.3399999999965
   },
   {
     "run_id": "demo_main",
     "agent_id": "rl_0",
     "episode": 150,
-    "pnl": 299.99999999999636,
-    "sharpe_ratio": 0.0553283939542331,
-    "inventory": -110,
-    "reward": 299.99999999999636
+    "pnl": 596.6800000000003,
+    "sharpe_ratio": 0.05450631513158481,
+    "inventory": -100,
+    "reward": 596.6800000000003
   },
   {
     "run_id": "demo_main",
     "agent_id": "mm_0",
     "episode": 150,
-    "pnl": -99.15999999999985,
-    "sharpe_ratio": -0.024300582373099386,
-    "inventory": 25,
-    "reward": -99.15999999999985
+    "pnl": -432.4450000000015,
+    "sharpe_ratio": -0.05124697391032249,
+    "inventory": 5,
+    "reward": -432.4450000000015
   },
   {
     "run_id": "demo_main",
     "agent_id": "zi_0",
     "episode": 150,
-    "pnl": -200.8399999999947,
-    "sharpe_ratio": -0.12148940482955674,
-    "inventory": 85,
-    "reward": -200.8399999999947
+    "pnl": -164.2350000000024,
+    "sharpe_ratio": -0.04611015580237481,
+    "inventory": 95,
+    "reward": -164.2350000000024
   }
 ]
