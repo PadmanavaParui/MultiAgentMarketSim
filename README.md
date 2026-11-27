@@ -3,7 +3,7 @@
 Multi-Agent Market Simulation platform in which independent, self-interested reinforcement-learning (RL) agents trade against one another inside a simulated central limit order book (CLOB) exchange.
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Streamlit%20Cloud-FF4B4B?style=for-the-badge&logo=streamlit)](https://multiagentmarketsim.streamlit.app)
-[![Tests Passing](https://img.shields.io/badge/Tests-78%20Passing-2ea44f?style=for-the-badge&logo=pytest)](file:///home/tw1light/Desktop/Projects/ojt_proj/MultiAgentMarketSim/tests)
+[![Tests Passing](https://img.shields.io/badge/Tests-88%20Passing-2ea44f?style=for-the-badge&logo=pytest)](https://github.com/PadmanavaParui/MultiAgentMarketSim/tree/main/tests)
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python)](https://python.org)
 [![PettingZoo Conformance](https://img.shields.io/badge/PettingZoo-ParallelEnv-blue?style=for-the-badge)](https://pettingzoo.farama.org)
 [![Benchmarks](https://img.shields.io/badge/Engine-500k%20orders%2Fsec-purple?style=for-the-badge)](docs/BENCHMARKS.md)
@@ -44,15 +44,25 @@ git clone https://github.com/PadmanavaParui/MultiAgentMarketSim.git && cd MultiA
 While `MultiAgentMarketSim` provides high throughput, strict price-time priority matching, and bit-for-bit determinism, users and researchers should be aware of the following engineering and modeling boundaries:
 
 1. **Tabular Q-Learning (No Deep Function Approximation):**
-   - The `RLDirectionalAgent` implements Bellman Q-learning over a **coarsely discretized tabular state space** (trend, spread, inventory, and cash buckets) rather than continuous deep reinforcement learning (e.g., DQN, PPO, or Ray RLlib).
-   - *Rationale:* Tabular representation guarantees 100% mathematical transparency, microsecond execution speeds, reproducible transitions, and zero GPU overhead, but limits state granularity in continuous action/observation regimes.
-2. **Single-Asset Order Book:**
+   - The `RLDirectionalAgent` implements classic Bellman Q-learning over a **coarsely discretized tabular state space** (trend, spread, inventory, and cash buckets) rather than continuous deep reinforcement learning (such as DQN, PPO, or Ray RLlib).
+   - *Rationale:* Tabular representation guarantees 100% mathematical transparency, microsecond execution speeds, reproducible transitions, and zero GPU overhead, but does not generalize across unvisited continuous state regimes.
+2. **Soft Position Limit (Checked at Order Submission Time):**
+   - Position limits (`max_position=100` by default, configured via `--max-position`) operate as a **soft pre-trade gate enforced at order submission** in `MarketEnvironment.step()`.
+   - *Mechanism:* Orders that would push an agent's net position beyond `max_position` (evaluating current inventory plus pending order side and quantity) are rejected and logged in `info['rejected_orders']`. Because fills against resting orders occur asynchronously inside the matching engine, an agent quoting both sides can briefly hold an inventory up to the limit if both legs execute before cancellation.
+3. **Econometric Stylized Facts (Passes 2 of 5 Documented Facts):**
+   - Empirical validation honestly reports passes against documented quantitative financial thresholds without artificial simulator tuning or curve-fitting:
+     - **Passes (2/5):** Excess kurtosis / fat tails ($\kappa > 3$) and absence of linear autocorrelation in raw returns ($|ACF_k| < 0.15$ for lags 1–5).
+     - **Fails (3/5):** Hill tail index estimate ($\alpha \approx 2\text{--}4$ in real markets), long-range volatility clustering (slowly decaying positive squared-return autocorrelation), and strong positive spread-volatility correlation.
+     - *Design Principle:* The simulator intentionally avoids hardcoding artificial price shocks or synthetic volatility feedback to force stylized fact passes, preserving honest, authentic emergent dynamics from zero-intelligence and tabular RL agent interactions.
+4. **Price Band Safeguards (Episode Reference Bands):**
+   - The simulation enforces a protective price corridor (`price_band=0.10` by default, configured via `--price-band`) evaluated as $\pm 10\%$ of the episode's initial reference price. Aggressive market orders cannot sweep past the band boundary, and limit orders outside the corridor are rejected at entry.
+5. **Single-Asset Order Book:**
    - The exchange simulates a single central limit order book per environment instance. Cross-asset pairs, triangular arbitrage, and ETF basket creations are not currently simulated.
-3. **Discrete Synchronous Steps:**
+6. **Discrete Synchronous Steps:**
    - Time moves forward in discrete environment cycles ($t = 1, 2, \dots$) where all agents submit actions synchronously rather than continuous event-driven nanosecond tick time.
-4. **Endogenous Liquidity-Based Market Impact:**
+7. **Endogenous Liquidity-Based Market Impact:**
    - Price impact emerges purely through the depletion of resting orders in the CLOB queues; exogenous statistical impact functions (such as Almgren-Chriss or square-root laws) are not artificially superimposed.
-5. **Zero-Jitter Idealized Network:**
+8. **Zero-Jitter Idealized Network:**
    - Orders reach the matching engine immediately in deterministic priority order without simulated TCP packet drops or exchange gateway queuing delay.
 
 ---
@@ -140,13 +150,13 @@ Full benchmark numbers and hardware specifications are documented in **[docs/BEN
 
 ---
 
-## Test Cases & Verification (78 Tests Passing)
+## Test Cases & Verification (88 Tests Passing)
 
-All 78 tests pass cleanly across 11 test suites:
+All 88 tests pass cleanly across 11 test suites:
 
 ```bash
 pytest -v
-# ======================== 78 passed, 1 warning in 3.31s =========================
+# ======================== 88 passed, 1 warning in 5.41s =========================
 ```
 
 ### Test Suite Breakdown

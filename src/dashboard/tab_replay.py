@@ -74,24 +74,15 @@ def detect_flash_crash_step(
     trades: Optional[List[Dict[str, Any]]] = None,
 ) -> Optional[int]:
     """
-    Detects if the current run is a stress run with a flash crash shock,
+    Detects if the replayed run actually contains a flash crash shock,
     and returns the step at which the shock was initiated.
-    """
-    if run_dir:
-        # 1. Check stress_report.json
-        stress_report_path = os.path.join(run_dir, "stress_report.json")
-        if os.path.exists(stress_report_path):
-            try:
-                with open(stress_report_path, "r") as f:
-                    report = json.load(f)
-                scenarios = report.get("scenarios", {})
-                if "flash_crash" in scenarios:
-                    # Default shock step in flash crash scenario config is 15
-                    return int(report.get("config", {}).get("shock_step", 15))
-            except Exception:
-                pass
 
-        # 2. Check run_summary.json
+    Only detects when:
+    1. The run's own config (run_summary.json) explicitly contains 'shock_step', OR
+    2. The replayed episodes actually contain a shock agent in snapshots or trades.
+    """
+    # 1. Check run_summary.json for explicit shock_step in config
+    if run_dir:
         summary_path = os.path.join(run_dir, "run_summary.json")
         if os.path.exists(summary_path):
             try:
@@ -100,41 +91,37 @@ def detect_flash_crash_step(
                 cfg = summary.get("config_snapshot", {})
                 if "shock_step" in cfg:
                     return int(cfg["shock_step"])
-                run_id = str(summary.get("run_id", "")).lower()
-                if "flash_crash" in run_id or "shock" in run_id or "stress" in run_id:
-                    return 15
             except Exception:
                 pass
 
-    # 3. Check for ShockAgent in agent states or trades
+    # 2. Check for ShockAgent in agent snapshots or trade tape
+    has_shock_agent = False
     if snapshots and len(snapshots) > 0:
-        first_snap = snapshots[0]
-        agent_keys = list(first_snap.get("inventories", {}).keys()) or list(first_snap.get("agents", {}).keys())
-        if any("shock" in a.lower() for a in agent_keys):
-            # Check trades to see when shock agent first traded
-            if trades:
-                for t in trades:
-                    buy_id = str(t.get("buy_order_id", ""))
-                    sell_id = str(t.get("sell_order_id", ""))
-                    if "shock" in buy_id.lower() or "shock" in sell_id.lower():
-                        return int(t.get("timestamp_step", t.get("step", 15)))
-            return 15
+        for s in snapshots:
+            agent_keys = list(s.get("inventories", {}).keys()) or list(s.get("agents", {}).keys())
+            if any("shock" in a.lower() for a in agent_keys):
+                has_shock_agent = True
+                break
 
-    return None
+    if not has_shock_agent and trades:
+        for t in trades:
+            buy_id = str(t.get("buy_order_id", "")).lower()
+            sell_id = str(t.get("sell_order_id", "")).lower()
+            agent_id = str(t.get("agent_id", "")).lower()
+            if "shock" in buy_id or "shock" in sell_id or "shock" in agent_id:
+                has_shock_agent = True
+                break
 
-    # 3. Check for ShockAgent in agent states or trades
-    if snapshots and len(snapshots) > 0:
-        first_snap = snapshots[0]
-        agent_keys = list(first_snap.get("inventories", {}).keys()) or list(first_snap.get("agents", {}).keys())
-        if any("shock" in a.lower() for a in agent_keys):
-            # Check trades to see when shock agent first traded
-            if trades:
-                for t in trades:
-                    buy_id = str(t.get("buy_order_id", ""))
-                    sell_id = str(t.get("sell_order_id", ""))
-                    if "shock" in buy_id.lower() or "shock" in sell_id.lower():
-                        return int(t.get("timestamp_step", t.get("step", 15)))
-            return 15
+    if has_shock_agent:
+        # Determine onset step from trades if possible
+        if trades:
+            for t in trades:
+                buy_id = str(t.get("buy_order_id", "")).lower()
+                sell_id = str(t.get("sell_order_id", "")).lower()
+                agent_id = str(t.get("agent_id", "")).lower()
+                if "shock" in buy_id or "shock" in sell_id or "shock" in agent_id:
+                    return int(t.get("timestamp_step", t.get("step", 15)))
+        return 15
 
     return None
 

@@ -85,7 +85,13 @@ def format_table(scenario_name: str, results: dict) -> str:
         lines.append(f"Advantage AS PnL Delta: {comp.get('pnl_vs_baseline_advantage_as', 0):+.2f}")
         lines.append(f"AS Inventory Reduction: {comp.get('inventory_reduction_as', 0):+d}")
         lines.append(f"AS Adverse Selection Loss Saved: {comp.get('adverse_selection_reduction_as', 0):+.2f}")
-        lines.append(f"More Resilient Agent: {comp.get('more_resilient_agent', 'N/A')}")
+        verdict = comp.get("verdict")
+        if verdict:
+            z_val = comp.get("significance_ratio", 0.0)
+            z_str = f"{z_val:.2f}" if z_val < 999.0 else "N/A"
+            lines.append(f"Resilience Significance Verdict: {comp.get('better_agent', 'N/A')} ({verdict}, diff/SE={z_str})")
+        else:
+            lines.append(f"More Resilient Agent: {comp.get('more_resilient_agent', 'N/A')}")
 
     return "\n".join(lines)
 

@@ -21,6 +21,7 @@ import streamlit as st
 
 from src.dashboard.empty_state import render_empty_state, generate_stress_artifact
 from src.dashboard.charts import downsample_series
+from src.scenarios.stress import compute_resilience_verdict
 
 
 @st.cache_data(max_entries=10)
@@ -344,15 +345,45 @@ def render(run_dir: Optional[str] = None):
         st.metric("Adverse Selection Loss", f"${mm_res.get('adverse_selection_loss', 0.0):.2f}")
 
     if comparison:
-        resilient_agent = comparison.get("more_resilient_agent", "N/A")
+        mm_std = sc_data.get("MarketMakerAgent", {})
+        mm_as = sc_data.get("AvellanedaStoikovMM", {})
+
+        verdict = comparison.get("verdict")
+        better_agent = comparison.get("better_agent")
+        z_score = comparison.get("significance_ratio")
+        combined_se = comparison.get("combined_se")
+
+        if not verdict:
+            verdict_info = compute_resilience_verdict(mm_std, mm_as)
+            verdict = verdict_info["verdict"]
+            better_agent = verdict_info["better_agent"]
+            z_score = verdict_info["significance_ratio"]
+            combined_se = verdict_info["combined_se"]
+
         adv_pnl = comparison.get("pnl_vs_baseline_advantage_as", 0.0)
         inv_red = comparison.get("inventory_reduction_as", 0)
         adv_loss_saved = comparison.get("adverse_selection_reduction_as", 0.0)
 
-        st.info(
-            f"🏆 **Resilience Comparative Insight:** **{resilient_agent}** exhibited superior resilience in this scenario.\n\n"
-            f"- **Avellaneda-Stoikov PnL Delta Advantage:** ${adv_pnl:+.2f}\n"
-            f"- **Inventory Accumulation Reduction:** {inv_red:+d} shares\n"
+        std_peak_inv = mm_std.get("mm_max_abs_inventory", 0)
+        as_peak_inv = mm_as.get("mm_max_abs_inventory", 0)
+
+        z_display = f"{z_score:.2f}" if (isinstance(z_score, (int, float)) and z_score < 999.0) else "N/A"
+        se_display = f"±${combined_se:.2f}" if isinstance(combined_se, (int, float)) else "N/A"
+
+        if verdict == "clearly better":
+            banner_title = f"🏆 **Resilience Comparison:** **{better_agent}** is **clearly better** (|diff| / combined SE = {z_display} ≥ 2.0)"
+            alert_fn = st.success
+        elif verdict == "weak evidence":
+            banner_title = f"⚖️ **Resilience Comparison:** **Weak evidence** favoring **{better_agent}** (1.0 ≤ |diff| / combined SE = {z_display} < 2.0)"
+            alert_fn = st.info
+        else:
+            banner_title = f"⚖️ **Resilience Comparison:** **No clear difference** between market makers (|diff| / combined SE = {z_display} < 1.0)"
+            alert_fn = st.info
+
+        alert_fn(
+            f"{banner_title}\n\n"
+            f"- **Peak Absolute Inventory:** Avellaneda-Stoikov **{as_peak_inv}** shares vs Standard MM **{std_peak_inv}** shares ({inv_red:+d} reduction)\n"
+            f"- **Avellaneda-Stoikov PnL Delta Advantage:** ${adv_pnl:+.2f} (Combined SE: {se_display})\n"
             f"- **Adverse Selection Loss Mitigated:** ${adv_loss_saved:+.2f}"
         )
 

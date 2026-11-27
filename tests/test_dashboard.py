@@ -3,6 +3,8 @@ Tests for Phase 4: Dashboard & Charts (Streamlit + Plotly).
 Covers TEST-010: Dashboard chart builders render completed run data correctly.
 """
 
+import os
+import json
 import unittest
 import plotly.graph_objects as go
 
@@ -265,6 +267,10 @@ class TestDashboard(unittest.TestCase):
                             "pnl_vs_baseline_advantage_as": 35.0,
                             "inventory_reduction_as": 25,
                             "adverse_selection_reduction_as": 40.0,
+                            "verdict": "clearly better",
+                            "better_agent": "AvellanedaStoikovMM",
+                            "significance_ratio": 2.5,
+                            "combined_se": 14.0,
                             "more_resilient_agent": "AvellanedaStoikovMM",
                         },
                     }
@@ -436,6 +442,50 @@ class TestDashboard(unittest.TestCase):
             trades=[{"buy_order_id": "ord_shock_1", "step": 12}],
         )
         self.assertEqual(step_found, 12)
+
+    def test_normal_run_has_no_flash_crash_marker(self):
+        """Verifies that a normal run without shock agents or shock_step config shows NO flash crash marker."""
+        from src.dashboard.tab_replay import detect_flash_crash_step, plot_bookmap_depth_heatmap
+
+        # 1. demo_main has stress_report.json present, but is a normal trading run (no shock config)
+        demo_main_dir = os.path.join(os.path.dirname(__file__), "..", "data", "runs", "demo_main")
+        if os.path.exists(demo_main_dir):
+            step_demo = detect_flash_crash_step(run_dir=demo_main_dir)
+            self.assertIsNone(step_demo, "Normal run demo_main should not detect a flash crash step")
+
+        # 2. Test explicit normal snapshots and trades with run_dir=None
+        normal_snapshots = [
+            {"step": 1, "inventories": {"rl_0": 10, "mm_0": -10}, "bids": [[99.0, 10]], "asks": [[101.0, 10]]},
+            {"step": 2, "inventories": {"rl_0": 12, "mm_0": -12}, "bids": [[99.5, 10]], "asks": [[100.5, 10]]},
+        ]
+        normal_trades = [
+            {"buy_order_id": "ord_rl_1", "sell_order_id": "ord_mm_1", "step": 1, "price": 100.0, "quantity": 5}
+        ]
+        step_normal = detect_flash_crash_step(run_dir=None, snapshots=normal_snapshots, trades=normal_trades)
+        self.assertIsNone(step_normal)
+
+        # 3. Verify Bookmap figure with flash_crash_step=None has no flash crash annotations or vlines
+        fig = plot_bookmap_depth_heatmap(
+            snapshots=normal_snapshots,
+            trades=normal_trades,
+            flash_crash_step=None,
+        )
+        # Check annotations
+        annotations = fig.layout.annotations or []
+        for ann in annotations:
+            text = str(ann.text).lower() if hasattr(ann, "text") else ""
+            self.assertNotIn("flash crash", text)
+
+        # 4. Compare with when flash crash step IS present
+        fig_with_shock = plot_bookmap_depth_heatmap(
+            snapshots=normal_snapshots,
+            trades=normal_trades,
+            flash_crash_step=1,
+        )
+        shock_annotations = [
+            ann.text for ann in (fig_with_shock.layout.annotations or []) if hasattr(ann, "text") and "flash crash" in str(ann.text).lower()
+        ]
+        self.assertGreaterEqual(len(shock_annotations), 1)
 
     def test_streamlit_apptest_demo_main_no_not_found_warnings(self):
         """Verifies via Streamlit AppTest that default demo_main has no 'not found' warnings across tabs."""
