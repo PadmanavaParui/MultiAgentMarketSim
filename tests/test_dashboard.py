@@ -231,10 +231,13 @@ class TestDashboard(unittest.TestCase):
                             "baseline_spread": 0.5,
                             "spread_diff": 3.5,
                             "spread_ratio": 8.0,
+                            "pct_steps_one_sided": 15.0,
                             "mm_max_abs_inventory": 40,
                             "mm_pnl_stressed": -50.0,
+                            "mm_pnl_stressed_se": 3.5,
                             "mm_pnl_baseline": 20.0,
                             "mm_pnl_vs_baseline": -70.0,
+                            "mm_pnl_vs_baseline_se": 4.2,
                             "adverse_selection_loss": 60.0,
                             "recovered": True,
                             "recovery_time": 8,
@@ -247,10 +250,13 @@ class TestDashboard(unittest.TestCase):
                             "baseline_spread": 0.5,
                             "spread_diff": 2.0,
                             "spread_ratio": 5.0,
+                            "pct_steps_one_sided": 5.0,
                             "mm_max_abs_inventory": 15,
                             "mm_pnl_stressed": -10.0,
+                            "mm_pnl_stressed_se": 1.8,
                             "mm_pnl_baseline": 25.0,
                             "mm_pnl_vs_baseline": -35.0,
+                            "mm_pnl_vs_baseline_se": 2.1,
                             "adverse_selection_loss": 20.0,
                             "recovered": True,
                             "recovery_time": 4,
@@ -430,6 +436,26 @@ class TestDashboard(unittest.TestCase):
             trades=[{"buy_order_id": "ord_shock_1", "step": 12}],
         )
         self.assertEqual(step_found, 12)
+
+    def test_streamlit_apptest_demo_main_no_not_found_warnings(self):
+        """Verifies via Streamlit AppTest that default demo_main has no 'not found' warnings across tabs."""
+        import os
+        from streamlit.testing.v1 import AppTest
+
+        app_file = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src", "dashboard", "app.py"))
+        at = AppTest.from_file(app_file)
+        at.run(timeout=15)
+        self.assertEqual(len(at.exception), 0, f"AppTest raised an exception: {at.exception}")
+
+        # Ensure no tab displays a missing data warning
+        not_found_warnings = [
+            w.value for w in at.warning if "not found" in w.value.lower()
+        ]
+        self.assertEqual(
+            not_found_warnings,
+            [],
+            f"Unexpected 'not found' warning(s) in dashboard: {not_found_warnings}",
+        )
 
 
 if __name__ == "__main__":

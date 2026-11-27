@@ -94,6 +94,7 @@ def plot_stress_spread_comparison(
             x=steps_base,
             y=baseline_spreads,
             mode="lines",
+            connectgaps=False,
             name="Baseline Spread",
             line=dict(color="#2ca02c", width=2, dash="dash"),
             hovertemplate="Step %{x}<br>Baseline Spread: $%{y:.2f}<extra></extra>",
@@ -104,6 +105,7 @@ def plot_stress_spread_comparison(
             x=steps_stress,
             y=stressed_spreads,
             mode="lines+markers",
+            connectgaps=False,
             name="Stressed Spread",
             line=dict(color="#ff7f0e", width=2.5),
             marker=dict(size=4),
@@ -304,14 +306,17 @@ def render(run_dir: Optional[str] = None):
     comparison = sc_data.get("comparison", {})
 
     # Top KPI Metrics Cards
-    col_m1, col_m2, col_m3, col_m4 = st.columns(4)
+    col_m1, col_m2, col_m3, col_m4, col_m5 = st.columns(5)
     with col_m1:
         st.metric("Max Mid Drawdown", f"${mm_res.get('max_drawdown_mid', 0.0):.2f}")
     with col_m2:
         st.metric("Peak Spread", f"${mm_res.get('peak_spread', 0.0):.2f}", delta=f"{mm_res.get('spread_diff', 0.0):+.2f} vs Base", delta_color="inverse")
     with col_m3:
-        st.metric("MM Max |Inventory|", f"{mm_res.get('mm_max_abs_inventory', 0)} shares")
+        st.metric("One-Sided Book Steps", f"{mm_res.get('pct_steps_one_sided', 0.0):.1f}%")
     with col_m4:
+        se_pnl = mm_res.get('mm_pnl_vs_baseline_se', 0.0)
+        st.metric("MM PnL vs Base", f"${mm_res.get('mm_pnl_vs_baseline', 0.0):.2f}", delta=f"±${se_pnl:.2f} SE")
+    with col_m5:
         st.metric("Adverse Selection Loss", f"${mm_res.get('adverse_selection_loss', 0.0):.2f}")
 
     if comparison:
@@ -398,10 +403,13 @@ def render(run_dir: Optional[str] = None):
         ("Baseline Spread ($)", "baseline_spread", "{:.2f}"),
         ("Spread Diff vs Base ($)", "spread_diff", "{:.2f}"),
         ("Spread Ratio (Stressed / Base)", "spread_ratio", "{:.2f}x"),
+        ("One-Sided Book Steps (%)", "pct_steps_one_sided", "{:.2f}%"),
         ("MM Max |Inventory| (Shares)", "mm_max_abs_inventory", "{:d}"),
         ("MM Stressed PnL ($)", "mm_pnl_stressed", "{:.2f}"),
+        ("MM Stressed PnL SE ($)", "mm_pnl_stressed_se", "±{:.2f}"),
         ("MM Baseline PnL ($)", "mm_pnl_baseline", "{:.2f}"),
         ("MM PnL vs Baseline ($)", "mm_pnl_vs_baseline", "{:.2f}"),
+        ("MM PnL vs Baseline SE ($)", "mm_pnl_vs_baseline_se", "±{:.2f}"),
         ("Adverse-Selection Loss ($)", "adverse_selection_loss", "{:.2f}"),
         ("Recovered?", "recovered", lambda v: "✅ Yes" if v else "❌ No"),
         ("Recovery Time (Steps)", "recovery_time", lambda v: f"{v} steps" if v is not None else "Did not recover"),

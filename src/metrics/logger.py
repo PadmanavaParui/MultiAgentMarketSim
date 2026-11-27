@@ -388,23 +388,23 @@ class MetricsLogger:
 
         self._flush_metadata()
 
-        # Save orders
+        # Save orders (compact)
         if self.orders:
             orders_file = os.path.join(run_path, "orders.json")
             with open(orders_file, "w") as f:
-                json.dump(self.orders, f, indent=2)
+                json.dump(self.orders, f, separators=(',', ':'))
 
-        # Save trades
+        # Save trades (compact)
         if self.trades:
             trades_file = os.path.join(run_path, "trades.json")
             with open(trades_file, "w") as f:
-                json.dump(self.trades, f, indent=2)
+                json.dump(self.trades, f, separators=(',', ':'))
 
-        # Save price series
+        # Save price series (compact)
         if self.price_series:
             price_file = os.path.join(run_path, "price_series.json")
             with open(price_file, "w") as f:
-                json.dump(self.price_series, f, indent=2)
+                json.dump(self.price_series, f, separators=(',', ':'))
 
         # Save agent metrics
         if self.agent_metrics:
@@ -418,17 +418,17 @@ class MetricsLogger:
             with open(eq_file, "w") as f:
                 json.dump(self.equilibrium_analysis, f, indent=2)
 
-        # Save book snapshots (downsampled)
+        # Save book snapshots (compact downsampled)
         if self.book_snapshots:
             book_file = os.path.join(run_path, "book_snapshots.json")
             with open(book_file, "w") as f:
-                json.dump(self.book_snapshots, f, indent=2)
+                json.dump(self.book_snapshots, f, separators=(',', ':'))
 
-        # Save timeseries
+        # Save timeseries (compact)
         if self.timeseries:
             timeseries_file = os.path.join(run_path, "timeseries.json")
             with open(timeseries_file, "w") as f:
-                json.dump(self.timeseries, f, indent=2)
+                json.dump(self.timeseries, f, separators=(',', ':'))
 
     def _flush_metadata(self):
         if not self.current_run:
