@@ -52,6 +52,52 @@ def render_dataframe(df):
         st.dataframe(df, use_container_width=True)
 
 
+@st.cache_data(max_entries=20)
+def load_run_summary(run_dir: str) -> Dict[str, Any]:
+    path = os.path.join(run_dir, "run_summary.json")
+    if os.path.exists(path):
+        with open(path, "r") as f:
+            return json.load(f)
+    return {"run_id": os.path.basename(run_dir), "status": "COMPLETE", "seed": "N/A"}
+
+
+@st.cache_data(max_entries=20)
+def load_price_series(run_dir: str) -> List[Dict[str, Any]]:
+    path = os.path.join(run_dir, "price_series.json")
+    if os.path.exists(path):
+        with open(path, "r") as f:
+            return json.load(f)
+    return []
+
+
+@st.cache_data(max_entries=20)
+def load_trades_fallback(run_dir: str) -> List[Dict[str, Any]]:
+    """Avoid loading trades.json unless the Market tab needs it as a fallback."""
+    path = os.path.join(run_dir, "trades.json")
+    if os.path.exists(path):
+        with open(path, "r") as f:
+            trades = json.load(f)
+        return [
+            {
+                "step": t.get("timestamp_step", t.get("step", i + 1)),
+                "price": t.get("price", 0.0),
+                "quantity": t.get("quantity", 0),
+                "episode": t.get("episode", 1),
+            }
+            for i, t in enumerate(trades)
+        ]
+    return []
+
+
+@st.cache_data(max_entries=20)
+def load_agent_metrics(run_dir: str) -> List[Dict[str, Any]]:
+    path = os.path.join(run_dir, "agent_metrics.json")
+    if os.path.exists(path):
+        with open(path, "r") as f:
+            return json.load(f)
+    return []
+
+
 def main():
     st.set_page_config(
         page_title="Multi-Agent Market Simulation Platform",
@@ -132,16 +178,14 @@ def main():
 
     # Load data for selected run
     try:
-        run_summary = logger.get_run_summary(selected_run_id)
-    except FileNotFoundError:
-        run_summary = {"run_id": selected_run_id, "status": "COMPLETE", "seed": "N/A"}
+        run_summary = load_run_summary(run_dir) if run_dir else {"run_id": selected_run_id, "status": "COMPLETE", "seed": "N/A"}
     except Exception as e:
         st.error(f"Error loading run summary for `{selected_run_id}`: {e}")
         return
 
     try:
-        price_series = logger.get_price_series(selected_run_id)
-        agent_metrics = logger.get_agent_metrics(selected_run_id)
+        price_series = load_price_series(run_dir) if run_dir else []
+        agent_metrics = load_agent_metrics(run_dir) if run_dir else []
     except Exception:
         price_series = []
         agent_metrics = []
@@ -186,6 +230,10 @@ def main():
     # TAB 1: Market & Price Action
     with tabs[0]:
         st.subheader("Price & Volume Microstructure")
+        # Avoid loading trades.json unless the Market tab needs it as a fallback
+        if not price_series and run_dir:
+            price_series = load_trades_fallback(run_dir)
+
         if price_series:
             # Check if multiple episodes are recorded in trade entries
             episodes_in_trades = sorted(list(set(p.get("episode", 1) for p in price_series if "episode" in p)))
@@ -206,7 +254,7 @@ def main():
             fig_pv = plot_price_and_volume(display_series)
             render_chart(fig_pv)
         else:
-            st.warning("No trade price series available for this run.")
+            st.info("ℹ️ No trade price series available for this run.")
 
         st.subheader("Simulated Order Book Ladder")
         last_price = price_series[-1]["price"] if price_series else 100.0
@@ -262,7 +310,7 @@ def main():
                     })
                 render_dataframe(summary_rows)
         else:
-            st.warning("No agent metric data available.")
+            st.info("ℹ️ No agent metric data available for this run.")
 
     # TAB 3: Order Book Replay
     with tabs[2]:

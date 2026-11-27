@@ -19,6 +19,16 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from src.dashboard.charts import plot_best_response_trace
+from src.dashboard.empty_state import render_empty_state, generate_tournament_artifact
+
+
+@st.cache_data(max_entries=10)
+def load_equilibrium_analysis(eq_path: str) -> Optional[Dict[str, Any]]:
+    """Loads equilibrium_analysis.json with caching."""
+    if os.path.exists(eq_path):
+        with open(eq_path, "r") as f:
+            return json.load(f)
+    return None
 
 
 def _render_chart(fig: go.Figure):
@@ -131,20 +141,13 @@ def render(run_dir: Optional[str] = None):
     )
 
     if not run_dir:
-        st.warning("No run directory specified. Please select a simulation run to inspect game-theoretic analysis.")
+        st.info("ℹ️ No run directory specified. Please select a simulation run to inspect game-theoretic analysis.")
         return
 
     eq_path = os.path.join(run_dir, "equilibrium_analysis.json")
-    eq_analysis = None
+    eq_analysis = load_equilibrium_analysis(eq_path)
 
-    if os.path.exists(eq_path):
-        try:
-            with open(eq_path, "r") as f:
-                eq_analysis = json.load(f)
-        except Exception as e:
-            st.error(f"Failed to load `{eq_path}`: {e}")
-            return
-    else:
+    if not eq_analysis:
         # Check if agent_metrics.json exists to compute on-the-fly
         metrics_path = os.path.join(run_dir, "agent_metrics.json")
         if os.path.exists(metrics_path):
@@ -180,14 +183,15 @@ def render(run_dir: Optional[str] = None):
                 eq_analysis = None
 
     if not eq_analysis:
-        st.warning(
-            "No game-theoretic equilibrium analysis found (`equilibrium_analysis.json`). "
-            "Run the tournament script to populate (e.g., `python scripts/run_tournament.py --run-id <run_id>`)."
+        render_empty_state(
+            tab_name="Post-Hoc Game-Theoretic Equilibrium Analysis",
+            description="Analyzes strategic interactions between market agent archetypes via normal-form payoff matrices, Nash equilibrium candidates, and best-response dynamics.",
+            artifact_name="equilibrium_analysis.json",
+            run_dir=run_dir,
+            generator_fn=generate_tournament_artifact,
+            button_label="⚡ Generate equilibrium_analysis.json now",
+            spinner_text="Running pairwise tournament (5 episodes per cell)...",
         )
-        return
-
-    if not eq_analysis:
-        st.info("Equilibrium analysis record is empty.")
         return
 
     strategies = eq_analysis.get("strategies", [])
