@@ -9,11 +9,12 @@
     "run_id": "demo_main",
     "snapshot_interval": 10,
     "max_position": 100,
-    "price_band": 0.1
+    "price_band": 0.1,
+    "order_ttl": 20
   },
-  "started_at": "2026-11-27T05:06:37.015974+00:00",
+  "started_at": "2026-11-27T07:58:50.771466+00:00",
   "status": "COMPLETE",
-  "completed_at": "2026-11-27T05:06:53.126372+00:00",
+  "completed_at": "2026-11-27T07:59:00.703331+00:00",
   "error_message": null,
   "stress_test": {
     "scenarios": [
@@ -28,6 +29,6 @@
     "episodes": 30,
     "cycles": 200,
     "seed": 42,
-    "completed_at": "2026-11-27T05:07:17.835443+00:00"
+    "completed_at": "2026-11-27T07:59:26.377571+00:00"
   }
 }
