@@ -17,23 +17,42 @@ class MatchingEngine:
     Processes incoming orders against the OrderBook, matching them based on
     price-time priority.
     """
-    def __init__(self, order_book: OrderBook):
+    def __init__(
+        self,
+        order_book: OrderBook,
+        min_price: Optional[float] = None,
+        max_price: Optional[float] = None,
+    ):
         self.order_book = order_book
         self.trades_history: List[Trade] = []
         self._trade_counter = 0
+        self.min_price = min_price
+        self.max_price = max_price
 
-    def process(self, order: Order) -> List[Trade]:
+    def set_price_bounds(self, min_price: Optional[float] = None, max_price: Optional[float] = None) -> None:
+        """Sets lower and upper price bounds for order execution."""
+        self.min_price = min_price
+        self.max_price = max_price
+
+    def process(
+        self,
+        order: Order,
+        min_price: Optional[float] = None,
+        max_price: Optional[float] = None,
+    ) -> List[Trade]:
         """
         Main entry point for processing a single order.
         Returns a list of Trade objects resulting from the order.
         """
+        eff_min = min_price if min_price is not None else self.min_price
+        eff_max = max_price if max_price is not None else self.max_price
         trades = []
         
         # Immediate match logic for Market Orders or Limit Orders crossing the spread
         if order.side == Side.BID:
-            trades.extend(self._match_bid(order))
+            trades.extend(self._match_bid(order, max_price=eff_max))
         else:
-            trades.extend(self._match_ask(order))
+            trades.extend(self._match_ask(order, min_price=eff_min))
             
         # If the order is still open and it's a Limit order, add it to the book
         if order.order_type == OrderType.LIMIT and order.quantity > 0:
@@ -47,12 +66,17 @@ class MatchingEngine:
             
         return trades
 
-    def _match_bid(self, bid_order: Order) -> List[Trade]:
+    def _match_bid(self, bid_order: Order, max_price: Optional[float] = None) -> List[Trade]:
         trades = []
+        eff_max = max_price if max_price is not None else self.max_price
         while bid_order.quantity > 0:
             best_ask = self.order_book.best_ask()
             
             if not best_ask:
+                break
+
+            # Market orders and crossing limit orders cannot sweep past max_price
+            if eff_max is not None and best_ask.price > eff_max:
                 break
                 
             # If it's a limit order, check if prices match
@@ -73,12 +97,17 @@ class MatchingEngine:
             
         return trades
         
-    def _match_ask(self, ask_order: Order) -> List[Trade]:
+    def _match_ask(self, ask_order: Order, min_price: Optional[float] = None) -> List[Trade]:
         trades = []
+        eff_min = min_price if min_price is not None else self.min_price
         while ask_order.quantity > 0:
             best_bid = self.order_book.best_bid()
             
             if not best_bid:
+                break
+
+            # Market orders and crossing limit orders cannot sweep past min_price
+            if eff_min is not None and best_bid.price < eff_min:
                 break
                 
             # If it's a limit order, check if prices match
