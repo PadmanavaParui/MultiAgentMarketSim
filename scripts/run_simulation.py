@@ -45,6 +45,7 @@ def run_simulation(
     validate: bool = False,
     max_position: Optional[int] = 100,
     price_band: Optional[float] = 0.10,
+    order_ttl: Optional[int] = 20,
 ) -> MetricsLogger:
     """
     Executes a multi-episode market simulation run and logs all records.
@@ -59,6 +60,7 @@ def run_simulation(
         "snapshot_interval": snapshot_interval,
         "max_position": max_position,
         "price_band": price_band,
+        "order_ttl": order_ttl,
     }
     logger.start_run(run_id=run_id, seed=seed, config=config_snapshot)
 
@@ -100,6 +102,7 @@ def run_simulation(
         run_id=run_id,
         max_position=max_position,
         price_band=price_band,
+        order_ttl=order_ttl,
     )
 
     # Instantiate agent policy instances
@@ -430,7 +433,15 @@ if __name__ == "__main__":
         default=0.10,
         help="Price band collar around starting reference price (default: 0.10 for +/-10%%)",
     )
+    parser.add_argument(
+        "--order-ttl",
+        type=int,
+        default=20,
+        help="Time-to-live in steps for resting limit orders before auto-cancellation (default: 20, <=0 disables)",
+    )
     args = parser.parse_args()
+
+    order_ttl_val = args.order_ttl if args.order_ttl is not None and args.order_ttl > 0 else None
 
     run_simulation(
         mode=args.mode,
@@ -443,4 +454,5 @@ if __name__ == "__main__":
         validate=args.validate,
         max_position=args.max_position,
         price_band=args.price_band,
+        order_ttl=order_ttl_val,
     )

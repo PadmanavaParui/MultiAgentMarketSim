@@ -4,7 +4,13 @@ from pettingzoo.test import parallel_api_test, parallel_seed_test
 from pettingzoo.test.seed_test import data_equivalence
 
 from src.env.market_env import MarketEnvironment, parallel_env
-from src.engine.order_book import Side, OrderType
+from src.engine.order_book import Side, OrderType, Status
+from src.agents.zero_intelligence import ZeroIntelligenceAgent
+from src.agents.market_maker import MarketMakerAgent
+from src.agents.avellaneda_stoikov import AvellanedaStoikovMM
+from src.agents.rl_directional import RLDirectionalAgent
+from src.agents.informed_trader import InformedTrader
+from src.agents.shock_agent import ShockAgent
 
 
 class TestMarketEnvironment(unittest.TestCase):
@@ -298,6 +304,160 @@ class TestMarketEnvironment(unittest.TestCase):
         self.assertLessEqual(env._get_reference_price(), 110.0 + 1e-6)
         # Agent 0 should have rejected orders recorded
         self.assertGreater(infos["agent_0"]["position_limit_rejections"], 0)
+
+    def test_property_incremental_exposure_matches_brute_force(self):
+        """
+        Property test (Task 4a):
+        After sequences of random actions across 150 steps, verify that the incremental
+        exposure counters (open_bid_qty, open_ask_qty) exactly equal a brute-force
+        recomputation scanning all active orders in the order book.
+        """
+        env = MarketEnvironment(
+            agents=["agent_0", "agent_1", "agent_2", "agent_3"],
+            dict_spaces=True,
+            max_cycles=150,
+            initial_price=100.0,
+            max_position=100,
+            order_ttl=15,
+        )
+        env.reset(seed=123)
+
+        for step in range(150):
+            actions = {
+                a: env.action_space(a).sample() for a in env.agents
+            }
+            obs, rewards, term, trunc, infos = env.step(actions)
+
+            # Brute-force recomputation for each agent
+            for a in env.possible_agents:
+                expected_open_bids = sum(
+                    o.quantity
+                    for o in env._all_orders.values()
+                    if o.agent_id == a
+                    and o.side == Side.BID
+                    and o.status in (Status.OPEN, Status.PARTIALLY_FILLED)
+                    and o.quantity > 0
+                )
+                expected_open_asks = sum(
+                    o.quantity
+                    for o in env._all_orders.values()
+                    if o.agent_id == a
+                    and o.side == Side.ASK
+                    and o.status in (Status.OPEN, Status.PARTIALLY_FILLED)
+                    and o.quantity > 0
+                )
+
+                self.assertEqual(
+                    env.open_bid_qty[a],
+                    expected_open_bids,
+                    f"Step {step} Agent {a}: incremental open_bid_qty {env.open_bid_qty[a]} != brute-force {expected_open_bids}",
+                )
+                self.assertEqual(
+                    env.open_ask_qty[a],
+                    expected_open_asks,
+                    f"Step {step} Agent {a}: incremental open_ask_qty {env.open_ask_qty[a]} != brute-force {expected_open_asks}",
+                )
+                self.assertEqual(infos[a]["open_bid_qty"], expected_open_bids)
+                self.assertEqual(infos[a]["open_ask_qty"], expected_open_asks)
+
+    def test_inventory_never_exceeds_max_position_all_agents_500_steps(self):
+        """
+        Invariant test (Task 4b):
+        Over 500 steps with all agent types active and interacting, verifies that
+        |inventory| strictly never exceeds max_position for ANY agent on ANY step.
+        """
+        agent_ids = ["mm_0", "as_0", "rl_0", "zi_0", "inf_0", "shock_0"]
+        env = MarketEnvironment(
+            agents=agent_ids,
+            dict_spaces=True,
+            max_cycles=500,
+            initial_price=100.0,
+            max_position=100,
+            price_band=0.15,
+            order_ttl=20,
+        )
+        obs, infos = env.reset(seed=999)
+
+        # Initialize policy instances
+        agents = {
+            "mm_0": MarketMakerAgent("mm_0", seed=101, spread=0.5, quantity=10),
+            "as_0": AvellanedaStoikovMM("as_0", seed=102, gamma=0.1, k=1.5, quantity=10),
+            "rl_0": RLDirectionalAgent("rl_0", seed=103, alpha=0.1, epsilon=0.5),
+            "zi_0": ZeroIntelligenceAgent("zi_0", seed=104, aggression=0.7, max_quantity=15),
+            "inf_0": InformedTrader("inf_0", jump_step=250, jump_size=2.0, quantity=10),
+            "shock_0": ShockAgent("shock_0", shock_step=150, n_steps=5, direction="sell", quantity=40),
+        }
+
+        rng = np.random.default_rng(2026)
+
+        for step in range(500):
+            actions = {}
+            for a_id in env.agents:
+                # Mix of agent policy actions and random explorative actions
+                if rng.random() < 0.7:
+                    actions[a_id] = agents[a_id].act(obs[a_id])
+                else:
+                    actions[a_id] = env.action_space(a_id).sample()
+
+            obs, rewards, term, trunc, infos = env.step(actions)
+
+            for a_id in env.possible_agents:
+                inv = env.inventory[a_id]
+                self.assertLessEqual(
+                    abs(inv),
+                    100,
+                    f"Step {step} Agent {a_id}: |inventory| {abs(inv)} exceeded max_position (100)!",
+                )
+
+    def test_market_maker_not_locked_out_under_20_percent_rejection(self):
+        """
+        Availability test (Task 4c):
+        Over 300 steps with default order_ttl=20, verifies that MarketMakerAgent
+        is not locked out by resting exposure and maintains a position-limit
+        rejection rate strictly below 20%.
+        """
+        agent_ids = ["mm_0", "rl_0", "zi_0", "zi_1"]
+        env = MarketEnvironment(
+            agents=agent_ids,
+            dict_spaces=True,
+            max_cycles=300,
+            initial_price=100.0,
+            max_position=100,
+            price_band=0.10,
+            order_ttl=20,
+        )
+        obs, infos = env.reset(seed=42)
+
+        agents = {
+            "mm_0": MarketMakerAgent("mm_0", seed=42, spread=0.5, quantity=10),
+            "rl_0": RLDirectionalAgent("rl_0", seed=43, alpha=0.1, epsilon=0.5),
+            "zi_0": ZeroIntelligenceAgent("zi_0", seed=44, aggression=0.7, max_quantity=10),
+            "zi_1": ZeroIntelligenceAgent("zi_1", seed=45, aggression=0.6, max_quantity=10),
+        }
+
+        mm_orders_submitted = 0
+
+        for step in range(300):
+            actions = {}
+            for a_id in env.agents:
+                act_val = agents[a_id].act(obs[a_id])
+                actions[a_id] = act_val
+                if a_id == "mm_0":
+                    ot, _, _, q = env._parse_action(act_val)
+                    if ot is not None and q > 0:
+                        mm_orders_submitted += 1
+
+            obs, rewards, term, trunc, infos = env.step(actions)
+
+        mm_rejections = infos["mm_0"]["position_limit_rejections"]
+        rejection_rate = mm_rejections / max(1, mm_orders_submitted)
+
+        self.assertGreater(mm_orders_submitted, 250, "MM should actively submit quotes")
+        self.assertLess(
+            rejection_rate,
+            0.20,
+            f"MM rejection rate {rejection_rate:.2%} exceeded 20% threshold ({mm_rejections}/{mm_orders_submitted})",
+        )
 
 
 if __name__ == "__main__":
