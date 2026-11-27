@@ -333,32 +333,31 @@ class MetricsLogger:
         strategies: Optional[List[str]] = None,
         best_response_trace: Optional[List[Any]] = None,
         standard_errors: Optional[Any] = None,
+        payoff_matrix_b: Optional[Any] = None,
+        standard_errors_b: Optional[Any] = None,
+        episodes_per_cell: Optional[int] = None,
+        cycles: Optional[int] = None,
+        pretrain_settings: Optional[Dict[str, Any]] = None,
+        seed: Optional[int] = None,
     ):
-        """Save post-hoc game theoretic equilibrium analysis with per-cell standard errors."""
-        matrix_list = (
-            payoff_matrix.tolist()
-            if isinstance(payoff_matrix, np.ndarray)
-            else payoff_matrix
-        )
+        """Save post-hoc game theoretic equilibrium analysis with per-cell standard errors and metadata."""
+        def _to_list(val):
+            if val is None:
+                return None
+            if isinstance(val, np.ndarray):
+                return val.tolist()
+            if isinstance(val, (list, tuple)):
+                return [_to_list(x) for x in val]
+            if isinstance(val, dict):
+                return {k: _to_list(v) for k, v in val.items()}
+            return val
 
-        se_list = None
-        if standard_errors is not None:
-            if isinstance(standard_errors, np.ndarray):
-                se_list = standard_errors.tolist()
-            elif isinstance(standard_errors, dict):
-                se_list = {
-                    k: (v.tolist() if isinstance(v, np.ndarray) else v)
-                    for k, v in standard_errors.items()
-                }
-            elif isinstance(standard_errors, (tuple, list)):
-                se_list = [
-                    (x.tolist() if isinstance(x, np.ndarray) else x)
-                    for x in standard_errors
-                ]
-            else:
-                se_list = standard_errors
+        matrix_list = _to_list(payoff_matrix)
+        matrix_b_list = _to_list(payoff_matrix_b)
+        se_list = _to_list(standard_errors)
+        se_b_list = _to_list(standard_errors_b)
 
-        self.equilibrium_analysis = {
+        analysis = {
             "run_id": run_id,
             "method": method,
             "payoff_matrix": matrix_list,
@@ -368,6 +367,32 @@ class MetricsLogger:
             "standard_errors": se_list,
             "computed_at": datetime.now(timezone.utc).isoformat(),
         }
+
+        if matrix_b_list is not None:
+            analysis["payoff_matrix_b"] = matrix_b_list
+        if se_b_list is not None:
+            analysis["standard_errors_b"] = se_b_list
+        if episodes_per_cell is not None:
+            analysis["episodes_per_cell"] = int(episodes_per_cell)
+        if cycles is not None:
+            analysis["cycles"] = int(cycles)
+        if pretrain_settings is not None:
+            analysis["pretrain_settings"] = pretrain_settings
+        if seed is not None:
+            analysis["seed"] = int(seed)
+
+        self.equilibrium_analysis = analysis
+
+    def save_equilibrium_only(self, run_id: Optional[str] = None):
+        """Persist only equilibrium_analysis.json to data/runs/<run_id>/ without touching other artifacts."""
+        target_run_id = run_id or (self.current_run.run_id if self.current_run else None)
+        if not target_run_id or not self.equilibrium_analysis:
+            return
+        run_path = os.path.join(self.base_dir, target_run_id)
+        os.makedirs(run_path, exist_ok=True)
+        eq_file = os.path.join(run_path, "equilibrium_analysis.json")
+        with open(eq_file, "w") as f:
+            json.dump(self.equilibrium_analysis, f, indent=2)
 
     def finish_run(self, status: str = "COMPLETE", error_message: Optional[str] = None):
         """Mark run finished and persist all run artifacts to disk."""
