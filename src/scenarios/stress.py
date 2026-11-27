@@ -25,7 +25,7 @@ import os
 import json
 from datetime import datetime, timezone
 from dataclasses import dataclass, asdict
-from typing import Any, Dict, List, Optional, Sequence, Tuple
+from typing import Any, Dict, List, Optional, Sequence, Tuple, Union
 import numpy as np
 
 from src.env.market_env import MarketEnvironment
@@ -266,6 +266,80 @@ def compute_recovery_time(
             return True, recovery_steps
 
     return False, None
+
+
+def compute_resilience_verdict(
+    mm_std: Union[Dict[str, Any], Any],
+    mm_as: Union[Dict[str, Any], Any],
+) -> Dict[str, Any]:
+    """
+    Compute a significance-aware resilience comparison verdict between
+    AvellanedaStoikovMM and MarketMakerAgent based on mm_pnl_vs_baseline
+    and its standard errors.
+
+    Difference = AS_pnl_vs_baseline - Std_pnl_vs_baseline
+    Combined SE = sqrt(Std_se^2 + AS_se^2)
+    Significance ratio = |Difference| / Combined SE
+
+    Verdict thresholds:
+      ratio >= 2.0 -> "clearly better"
+      1.0 <= ratio < 2.0 -> "weak evidence"
+      ratio < 1.0 -> "no clear difference"
+
+    Parameters
+    ----------
+    mm_std : Dict[str, Any] or ScenarioMetrics
+        Metrics dictionary or object for MarketMakerAgent.
+    mm_as : Dict[str, Any] or ScenarioMetrics
+        Metrics dictionary or object for AvellanedaStoikovMM.
+
+    Returns
+    -------
+    Dict[str, Any]
+        Dictionary containing 'verdict', 'better_agent', 'difference',
+        'combined_se', and 'significance_ratio'.
+    """
+    def _extract(obj: Any, key: str) -> float:
+        if isinstance(obj, dict):
+            val = obj.get(key, 0.0)
+        else:
+            val = getattr(obj, key, 0.0)
+        return float(val) if val is not None else 0.0
+
+    std_pnl = _extract(mm_std, "mm_pnl_vs_baseline")
+    as_pnl = _extract(mm_as, "mm_pnl_vs_baseline")
+    std_se = _extract(mm_std, "mm_pnl_vs_baseline_se")
+    as_se = _extract(mm_as, "mm_pnl_vs_baseline_se")
+
+    diff = as_pnl - std_pnl
+    combined_se = float(np.sqrt(std_se**2 + as_se**2))
+
+    if combined_se > 1e-9:
+        ratio = abs(diff) / combined_se
+    else:
+        ratio = float("inf") if abs(diff) > 1e-9 else 0.0
+
+    if ratio >= 2.0:
+        verdict = "clearly better"
+    elif ratio >= 1.0:
+        verdict = "weak evidence"
+    else:
+        verdict = "no clear difference"
+
+    if diff > 1e-9:
+        better_agent = "AvellanedaStoikovMM"
+    elif diff < -1e-9:
+        better_agent = "MarketMakerAgent"
+    else:
+        better_agent = "Neither"
+
+    return {
+        "verdict": verdict,
+        "better_agent": better_agent,
+        "difference": round(diff, 4),
+        "combined_se": round(combined_se, 4),
+        "significance_ratio": round(ratio, 4) if ratio != float("inf") else 999.99,
+    }
 
 
 # ======================================================================
@@ -671,15 +745,21 @@ class StressScenarioRunner:
                 mm_std = sc_results["MarketMakerAgent"]
                 mm_as = sc_results["AvellanedaStoikovMM"]
 
+                verdict_info = compute_resilience_verdict(mm_std, mm_as)
+
                 sc_results["comparison"] = {
                     "pnl_vs_baseline_advantage_as": round(mm_as["mm_pnl_vs_baseline"] - mm_std["mm_pnl_vs_baseline"], 4),
                     "inventory_reduction_as": mm_std["mm_max_abs_inventory"] - mm_as["mm_max_abs_inventory"],
                     "adverse_selection_reduction_as": round(mm_std["adverse_selection_loss"] - mm_as["adverse_selection_loss"], 4),
                     "drawdown_reduction_as": round(mm_std["max_drawdown_mid"] - mm_as["max_drawdown_mid"], 4),
+                    "verdict": verdict_info["verdict"],
+                    "better_agent": verdict_info["better_agent"],
+                    "significance_ratio": verdict_info["significance_ratio"],
+                    "combined_se": verdict_info["combined_se"],
                     "more_resilient_agent": (
-                        "AvellanedaStoikovMM"
-                        if mm_as["mm_pnl_vs_baseline"] >= mm_std["mm_pnl_vs_baseline"]
-                        else "MarketMakerAgent"
+                        verdict_info["better_agent"]
+                        if verdict_info["verdict"] != "no clear difference"
+                        else "No clear difference"
                     ),
                 }
 

@@ -29,6 +29,7 @@ from src.scenarios.stress import (
     compute_mm_pnl_vs_baseline,
     compute_adverse_selection,
     compute_recovery_time,
+    compute_resilience_verdict,
     load_stress_report,
 )
 
@@ -169,6 +170,57 @@ class TestStressMetrics(unittest.TestCase):
         self.assertFalse(rec_f)
         self.assertIsNone(dt_f)
 
+    def test_compute_resilience_verdict(self):
+        """Test significance-aware verdict classification (clearly better, weak evidence, no clear difference)."""
+        # 1. Ratio >= 2.0 -> "clearly better" (AS better)
+        # diff = 100 - 0 = 100, combined SE = sqrt(20^2 + 20^2) = 28.28, ratio = 3.535 >= 2.0
+        res_cb = compute_resilience_verdict(
+            {"mm_pnl_vs_baseline": 0.0, "mm_pnl_vs_baseline_se": 20.0},
+            {"mm_pnl_vs_baseline": 100.0, "mm_pnl_vs_baseline_se": 20.0},
+        )
+        self.assertEqual(res_cb["verdict"], "clearly better")
+        self.assertEqual(res_cb["better_agent"], "AvellanedaStoikovMM")
+        self.assertGreaterEqual(res_cb["significance_ratio"], 2.0)
+
+        # 2. Ratio >= 2.0 -> "clearly better" (Standard MM better)
+        # diff = -100, ratio >= 2.0
+        res_cb_std = compute_resilience_verdict(
+            {"mm_pnl_vs_baseline": 100.0, "mm_pnl_vs_baseline_se": 20.0},
+            {"mm_pnl_vs_baseline": 0.0, "mm_pnl_vs_baseline_se": 20.0},
+        )
+        self.assertEqual(res_cb_std["verdict"], "clearly better")
+        self.assertEqual(res_cb_std["better_agent"], "MarketMakerAgent")
+        self.assertGreaterEqual(res_cb_std["significance_ratio"], 2.0)
+
+        # 3. 1.0 <= Ratio < 2.0 -> "weak evidence"
+        # diff = 40, combined SE = 28.28, ratio = 1.414
+        res_we = compute_resilience_verdict(
+            {"mm_pnl_vs_baseline": 0.0, "mm_pnl_vs_baseline_se": 20.0},
+            {"mm_pnl_vs_baseline": 40.0, "mm_pnl_vs_baseline_se": 20.0},
+        )
+        self.assertEqual(res_we["verdict"], "weak evidence")
+        self.assertEqual(res_we["better_agent"], "AvellanedaStoikovMM")
+        self.assertGreaterEqual(res_we["significance_ratio"], 1.0)
+        self.assertLess(res_we["significance_ratio"], 2.0)
+
+        # 4. Ratio < 1.0 -> "no clear difference"
+        # diff = 10, combined SE = 28.28, ratio = 0.353
+        res_ncd = compute_resilience_verdict(
+            {"mm_pnl_vs_baseline": 0.0, "mm_pnl_vs_baseline_se": 20.0},
+            {"mm_pnl_vs_baseline": 10.0, "mm_pnl_vs_baseline_se": 20.0},
+        )
+        self.assertEqual(res_ncd["verdict"], "no clear difference")
+        self.assertLess(res_ncd["significance_ratio"], 1.0)
+
+        # 5. Exactly 0 difference
+        res_zero = compute_resilience_verdict(
+            {"mm_pnl_vs_baseline": 50.0, "mm_pnl_vs_baseline_se": 10.0},
+            {"mm_pnl_vs_baseline": 50.0, "mm_pnl_vs_baseline_se": 10.0},
+        )
+        self.assertEqual(res_zero["verdict"], "no clear difference")
+        self.assertEqual(res_zero["better_agent"], "Neither")
+        self.assertEqual(res_zero["significance_ratio"], 0.0)
+
 
 class TestStressDeterminismAndScenarios(unittest.TestCase):
     """Integration tests for scenario execution, determinism, and comparison."""
@@ -250,6 +302,11 @@ class TestStressDeterminismAndScenarios(unittest.TestCase):
             self.assertIn("inventory_reduction_as", comp)
             self.assertIn("adverse_selection_reduction_as", comp)
             self.assertIn("more_resilient_agent", comp)
+            self.assertIn("verdict", comp)
+            self.assertIn(comp["verdict"], ["clearly better", "weak evidence", "no clear difference"])
+            self.assertIn("better_agent", comp)
+            self.assertIn("significance_ratio", comp)
+            self.assertIn("combined_se", comp)
 
         # 3. Check file persistence and loading
         loaded_report = load_stress_report("integration_test_run", output_dir=self.test_dir)
