@@ -21,3 +21,6 @@ Thumbs.db
 # Agent / IDE configs
 .agents/
 
+# Verification runs
+/data/runs/check_exposure/
+

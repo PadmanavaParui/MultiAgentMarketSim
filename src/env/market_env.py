@@ -1,4 +1,5 @@
 import functools
+from collections import deque
 from typing import List, Dict, Optional, Tuple, Any, Union
 import numpy as np
 import gymnasium as gym
@@ -36,6 +37,7 @@ class MarketEnvironment(ParallelEnv):
         render_mode: Optional[str] = None,
         max_position: Optional[int] = 100,
         price_band: Optional[Union[float, Tuple[float, float]]] = 0.10,
+        order_ttl: Optional[int] = 20,
     ):
         super().__init__()
         # Determine agent IDs
@@ -63,6 +65,7 @@ class MarketEnvironment(ParallelEnv):
         self.render_mode = render_mode
         self.max_position = max_position
         self.price_band = price_band
+        self.order_ttl = order_ttl
 
         self.min_price: Optional[float] = None
         self.max_price: Optional[float] = None
@@ -70,6 +73,10 @@ class MarketEnvironment(ParallelEnv):
         self.rejected_orders: Dict[str, int] = {a: 0 for a in self.possible_agents}
         self.position_limit_rejections: Dict[str, int] = {a: 0 for a in self.possible_agents}
         self.price_band_rejections: Dict[str, int] = {a: 0 for a in self.possible_agents}
+        self.expired_orders: Dict[str, int] = {a: 0 for a in self.possible_agents}
+        self.open_bid_qty: Dict[str, int] = {a: 0 for a in self.possible_agents}
+        self.open_ask_qty: Dict[str, int] = {a: 0 for a in self.possible_agents}
+        self._resting_order_queue: deque[Tuple[int, str]] = deque()
 
         # Configure initial cash & inventory per agent
         self._initial_cash: Dict[str, float] = {}
@@ -263,6 +270,8 @@ class MarketEnvironment(ParallelEnv):
             self.max_position = options["max_position"]
         if options and "price_band" in options:
             self.price_band = options["price_band"]
+        if options and "order_ttl" in options:
+            self.order_ttl = options["order_ttl"]
 
         if seed is not None:
             self._seed = seed
@@ -289,6 +298,10 @@ class MarketEnvironment(ParallelEnv):
         self.rejected_orders = {a: 0 for a in self.possible_agents}
         self.position_limit_rejections = {a: 0 for a in self.possible_agents}
         self.price_band_rejections = {a: 0 for a in self.possible_agents}
+        self.expired_orders = {a: 0 for a in self.possible_agents}
+        self.open_bid_qty = {a: 0 for a in self.possible_agents}
+        self.open_ask_qty = {a: 0 for a in self.possible_agents}
+        self._resting_order_queue = deque()
 
         # Calculate initial reference price and price bands
         self.min_price = None
@@ -322,6 +335,10 @@ class MarketEnvironment(ParallelEnv):
                 "rejected_orders": 0,
                 "position_limit_rejections": 0,
                 "price_band_rejections": 0,
+                "expired_orders": 0,
+                "step_expired_orders": 0,
+                "open_bid_qty": 0,
+                "open_ask_qty": 0,
             }
             for a in self.agents
         }
@@ -358,7 +375,32 @@ class MarketEnvironment(ParallelEnv):
         step_rejected_orders: Dict[str, int] = {a: 0 for a in current_agents}
         step_pos_rejections: Dict[str, int] = {a: 0 for a in current_agents}
         step_band_rejections: Dict[str, int] = {a: 0 for a in current_agents}
+        step_expired_orders: Dict[str, int] = {a: 0 for a in current_agents}
         step_rejection_reasons: Dict[str, Optional[str]] = {a: None for a in current_agents}
+
+        # Auto-cancel stale resting orders based on order_ttl
+        if self.order_ttl is not None and self.order_ttl > 0:
+            while self._resting_order_queue:
+                ts, ord_id = self._resting_order_queue[0]
+                if self.current_step - ts >= self.order_ttl:
+                    self._resting_order_queue.popleft()
+                    ord_obj = self._all_orders.get(ord_id)
+                    if (
+                        ord_obj is not None
+                        and ord_obj.status in (Status.OPEN, Status.PARTIALLY_FILLED)
+                        and ord_obj.quantity > 0
+                    ):
+                        rem_qty = ord_obj.quantity
+                        self.order_book.cancel_order(ord_id)
+                        ag = ord_obj.agent_id
+                        if ord_obj.side == Side.BID:
+                            self.open_bid_qty[ag] = max(0, self.open_bid_qty.get(ag, 0) - rem_qty)
+                        else:
+                            self.open_ask_qty[ag] = max(0, self.open_ask_qty.get(ag, 0) - rem_qty)
+                        self.expired_orders[ag] = self.expired_orders.get(ag, 0) + 1
+                        step_expired_orders[ag] = step_expired_orders.get(ag, 0) + 1
+                else:
+                    break
 
         # Process orders
         for agent_id in agent_order:
@@ -368,17 +410,20 @@ class MarketEnvironment(ParallelEnv):
             if order_type is None or qty <= 0:
                 continue
 
-            # Check max_position constraint
+            # Check max_position constraint (considering live resting exposure)
             if self.max_position is not None:
                 current_inv = self.inventory[agent_id]
-                if side == Side.BID and (current_inv + qty > self.max_position):
+                open_bids = self.open_bid_qty.get(agent_id, 0)
+                open_asks = self.open_ask_qty.get(agent_id, 0)
+
+                if side == Side.BID and (current_inv + open_bids + qty > self.max_position):
                     self.position_limit_rejections[agent_id] = self.position_limit_rejections.get(agent_id, 0) + 1
                     self.rejected_orders[agent_id] = self.rejected_orders.get(agent_id, 0) + 1
                     step_rejected_orders[agent_id] += 1
                     step_pos_rejections[agent_id] += 1
                     step_rejection_reasons[agent_id] = "max_position_exceeded"
                     continue
-                elif side == Side.ASK and (current_inv - qty < -self.max_position):
+                elif side == Side.ASK and (current_inv - open_asks - qty < -self.max_position):
                     self.position_limit_rejections[agent_id] = self.position_limit_rejections.get(agent_id, 0) + 1
                     self.rejected_orders[agent_id] = self.rejected_orders.get(agent_id, 0) + 1
                     step_rejected_orders[agent_id] += 1
@@ -448,7 +493,23 @@ class MarketEnvironment(ParallelEnv):
                     self.cash[sell_agent] += (trade_val - fee)
                     self.inventory[sell_agent] -= t.quantity
 
+                # Release resting exposure for the counterparty order resting in the book
+                if order.side == Side.BID:
+                    # Incoming was BID; resting order was ASK
+                    self.open_ask_qty[sell_agent] = max(0, self.open_ask_qty.get(sell_agent, 0) - t.quantity)
+                else:
+                    # Incoming was ASK; resting order was BID
+                    self.open_bid_qty[buy_agent] = max(0, self.open_bid_qty.get(buy_agent, 0) - t.quantity)
+
                 self.last_trade_price = t.price
+
+            # If the limit order has remaining unfilled quantity, it rests on the book
+            if order.order_type == OrderType.LIMIT and order.quantity > 0:
+                if order.side == Side.BID:
+                    self.open_bid_qty[agent_id] = self.open_bid_qty.get(agent_id, 0) + order.quantity
+                else:
+                    self.open_ask_qty[agent_id] = self.open_ask_qty.get(agent_id, 0) + order.quantity
+                self._resting_order_queue.append((order.timestamp_step, order.order_id))
 
         # Call validators after each step
         validate_no_cross(self.order_book, run_id=self.run_id)
@@ -487,9 +548,13 @@ class MarketEnvironment(ParallelEnv):
                 "rejected_orders": self.rejected_orders.get(a, 0),
                 "position_limit_rejections": self.position_limit_rejections.get(a, 0),
                 "price_band_rejections": self.price_band_rejections.get(a, 0),
+                "expired_orders": self.expired_orders.get(a, 0),
                 "step_rejected_orders": step_rejected_orders.get(a, 0),
                 "step_position_limit_rejections": step_pos_rejections.get(a, 0),
                 "step_price_band_rejections": step_band_rejections.get(a, 0),
+                "step_expired_orders": step_expired_orders.get(a, 0),
+                "open_bid_qty": int(self.open_bid_qty.get(a, 0)),
+                "open_ask_qty": int(self.open_ask_qty.get(a, 0)),
                 "order_rejected": bool(step_rejected_orders.get(a, 0) > 0),
                 "rejection_reason": step_rejection_reasons.get(a, None),
             }
@@ -508,6 +573,23 @@ class MarketEnvironment(ParallelEnv):
         ]
 
         return observations, rewards, terminations, truncations, infos
+
+    def cancel_order(self, order_id: str) -> bool:
+        """
+        Explicitly cancels an active resting order and releases its open exposure.
+        Returns True if the order was cancelled, False otherwise.
+        """
+        ord_obj = self._all_orders.get(order_id)
+        if ord_obj is not None and ord_obj.status in (Status.OPEN, Status.PARTIALLY_FILLED) and ord_obj.quantity > 0:
+            rem_qty = ord_obj.quantity
+            self.order_book.cancel_order(order_id)
+            ag = ord_obj.agent_id
+            if ord_obj.side == Side.BID:
+                self.open_bid_qty[ag] = max(0, self.open_bid_qty.get(ag, 0) - rem_qty)
+            else:
+                self.open_ask_qty[ag] = max(0, self.open_ask_qty.get(ag, 0) - rem_qty)
+            return True
+        return False
 
     def render(self) -> Optional[str]:
         depth = self.order_book.depth(levels=self.k)
