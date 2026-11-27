@@ -130,12 +130,93 @@ class PayoffBuilder:
             raise ValueError(f"Unknown strategy type: {stype}")
 
     @staticmethod
+    def pretrain_rl_agent(
+        episodes: int = 100,
+        cycles_per_episode: int = 200,
+        seed: int = 42,
+        alpha: float = 0.1,
+        epsilon: float = 1.0,
+        epsilon_min: float = 0.05,
+        epsilon_decay: float = 0.995,
+        order_quantity: int = 10,
+        max_position: int = 100,
+        price_band: float = 0.10,
+        order_ttl: int = 20,
+    ) -> RLDirectionalAgent:
+        """
+        Pretrains an RLDirectionalAgent against standard baseline agents (MM + ZI)
+        with risk guardrails active (max_position, price_band, order_ttl).
+        Returns a frozen copy with epsilon=0 and updates disabled.
+        """
+        rl_agent = RLDirectionalAgent(
+            agent_id="rl_pretrain",
+            seed=seed,
+            alpha=alpha,
+            epsilon=epsilon,
+            epsilon_min=epsilon_min,
+            epsilon_decay=epsilon_decay,
+            order_quantity=order_quantity,
+        )
+
+        agent_ids = ["rl_pretrain", "mm_0", "zi_0"]
+        env = MarketEnvironment(
+            agents=agent_ids,
+            max_cycles=cycles_per_episode,
+            dict_spaces=True,
+            run_id="pretrain_rl",
+            max_position=max_position,
+            price_band=price_band,
+            order_ttl=order_ttl,
+        )
+
+        for ep in range(episodes):
+            ep_seed = seed + ep * 1000
+            obs, _ = env.reset(seed=ep_seed)
+            rl_agent.reset()
+
+            mm_agent = MarketMakerAgent(
+                agent_id="mm_0",
+                seed=ep_seed + 101,
+                spread=0.5,
+                quantity=10,
+            )
+            zi_agent = ZeroIntelligenceAgent(
+                agent_id="zi_0",
+                seed=ep_seed + 202,
+                aggression=0.7,
+                max_quantity=10,
+            )
+            agents = {
+                "rl_pretrain": rl_agent,
+                "mm_0": mm_agent,
+                "zi_0": zi_agent,
+            }
+
+            while env.agents:
+                actions = {
+                    a_id: agents[a_id].act(obs[a_id])
+                    for a_id in env.agents
+                    if a_id in obs
+                }
+                next_obs, rewards, _, _, _ = env.step(actions)
+                if "rl_pretrain" in rewards and "rl_pretrain" in next_obs:
+                    rl_agent.update(rewards["rl_pretrain"], next_obs["rl_pretrain"])
+                obs = next_obs
+
+        # Return frozen clone with epsilon=0 and updates disabled
+        return rl_agent.clone(seed=seed, freeze=True)
+
+    @staticmethod
     def build_tournament_matrix(
         strategies: List[Dict[str, Any]],
         background_agents: Optional[List[Dict[str, Any]]] = None,
-        n_episodes: int = 5,
-        cycles_per_episode: int = 50,
+        n_episodes: int = 30,
+        cycles_per_episode: int = 200,
         seed: int = 42,
+        pretrain_rl: bool = True,
+        pretrain_episodes: int = 100,
+        pretrain_cycles: int = 200,
+        pretrained_rl_agent: Optional[RLDirectionalAgent] = None,
     ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, List[str]]:
         """
         Construct payoff matrices via round-robin head-to-head tournament.
@@ -143,35 +224,6 @@ class PayoffBuilder:
         For every ordered pair (i, j) of strategies, runs ``n_episodes``
         seeded episodes where Player X plays strategy *i* and Player Y
         plays strategy *j*, with a fixed identical background of other agents.
-
-        Parameters
-        ----------
-        strategies : list of dict
-            Each dict has ``"label"`` (str), ``"type"`` (``"ZI"``/``"MM"``/``"RL"``),
-            and ``"kwargs"`` (dict of constructor keyword args).
-        background_agents : list of dict or None
-            Same format as *strategies*; these agents participate in every
-            episode but are not scored.
-        n_episodes : int
-            Number of seeded episodes per cell.
-        cycles_per_episode : int
-            Max steps per episode.
-        seed : int
-            Base random seed — every cell/episode gets a deterministic
-            derivative seed so the full tournament is reproducible.
-
-        Returns
-        -------
-        A : ndarray, shape (n, n)
-            Mean PnL of Player X (row player).
-        B : ndarray, shape (n, n)
-            Mean PnL of Player Y (column player).
-        SE_A : ndarray, shape (n, n)
-            Standard error of Player X mean PnL.
-        SE_B : ndarray, shape (n, n)
-            Standard error of Player Y mean PnL.
-        labels : list of str
-            Strategy labels in row/column order.
         """
         n = len(strategies)
         if n < 2:
@@ -180,12 +232,42 @@ class PayoffBuilder:
             return z, z.copy(), z.copy(), z.copy(), labels
 
         bg = background_agents or []
-        labels = [s.get("label", f"S{i}") for i, s in enumerate(strategies)]
+
+        # Pretrain RL agent once if RL is included in the tournament roster
+        has_rl = any(
+            s.get("type") in ("RL", "RLDirectionalAgent") or "RL" in s.get("label", "")
+            for s in strategies
+        )
+        if has_rl and pretrained_rl_agent is None and pretrain_rl:
+            pretrained_rl_agent = PayoffBuilder.pretrain_rl_agent(
+                episodes=pretrain_episodes,
+                cycles_per_episode=pretrain_cycles,
+                seed=seed,
+            )
+
+        labels = []
+        for i, s in enumerate(strategies):
+            lbl = s.get("label", f"S{i}")
+            if pretrained_rl_agent is not None and (
+                s.get("type") in ("RL", "RLDirectionalAgent") or lbl in ("RL", "RL (pretrained)")
+            ):
+                lbl = "RL (pretrained)"
+            labels.append(lbl)
 
         A = np.zeros((n, n))
         B = np.zeros((n, n))
         SE_A = np.zeros((n, n))
         SE_B = np.zeros((n, n))
+
+        def _get_player_agent(player_id: str, strat_idx: int, a_seed: int):
+            strat = strategies[strat_idx]
+            stype = strat.get("type")
+            is_rl = (stype in ("RL", "RLDirectionalAgent")) or ("RL" in strat.get("label", ""))
+            if is_rl and pretrained_rl_agent is not None:
+                clone_agent = pretrained_rl_agent.clone(seed=a_seed, freeze=True)
+                clone_agent.agent_id = player_id
+                return clone_agent
+            return PayoffBuilder._make_agent(player_id, strat, seed=a_seed)
 
         for i in range(n):
             for j in range(n):
@@ -209,12 +291,8 @@ class PayoffBuilder:
                     )
 
                     agents_map = {}
-                    agents_map["player_x"] = PayoffBuilder._make_agent(
-                        "player_x", strategies[i], seed=cell_seed,
-                    )
-                    agents_map["player_y"] = PayoffBuilder._make_agent(
-                        "player_y", strategies[j], seed=cell_seed + 1,
-                    )
+                    agents_map["player_x"] = _get_player_agent("player_x", i, cell_seed)
+                    agents_map["player_y"] = _get_player_agent("player_y", j, cell_seed + 1)
                     for k_idx, bg_cfg in enumerate(bg):
                         bg_id = f"bg_{k_idx}"
                         agents_map[bg_id] = PayoffBuilder._make_agent(

@@ -202,13 +202,31 @@ def render(run_dir: Optional[str] = None):
     solver_method = eq_analysis.get("method", "support_enumeration")
 
     # Overview Metrics Banner
-    col_m1, col_m2, col_m3 = st.columns(3)
+    ep_per_cell = eq_analysis.get("episodes_per_cell")
+    cycles_val = eq_analysis.get("cycles")
+    pretrain_cfg = eq_analysis.get("pretrain_settings")
+
+    col_m1, col_m2, col_m3, col_m4 = st.columns(4)
     with col_m1:
         st.metric("Interacting Strategies", len(strategies))
     with col_m2:
         st.metric("Equilibrium Candidates", len(candidates))
     with col_m3:
+        strong_count = sum(1 for c in candidates if not c.get("is_weak", False))
+        st.metric("Strong / Robust", strong_count)
+    with col_m4:
         st.metric("Solver Algorithm", str(solver_method).upper())
+
+    if ep_per_cell and cycles_val:
+        pretrain_desc = (
+            f"Pretrained RL ({pretrain_cfg.get('episodes', 100)} ep x {pretrain_cfg.get('cycles', 200)} cycles)"
+            if pretrain_cfg
+            else "Standard"
+        )
+        st.caption(
+            f"⚙️ **Tournament Configuration:** {ep_per_cell} episodes/cell × {cycles_val} cycles | "
+            f"Seed: {eq_analysis.get('seed', 'N/A')} | Policy: {pretrain_desc}"
+        )
 
     st.divider()
 
@@ -237,6 +255,11 @@ def render(run_dir: Optional[str] = None):
             for cand in candidates:
                 eq_id = cand.get("equilibrium_id", 1)
                 is_pure = cand.get("is_pure", False)
+                is_weak = cand.get("is_weak", False)
+                p1_margin = cand.get("p1_deviation_margin")
+                p1_se = cand.get("p1_combined_se")
+                p2_margin = cand.get("p2_deviation_margin")
+                p2_se = cand.get("p2_combined_se")
                 p1_strat = cand.get("player_1_strategy", [])
                 p2_strat = cand.get("player_2_strategy", [])
                 p1_payoff = cand.get("player_1_payoff", 0.0)
@@ -255,11 +278,31 @@ def render(run_dir: Optional[str] = None):
                     if prob > 1e-4 and i < len(strategies)
                 ] or ["100.0%"]
 
-                strat_type = "Pure Strategy" if is_pure else "Mixed Strategy"
-                badge_icon = "🟢" if is_pure else "🟣"
+                if is_weak:
+                    strat_type = "Pure Strategy (Weak)" if is_pure else "Mixed Strategy (Weak)"
+                    badge_icon = "⚠️"
+                else:
+                    strat_type = "Pure Strategy (Strong)"
+                    badge_icon = "🟢"
 
                 with st.container(border=True):
                     st.markdown(f"#### {badge_icon} Equilibrium #{eq_id} ({strat_type})")
+                    if is_weak:
+                        if p1_margin is not None and p1_se is not None and p2_margin is not None and p2_se is not None and is_pure:
+                            st.caption(
+                                f"⚠️ **Weak Equilibrium**: Payoffs do not beat best alternative deviation by > 1 combined SE "
+                                f"(P1 margin: ${p1_margin:.2f} vs SE: ${p1_se:.2f}, P2 margin: ${p2_margin:.2f} vs SE: ${p2_se:.2f})."
+                            )
+                        else:
+                            st.caption("⚠️ **Weak Equilibrium**: Payoff does not exceed best alternative deviation by more than 1 combined SE.")
+                    else:
+                        if p1_margin is not None and p1_se is not None and p2_margin is not None and p2_se is not None:
+                            st.caption(
+                                f"🟢 **Strong Equilibrium**: Both players beat their best alternative deviation by > 1 combined SE "
+                                f"(P1 margin: ${p1_margin:.2f} vs SE: ${p1_se:.2f}, P2 margin: ${p2_margin:.2f} vs SE: ${p2_se:.2f})."
+                            )
+                        else:
+                            st.caption("🟢 **Strong Equilibrium**: Both players beat their best alternative deviation by > 1 combined SE.")
                     st.markdown(f"- **Player 1 Strategy Profile:** {', '.join(p1_desc)}")
                     st.markdown(f"- **Player 1 Expected Payoff:** ${p1_payoff:.3f}")
                     st.markdown(f"- **Player 2 Strategy Profile:** {', '.join(p2_desc)}")

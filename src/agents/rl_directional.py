@@ -82,19 +82,21 @@ class RLDirectionalAgent:
         order_quantity: int = 10,
         decay_per_episode: bool = False,
         epsilon_decay_per_episode: Optional[bool] = None,
+        frozen: bool = False,
     ):
         self.agent_id = agent_id
-        self.alpha = alpha
+        self.alpha = 0.0 if frozen else alpha
         self.gamma = gamma
-        self.epsilon = epsilon
-        self.epsilon_min = epsilon_min
-        self.epsilon_decay = epsilon_decay
+        self.epsilon = 0.0 if frozen else epsilon
+        self.epsilon_min = 0.0 if frozen else epsilon_min
+        self.epsilon_decay = 1.0 if frozen else epsilon_decay
         self.order_quantity = order_quantity
         self.decay_per_episode = (
             bool(epsilon_decay_per_episode)
             if epsilon_decay_per_episode is not None
             else bool(decay_per_episode)
-        )
+        ) and not frozen
+        self.frozen = bool(frozen)
         self.rng = np.random.default_rng(seed)
 
         # Track steps taken within the current episode
@@ -126,7 +128,7 @@ class RLDirectionalAgent:
         # Ensure state entry exists in Q-table
         q_values = self.q_table[state]
 
-        if self.rng.random() < self.epsilon:
+        if not self.frozen and self.rng.random() < self.epsilon:
             action_idx = int(self.rng.integers(0, NUM_ACTIONS))
         else:
             action_idx = int(np.argmax(q_values))
@@ -145,6 +147,9 @@ class RLDirectionalAgent:
 
         Q(s,a) ← Q(s,a) + α [ R + γ · max_a' Q(s',a') − Q(s,a) ]
         """
+        if self.frozen or self.alpha == 0.0:
+            return
+
         if self._prev_state is None or self._prev_action is None:
             return
 
@@ -173,6 +178,8 @@ class RLDirectionalAgent:
         Decay exploration rate epsilon by factor self.epsilon_decay down to self.epsilon_min.
         Returns the updated epsilon value.
         """
+        if self.frozen or self.epsilon <= 0.0:
+            return 0.0
         self.epsilon = max(self.epsilon_min, self.epsilon * self.epsilon_decay)
         return self.epsilon
 
@@ -189,9 +196,12 @@ class RLDirectionalAgent:
             epsilon decays if the agent took steps in the preceding episode.
         """
         should_decay = (
-            decay_epsilon
-            if decay_epsilon is not None
-            else (self.decay_per_episode and self._episode_steps > 0)
+            not self.frozen
+            and (
+                decay_epsilon
+                if decay_epsilon is not None
+                else (self.decay_per_episode and self._episode_steps > 0)
+            )
         )
         if should_decay:
             self.decay_epsilon()
@@ -201,6 +211,29 @@ class RLDirectionalAgent:
         self._episode_steps = 0
         if seed is not None:
             self.rng = np.random.default_rng(seed)
+
+    def clone(self, seed: Optional[int] = None, freeze: bool = True) -> RLDirectionalAgent:
+        """
+        Creates a copy of this RL agent with its learned Q-table.
+        If freeze is True, sets epsilon=0.0, alpha=0.0, and frozen=True.
+        """
+        new_agent = RLDirectionalAgent(
+            agent_id=self.agent_id,
+            seed=seed,
+            alpha=0.0 if freeze else self.alpha,
+            gamma=self.gamma,
+            epsilon=0.0 if freeze else self.epsilon,
+            epsilon_min=0.0 if freeze else self.epsilon_min,
+            epsilon_decay=1.0 if freeze else self.epsilon_decay,
+            order_quantity=self.order_quantity,
+            decay_per_episode=False if freeze else self.decay_per_episode,
+            frozen=freeze,
+        )
+        new_agent.q_table = defaultdict(
+            lambda: np.zeros(NUM_ACTIONS, dtype=np.float64),
+            {k: np.copy(v) for k, v in self.q_table.items()}
+        )
+        return new_agent
 
     # ------------------------------------------------------------------
     # State discretization
