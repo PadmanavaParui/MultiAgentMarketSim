@@ -21,6 +21,32 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import streamlit as st
 
+from src.dashboard.empty_state import render_empty_state
+from src.dashboard.charts import downsample_series
+
+
+@st.cache_data(max_entries=5)
+def load_book_snapshots(snapshots_path: str) -> List[Dict[str, Any]]:
+    """Loads book_snapshots.json with caching."""
+    if os.path.exists(snapshots_path):
+        with open(snapshots_path, "r") as f:
+            return json.load(f)
+    return []
+
+
+@st.cache_data(max_entries=5)
+def load_replay_trades(run_dir: str) -> List[Dict[str, Any]]:
+    """Loads executed trades, prioritizing price_series.json to conserve memory."""
+    ps_path = os.path.join(run_dir, "price_series.json")
+    if os.path.exists(ps_path):
+        with open(ps_path, "r") as f:
+            return json.load(f)
+    trades_path = os.path.join(run_dir, "trades.json")
+    if os.path.exists(trades_path):
+        with open(trades_path, "r") as f:
+            return json.load(f)
+    return []
+
 
 def _render_chart(fig: go.Figure):
     """Renders Plotly chart with modern width='stretch' and backwards-compatible fallback."""
@@ -150,6 +176,11 @@ def plot_bookmap_depth_heatmap(
     if not snapshots:
         fig.update_layout(title="No Order Book Snapshot Telemetry Available")
         return fig
+
+    if len(snapshots) > 5000:
+        snapshots = downsample_series(snapshots, 5000)
+    if trades and len(trades) > 5000:
+        trades = downsample_series(trades, 5000)
 
     # Subsample snapshots if stride > 1
     sampled_snaps = snapshots[::max(1, downsample_stride)]
@@ -405,38 +436,27 @@ def render(run_dir: Optional[str] = None):
     )
 
     if not run_dir:
-        st.warning("No run directory specified. Please select a simulation run to inspect replay telemetry.")
+        st.info("ℹ️ No run directory specified. Please select a simulation run to inspect replay telemetry.")
         return
 
     snapshots_path = os.path.join(run_dir, "book_snapshots.json")
-    if not os.path.exists(snapshots_path):
-        st.warning(
-            "No order book snapshot telemetry found (`book_snapshots.json`). "
-            "Please select a run logged with book telemetry or launch a new simulation."
+    snapshots = load_book_snapshots(snapshots_path)
+
+    if not snapshots:
+        render_empty_state(
+            tab_name="Order Book Replay & Bookmap Heatmap",
+            description="Interactive microstructure replay visualizing Bookmap-style resting liquidity heatmaps, executed order flow, and animated order book ladder dynamics.",
+            artifact_name="book_snapshots.json",
+            run_dir=run_dir,
+            prerequisite_filename="book_snapshots.json",
+            generator_fn=None,
         )
         return
 
-    # Load book snapshots
-    try:
-        with open(snapshots_path, "r") as f:
-            snapshots = json.load(f)
-    except Exception as e:
-        st.error(f"Failed to load `{snapshots_path}`: {e}")
-        return
-
-    if not snapshots:
-        st.info("The `book_snapshots.json` file is empty.")
-        return
-
-    # Load trade data if available
-    trades: List[Dict[str, Any]] = []
-    trades_path = os.path.join(run_dir, "trades.json")
-    if os.path.exists(trades_path):
-        try:
-            with open(trades_path, "r") as f:
-                trades = json.load(f)
-        except Exception:
-            pass
+    # Load trade data if available (prioritizes price_series.json, downsampled)
+    trades = load_replay_trades(run_dir)
+    if trades and len(trades) > 5000:
+        trades = downsample_series(trades, 5000)
 
     # Detect stress run / flash crash marker
     flash_crash_step = detect_flash_crash_step(run_dir, snapshots, trades)

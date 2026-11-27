@@ -17,6 +17,14 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 
+def downsample_series(data: Any, max_points: int = 5000) -> Any:
+    """Downsamples a sequence or array to at most max_points by uniform striding."""
+    if data is None or len(data) <= max_points:
+        return data
+    stride = int(np.ceil(len(data) / max_points))
+    return data[::stride]
+
+
 def plot_order_book_depth(
     bids: List[Tuple[float, int]],
     asks: List[Tuple[float, int]],
@@ -104,6 +112,9 @@ def plot_price_and_volume(price_series: List[Dict[str, Any]]) -> go.Figure:
         fig = go.Figure()
         fig.update_layout(title="No Trade Data Available")
         return fig
+
+    if len(price_series) > 5000:
+        price_series = downsample_series(price_series, 5000)
 
     # Check if steps reset backwards (indicates multi-episode runs)
     raw_steps = [p.get("step", i + 1) for i, p in enumerate(price_series)]
@@ -198,6 +209,8 @@ def plot_agent_pnl(agent_metrics: List[Dict[str, Any]]) -> go.Figure:
     palette = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b"]
 
     for idx, (a_id, records) in enumerate(agents_data.items()):
+        if len(records) > 5000:
+            records = downsample_series(records, 5000)
         episodes = [r.get("episode", i + 1) for i, r in enumerate(records)]
         pnls = [r.get("pnl", 0.0) for r in records]
         color = palette[idx % len(palette)]
@@ -244,6 +257,8 @@ def plot_inventory_accumulation(agent_metrics: List[Dict[str, Any]]) -> go.Figur
         agents_data.setdefault(a_id, []).append(m)
 
     for a_id, records in agents_data.items():
+        if len(records) > 5000:
+            records = downsample_series(records, 5000)
         episodes = [r.get("episode", i + 1) for i, r in enumerate(records)]
         invs = [r.get("inventory", 0) for r in records]
 
@@ -275,6 +290,9 @@ def plot_best_response_trace(trace: List[Dict[str, Any]]) -> go.Figure:
     if not trace:
         fig.update_layout(title="No Best-Response Trace Available")
         return fig
+
+    if len(trace) > 5000:
+        trace = downsample_series(trace, 5000)
 
     steps = [t["step"] for t in trace]
     # Check dimensions
@@ -321,6 +339,11 @@ def plot_convergence_diagnostics(rewards: List[float], td_errors: Optional[List[
         subplot_titles=("Reward Trajectory", "TD Error (Bellman Gap)") if td_errors else ("Reward Trajectory",),
         vertical_spacing=0.1,
     )
+
+    if rewards and len(rewards) > 5000:
+        rewards = downsample_series(rewards, 5000)
+    if td_errors and len(td_errors) > 5000:
+        td_errors = downsample_series(td_errors, 5000)
 
     steps = list(range(1, len(rewards) + 1))
     fig.add_trace(
@@ -374,6 +397,14 @@ def plot_training_curve(
             margin=dict(l=40, r=40, t=50, b=40),
         )
         return fig
+
+    if len(rewards) > 5000:
+        stride = int(np.ceil(len(rewards) / 5000))
+        rewards = rewards[::stride]
+        if epsilons:
+            epsilons = epsilons[::stride]
+        if td_errors:
+            td_errors = td_errors[::stride]
 
     has_secondary = bool(epsilons or td_errors)
     steps = list(range(1, len(rewards) + 1))

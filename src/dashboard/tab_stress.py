@@ -19,6 +19,18 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import streamlit as st
 
+from src.dashboard.empty_state import render_empty_state, generate_stress_artifact
+from src.dashboard.charts import downsample_series
+
+
+@st.cache_data(max_entries=10)
+def load_stress_report(report_path: str) -> Optional[Dict[str, Any]]:
+    """Loads stress_report.json with caching."""
+    if os.path.exists(report_path):
+        with open(report_path, "r") as f:
+            return json.load(f)
+    return None
+
 
 def _render_chart(fig: go.Figure):
     """Renders Plotly chart with modern width='stretch' and fallback."""
@@ -42,6 +54,11 @@ def plot_stress_mid_comparison(
     title: str = "Mid Price: Baseline vs. Stressed",
 ) -> go.Figure:
     """Plots baseline vs stressed mid-price trajectories across steps."""
+    if baseline_mids and len(baseline_mids) > 5000:
+        baseline_mids = downsample_series(baseline_mids, 5000)
+    if stressed_mids and len(stressed_mids) > 5000:
+        stressed_mids = downsample_series(stressed_mids, 5000)
+
     fig = go.Figure()
     steps_base = list(range(1, len(baseline_mids) + 1))
     steps_stress = list(range(1, len(stressed_mids) + 1))
@@ -85,6 +102,11 @@ def plot_stress_spread_comparison(
     title: str = "Bid-Ask Spread: Baseline vs. Stressed",
 ) -> go.Figure:
     """Plots baseline vs stressed spread trajectories across steps."""
+    if baseline_spreads and len(baseline_spreads) > 5000:
+        baseline_spreads = downsample_series(baseline_spreads, 5000)
+    if stressed_spreads and len(stressed_spreads) > 5000:
+        stressed_spreads = downsample_series(stressed_spreads, 5000)
+
     fig = go.Figure()
     steps_base = list(range(1, len(baseline_spreads) + 1))
     steps_stress = list(range(1, len(stressed_spreads) + 1))
@@ -130,6 +152,11 @@ def plot_stress_inventory_comparison(
     title: str = "MM Inventory Accumulation: Baseline vs. Stressed",
 ) -> go.Figure:
     """Plots baseline vs stressed market maker inventory positions."""
+    if baseline_invs and len(baseline_invs) > 5000:
+        baseline_invs = downsample_series(baseline_invs, 5000)
+    if stressed_invs and len(stressed_invs) > 5000:
+        stressed_invs = downsample_series(stressed_invs, 5000)
+
     fig = go.Figure()
     steps_base = list(range(1, len(baseline_invs) + 1))
     steps_stress = list(range(1, len(stressed_invs) + 1))
@@ -258,28 +285,25 @@ def render(run_dir: Optional[str] = None):
     )
 
     if not run_dir:
-        st.warning("No run directory specified. Please select a simulation run to inspect stress reports.")
+        st.info("ℹ️ No run directory specified. Please select a simulation run to inspect stress reports.")
         return
 
     report_path = os.path.join(run_dir, "stress_report.json")
-    if not os.path.exists(report_path):
-        st.warning(
-            "No stress test report found (`stress_report.json`). "
-            "Run the stress script to populate (e.g., `python scripts/run_stress.py --run-id <run_id>`)."
+    report = load_stress_report(report_path)
+
+    if not report or not report.get("scenarios"):
+        render_empty_state(
+            tab_name="Market Microstructure Stress Testing",
+            description="Evaluates exchange resilience and agent performance under structural stress scenarios: Flash Crash, Informed Flow, and Liquidity Withdrawal.",
+            artifact_name="stress_report.json",
+            run_dir=run_dir,
+            generator_fn=generate_stress_artifact,
+            button_label="⚡ Generate stress_report.json now",
+            spinner_text="Simulating stress test scenarios (3 scenarios × 5 episodes × 100 cycles)...",
         )
         return
 
-    try:
-        with open(report_path, "r") as f:
-            report = json.load(f)
-    except Exception as e:
-        st.error(f"Failed to load `{report_path}`: {e}")
-        return
-
     scenarios = report.get("scenarios", {})
-    if not scenarios:
-        st.info("Stress report contains no scenarios. Re-run stress test suite to populate.")
-        return
 
     # Scenario Selection
     col_sc1, col_sc2 = st.columns([1, 1])

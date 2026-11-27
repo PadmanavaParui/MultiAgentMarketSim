@@ -24,6 +24,31 @@ from plotly.subplots import make_subplots
 import streamlit as st
 
 from src.validation.stylized_facts import resample_timeseries, validate_stylized_facts
+from src.dashboard.empty_state import render_empty_state, generate_validation_artifact
+from src.dashboard.charts import downsample_series
+
+
+@st.cache_data(max_entries=10)
+def load_validation_report(report_path: str) -> Optional[Dict[str, Any]]:
+    """Loads validation_report.json with caching."""
+    if os.path.exists(report_path):
+        with open(report_path, "r") as f:
+            return json.load(f)
+    return None
+
+
+@st.cache_data(max_entries=10)
+def load_resampled_returns(timeseries_path: str, interval: int = 5) -> np.ndarray:
+    """Resamples timeseries returns with caching."""
+    if os.path.exists(timeseries_path):
+        try:
+            with open(timeseries_path, "r") as tf:
+                ts_records = json.load(tf)
+            resampled = resample_timeseries(ts_records, interval=interval)
+            return resampled.get("returns", np.empty(0, dtype=np.float64))
+        except Exception:
+            pass
+    return np.empty(0, dtype=np.float64)
 
 
 def _render_chart(fig: go.Figure):
@@ -54,6 +79,9 @@ def plot_return_histogram_with_normal(
     if len(returns) == 0:
         fig.update_layout(title="No Return Observations Available")
         return fig
+
+    if len(returns) > 5000:
+        returns = np.asarray(downsample_series(returns, 5000))
 
     # 1. Empirical returns histogram (probability density)
     fig.add_trace(go.Histogram(
@@ -105,6 +133,9 @@ def plot_qq_plot(
     if len(returns) < 5:
         fig.update_layout(title="Insufficient Observations for Q-Q Plot (min 5 required)")
         return fig
+
+    if len(returns) > 5000:
+        returns = np.asarray(downsample_series(returns, 5000))
 
     # Standardize returns
     mu = float(np.mean(returns))
@@ -250,49 +281,25 @@ def render(run_dir: Optional[str] = None):
     )
 
     if not run_dir:
-        st.warning("No run directory specified. Please select a simulation run to inspect validation reports.")
+        st.info("ℹ️ No run directory specified. Please select a simulation run to inspect validation reports.")
         return
 
     val_report_path = os.path.join(run_dir, "validation_report.json")
     timeseries_path = os.path.join(run_dir, "timeseries.json")
 
-    val_report: Optional[Dict[str, Any]] = None
-
-    # Load validation report if it exists
-    if os.path.exists(val_report_path):
-        try:
-            with open(val_report_path, "r") as f:
-                val_report = json.load(f)
-        except Exception as e:
-            st.error(f"Failed to load `{val_report_path}`: {e}")
-
-    # Fallback / On-demand computation if missing but timeseries.json is available
-    if not val_report:
-        if os.path.exists(timeseries_path):
-            st.warning(
-                "No validation report found (`validation_report.json`). "
-                "You can run the validation script or compute validation on demand below."
-            )
-            col_act, _ = st.columns([1, 2])
-            with col_act:
-                if st.button("🚀 Compute Stylized Facts Validation Now", key="btn_compute_val"):
-                    with st.spinner("Resampling timeseries and validating econometric stylized facts..."):
-                        try:
-                            run_id = os.path.basename(os.path.normpath(run_dir))
-                            data_dir = os.path.dirname(os.path.normpath(run_dir))
-                            val_report = validate_stylized_facts(run_id=run_id, data_dir=data_dir, resample_interval=5)
-                            st.success("Validation report generated successfully!")
-                        except Exception as ve:
-                            st.error(f"Validation failed: {ve}")
-                            return
-        else:
-            st.warning(
-                "No validation report (`validation_report.json`) or timeseries telemetry (`timeseries.json`) found. "
-                "Run the validation script to populate (e.g., `python scripts/run_validation.py --run-id <run_id>`)."
-            )
-            return
+    val_report = load_validation_report(val_report_path)
 
     if not val_report:
+        render_empty_state(
+            tab_name="Microstructure Stylized Facts & Empirical Validation",
+            description="Evaluates simulated price telemetry against five canonical empirical stylized facts observed across global financial markets (heavy tails, absence of autocorrelation, volatility clustering).",
+            artifact_name="validation_report.json",
+            run_dir=run_dir,
+            prerequisite_filename="timeseries.json",
+            generator_fn=generate_validation_artifact,
+            button_label="⚡ Generate validation_report.json now",
+            spinner_text="Resampling timeseries and validating econometric stylized facts...",
+        )
         return
 
     # Extract report sections
@@ -331,15 +338,7 @@ def render(run_dir: Optional[str] = None):
     st.divider()
 
     # Load or extract resampled log returns for distribution plots
-    returns = np.empty(0, dtype=np.float64)
-    if os.path.exists(timeseries_path):
-        try:
-            with open(timeseries_path, "r") as tf:
-                ts_records = json.load(tf)
-            resampled = resample_timeseries(ts_records, interval=val_report.get("resample_interval", 5))
-            returns = resampled.get("returns", np.empty(0, dtype=np.float64))
-        except Exception:
-            pass
+    returns = load_resampled_returns(timeseries_path, interval=val_report.get("resample_interval", 5))
 
     # If returns could not be loaded from timeseries, generate synthetic returns matching report metrics
     if len(returns) == 0:

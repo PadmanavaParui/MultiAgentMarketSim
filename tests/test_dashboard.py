@@ -457,6 +457,91 @@ class TestDashboard(unittest.TestCase):
             f"Unexpected 'not found' warning(s) in dashboard: {not_found_warnings}",
         )
 
+    def test_empty_and_nearly_empty_run_folders_render_all_tabs_without_exceptions(self):
+        """
+        Verifies that every tab render() executes without raising any exceptions
+        on a completely empty directory as well as a nearly empty run directory.
+        """
+        import tempfile
+        import os
+        from src.dashboard import tab_stress, tab_validation, tab_nash, tab_replay
+
+        # 1. Completely empty directory
+        with tempfile.TemporaryDirectory() as empty_dir:
+            tab_stress.render(empty_dir)
+            tab_validation.render(empty_dir)
+            tab_nash.render(empty_dir)
+            tab_replay.render(empty_dir)
+
+        # 2. Nearly empty directory (only minimal run_summary.json)
+        with tempfile.TemporaryDirectory() as nearly_empty_dir:
+            summary_path = os.path.join(nearly_empty_dir, "run_summary.json")
+            with open(summary_path, "w") as f:
+                f.write('{"run_id": "nearly_empty_01", "seed": 42, "status": "COMPLETE"}')
+
+            tab_stress.render(nearly_empty_dir)
+            tab_validation.render(nearly_empty_dir)
+            tab_nash.render(nearly_empty_dir)
+            tab_replay.render(nearly_empty_dir)
+
+    def test_empty_state_component(self):
+        """Verifies render_empty_state logic with missing prerequisites and generator hooks."""
+        import tempfile
+        import os
+        from src.dashboard.empty_state import render_empty_state
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            # Missing prerequisite file -> displays info, does not crash
+            render_empty_state(
+                tab_name="Validation",
+                description="Microstructure test",
+                artifact_name="validation_report.json",
+                run_dir=tmp_dir,
+                prerequisite_filename="timeseries.json",
+                generator_fn=lambda d: None,
+            )
+
+            # Satisfied prerequisite file -> allows generation
+            ts_path = os.path.join(tmp_dir, "timeseries.json")
+            with open(ts_path, "w") as f:
+                f.write("[]")
+
+            render_empty_state(
+                tab_name="Validation",
+                description="Microstructure test",
+                artifact_name="validation_report.json",
+                run_dir=tmp_dir,
+                prerequisite_filename="timeseries.json",
+                generator_fn=lambda d: None,
+            )
+
+            # No generator function (e.g. replay)
+            render_empty_state(
+                tab_name="Replay",
+                description="Replay test",
+                artifact_name="book_snapshots.json",
+                run_dir=tmp_dir,
+                prerequisite_filename="book_snapshots.json",
+                generator_fn=None,
+            )
+
+    def test_fresh_process_peak_rss_memory_limit(self):
+        """
+        Verifies that peak RSS memory stays strictly under 500 MB when running the dashboard.
+        """
+        import os
+        import resource
+        from streamlit.testing.v1 import AppTest
+
+        app_file = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src", "dashboard", "app.py"))
+        at = AppTest.from_file(app_file)
+        at.run(timeout=25)
+
+        rss_mb = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024
+        self.assertEqual(len(at.exception), 0, f"AppTest raised exception(s): {at.exception}")
+        self.assertLess(rss_mb, 500.0, f"Peak RSS exceeded 500 MB: {rss_mb:.2f} MB")
+
 
 if __name__ == "__main__":
     unittest.main()
+
