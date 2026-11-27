@@ -33,7 +33,9 @@ class MarketEnvironment(ParallelEnv):
         fee_rate: float = 0.0,
         dict_spaces: bool = True,
         run_id: str = "default_run",
-        render_mode: Optional[str] = None
+        render_mode: Optional[str] = None,
+        max_position: Optional[int] = 100,
+        price_band: Optional[Union[float, Tuple[float, float]]] = 0.10,
     ):
         super().__init__()
         # Determine agent IDs
@@ -59,6 +61,15 @@ class MarketEnvironment(ParallelEnv):
         self.dict_spaces = dict_spaces
         self.run_id = run_id
         self.render_mode = render_mode
+        self.max_position = max_position
+        self.price_band = price_band
+
+        self.min_price: Optional[float] = None
+        self.max_price: Optional[float] = None
+        self.episode_reference_price: Optional[float] = None
+        self.rejected_orders: Dict[str, int] = {a: 0 for a in self.possible_agents}
+        self.position_limit_rejections: Dict[str, int] = {a: 0 for a in self.possible_agents}
+        self.price_band_rejections: Dict[str, int] = {a: 0 for a in self.possible_agents}
 
         # Configure initial cash & inventory per agent
         self._initial_cash: Dict[str, float] = {}
@@ -130,15 +141,21 @@ class MarketEnvironment(ParallelEnv):
         best_bid = self.order_book.best_bid()
         best_ask = self.order_book.best_ask()
         if best_bid is not None and best_ask is not None:
-            return (best_bid.price + best_ask.price) / 2.0
+            ref = (best_bid.price + best_ask.price) / 2.0
         elif best_bid is not None:
-            return best_bid.price
+            ref = best_bid.price
         elif best_ask is not None:
-            return best_ask.price
+            ref = best_ask.price
         elif self.last_trade_price is not None:
-            return self.last_trade_price
+            ref = self.last_trade_price
         else:
-            return self.initial_price
+            ref = self.initial_price
+
+        if hasattr(self, "min_price") and self.min_price is not None:
+            ref = max(ref, self.min_price)
+        if hasattr(self, "max_price") and self.max_price is not None:
+            ref = min(ref, self.max_price)
+        return ref
 
     def _get_obs(self, agent: str) -> Union[Dict[str, np.ndarray], np.ndarray]:
         """Returns top-K bids/asks and agent's own cash and inventory."""
@@ -242,6 +259,11 @@ class MarketEnvironment(ParallelEnv):
         """
         Resets the environment for a new episode.
         """
+        if options and "max_position" in options:
+            self.max_position = options["max_position"]
+        if options and "price_band" in options:
+            self.price_band = options["price_band"]
+
         if seed is not None:
             self._seed = seed
             self.np_random, _ = gym.utils.seeding.np_random(seed)
@@ -264,6 +286,30 @@ class MarketEnvironment(ParallelEnv):
         self.inventory = {a: int(self._initial_inventory[a]) for a in self.possible_agents}
         self.initial_total_value = sum(self.cash[a] for a in self.possible_agents)
 
+        self.rejected_orders = {a: 0 for a in self.possible_agents}
+        self.position_limit_rejections = {a: 0 for a in self.possible_agents}
+        self.price_band_rejections = {a: 0 for a in self.possible_agents}
+
+        # Calculate initial reference price and price bands
+        self.min_price = None
+        self.max_price = None
+        self.episode_reference_price = self._get_reference_price()
+
+        if self.price_band is not None:
+            if isinstance(self.price_band, (int, float)):
+                band = float(self.price_band)
+                self.min_price = max(self.tick_size, round(self.episode_reference_price * (1.0 - band) / self.tick_size) * self.tick_size)
+                self.max_price = round(self.episode_reference_price * (1.0 + band) / self.tick_size) * self.tick_size
+                self.min_price = round(self.min_price, 4)
+                self.max_price = round(self.max_price, 4)
+            elif isinstance(self.price_band, (tuple, list)) and len(self.price_band) == 2:
+                self.min_price = max(self.tick_size, round(float(self.price_band[0]) / self.tick_size) * self.tick_size)
+                self.max_price = round(float(self.price_band[1]) / self.tick_size) * self.tick_size
+                self.min_price = round(self.min_price, 4)
+                self.max_price = round(self.max_price, 4)
+
+        self.matching_engine.set_price_bounds(self.min_price, self.max_price)
+
         ref_price = self._get_reference_price()
         self.prev_portfolio_value = {
             a: self.cash[a] + self.inventory[a] * ref_price
@@ -271,7 +317,14 @@ class MarketEnvironment(ParallelEnv):
         }
 
         observations = {a: self._get_obs(a) for a in self.agents}
-        infos = {a: {} for a in self.agents}
+        infos = {
+            a: {
+                "rejected_orders": 0,
+                "position_limit_rejections": 0,
+                "price_band_rejections": 0,
+            }
+            for a in self.agents
+        }
 
         return observations, infos
 
@@ -302,6 +355,10 @@ class MarketEnvironment(ParallelEnv):
 
         step_trades: List[Trade] = []
         agent_trades: Dict[str, List[Trade]] = {a: [] for a in current_agents}
+        step_rejected_orders: Dict[str, int] = {a: 0 for a in current_agents}
+        step_pos_rejections: Dict[str, int] = {a: 0 for a in current_agents}
+        step_band_rejections: Dict[str, int] = {a: 0 for a in current_agents}
+        step_rejection_reasons: Dict[str, Optional[str]] = {a: None for a in current_agents}
 
         # Process orders
         for agent_id in agent_order:
@@ -311,14 +368,48 @@ class MarketEnvironment(ParallelEnv):
             if order_type is None or qty <= 0:
                 continue
 
+            # Check max_position constraint
+            if self.max_position is not None:
+                current_inv = self.inventory[agent_id]
+                if side == Side.BID and (current_inv + qty > self.max_position):
+                    self.position_limit_rejections[agent_id] = self.position_limit_rejections.get(agent_id, 0) + 1
+                    self.rejected_orders[agent_id] = self.rejected_orders.get(agent_id, 0) + 1
+                    step_rejected_orders[agent_id] += 1
+                    step_pos_rejections[agent_id] += 1
+                    step_rejection_reasons[agent_id] = "max_position_exceeded"
+                    continue
+                elif side == Side.ASK and (current_inv - qty < -self.max_position):
+                    self.position_limit_rejections[agent_id] = self.position_limit_rejections.get(agent_id, 0) + 1
+                    self.rejected_orders[agent_id] = self.rejected_orders.get(agent_id, 0) + 1
+                    step_rejected_orders[agent_id] += 1
+                    step_pos_rejections[agent_id] += 1
+                    step_rejection_reasons[agent_id] = "max_position_exceeded"
+                    continue
+
             ref_price = self._get_reference_price()
 
             if order_type == OrderType.LIMIT:
                 raw_price = ref_price + price_offset
                 price = max(self.tick_size, round(raw_price / self.tick_size) * self.tick_size)
                 price = round(price, 4)
+
+                # Check price band constraint
+                if self.min_price is not None and price < self.min_price:
+                    self.price_band_rejections[agent_id] = self.price_band_rejections.get(agent_id, 0) + 1
+                    self.rejected_orders[agent_id] = self.rejected_orders.get(agent_id, 0) + 1
+                    step_rejected_orders[agent_id] += 1
+                    step_band_rejections[agent_id] += 1
+                    step_rejection_reasons[agent_id] = "price_below_band"
+                    continue
+                if self.max_price is not None and price > self.max_price:
+                    self.price_band_rejections[agent_id] = self.price_band_rejections.get(agent_id, 0) + 1
+                    self.rejected_orders[agent_id] = self.rejected_orders.get(agent_id, 0) + 1
+                    step_rejected_orders[agent_id] += 1
+                    step_band_rejections[agent_id] += 1
+                    step_rejection_reasons[agent_id] = "price_above_band"
+                    continue
             else:
-                # Market order
+                # Market order: price is set to current reference price
                 price = ref_price
 
             self._order_counter += 1
@@ -393,6 +484,14 @@ class MarketEnvironment(ParallelEnv):
                 "pnl": float(portfolio_val - self._initial_cash[a]),
                 "step_pnl": step_reward,
                 "trades_count": len(agent_trades.get(a, [])),
+                "rejected_orders": self.rejected_orders.get(a, 0),
+                "position_limit_rejections": self.position_limit_rejections.get(a, 0),
+                "price_band_rejections": self.price_band_rejections.get(a, 0),
+                "step_rejected_orders": step_rejected_orders.get(a, 0),
+                "step_position_limit_rejections": step_pos_rejections.get(a, 0),
+                "step_price_band_rejections": step_band_rejections.get(a, 0),
+                "order_rejected": bool(step_rejected_orders.get(a, 0) > 0),
+                "rejection_reason": step_rejection_reasons.get(a, None),
             }
 
         # Check terminations & truncations

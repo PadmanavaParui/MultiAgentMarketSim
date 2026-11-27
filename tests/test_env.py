@@ -148,6 +148,157 @@ class TestMarketEnvironment(unittest.TestCase):
         self.assertEqual(env.cash["agent_0"], 10000.0 - (15 * 101.0))
         self.assertEqual(env.cash["agent_1"], 10000.0 + (15 * 101.0))
 
+    def test_max_position_limit_rejection(self):
+        """
+        Tests that orders that would push |inventory| beyond max_position are rejected
+        and accurately counted in info dicts.
+        """
+        env = MarketEnvironment(
+            dict_spaces=True,
+            max_position=50,
+            price_band=0.20,
+        )
+        obs, infos = env.reset(seed=42)
+
+        # Step 1: Agent 0 places resting Ask @ 100.0 (qty 40)
+        env.step({
+            "agent_0": {"order_type": 1, "side": 1, "price_offset": 0.0, "quantity": 40},
+            "agent_1": {"order_type": 0, "side": 0, "price_offset": 0.0, "quantity": 0},
+        })
+
+        # Step 2: Agent 1 buys 40 shares (inv: +40 <= 50)
+        env.step({
+            "agent_0": {"order_type": 0, "side": 0, "price_offset": 0.0, "quantity": 0},
+            "agent_1": {"order_type": 2, "side": 0, "price_offset": 0.0, "quantity": 40},
+        })
+        self.assertEqual(env.inventory["agent_1"], 40)
+
+        # Step 3: Agent 1 has inventory = 40. Submitting BUY of 20 would make inventory 60 > 50.
+        # Should be rejected!
+        obs, rewards, term, trunc, infos = env.step({
+            "agent_0": {"order_type": 0, "side": 0, "price_offset": 0.0, "quantity": 0},
+            "agent_1": {"order_type": 2, "side": 0, "price_offset": 0.0, "quantity": 20},
+        })
+        self.assertEqual(env.inventory["agent_1"], 40)
+        self.assertEqual(infos["agent_1"]["position_limit_rejections"], 1)
+        self.assertEqual(infos["agent_1"]["rejected_orders"], 1)
+        self.assertTrue(infos["agent_1"]["order_rejected"])
+        self.assertEqual(infos["agent_1"]["rejection_reason"], "max_position_exceeded")
+
+        # Similarly on short side: Agent 0 has inventory -40.
+        # Submitting SELL of 20 would make inventory -60 < -50.
+        obs, rewards, term, trunc, infos = env.step({
+            "agent_0": {"order_type": 2, "side": 1, "price_offset": 0.0, "quantity": 20},
+            "agent_1": {"order_type": 0, "side": 0, "price_offset": 0.0, "quantity": 0},
+        })
+        self.assertEqual(env.inventory["agent_0"], -40)
+        self.assertEqual(infos["agent_0"]["position_limit_rejections"], 1)
+        self.assertEqual(infos["agent_0"]["rejected_orders"], 1)
+
+    def test_price_band_limit_rejection(self):
+        """
+        Tests that limit orders outside the starting reference price band are rejected.
+        """
+        # initial_price = 100.0, price_band = 0.10 => min_price = 90.0, max_price = 110.0
+        env = MarketEnvironment(
+            dict_spaces=True,
+            initial_price=100.0,
+            price_band=0.10,
+            max_price_offset=20.0,
+        )
+        obs, infos = env.reset(seed=123)
+
+        self.assertAlmostEqual(env.min_price, 90.0)
+        self.assertAlmostEqual(env.max_price, 110.0)
+
+        # Order above max_price (e.g. limit bid at 100 + 15 = 115) should be rejected
+        obs, rewards, term, trunc, infos = env.step({
+            "agent_0": {"order_type": 1, "side": 0, "price_offset": 15.0, "quantity": 10},
+            "agent_1": {"order_type": 0, "side": 0, "price_offset": 0.0, "quantity": 0},
+        })
+        self.assertEqual(infos["agent_0"]["price_band_rejections"], 1)
+        self.assertEqual(infos["agent_0"]["rejected_orders"], 1)
+        self.assertEqual(infos["agent_0"]["rejection_reason"], "price_above_band")
+        self.assertIsNone(env.order_book.best_bid())
+
+        # Order below min_price (e.g. limit ask at 100 - 15 = 85) should be rejected
+        obs, rewards, term, trunc, infos = env.step({
+            "agent_0": {"order_type": 0, "side": 0, "price_offset": 0.0, "quantity": 0},
+            "agent_1": {"order_type": 1, "side": 1, "price_offset": -15.0, "quantity": 10},
+        })
+        self.assertEqual(infos["agent_1"]["price_band_rejections"], 1)
+        self.assertEqual(infos["agent_1"]["rejected_orders"], 1)
+        self.assertEqual(infos["agent_1"]["rejection_reason"], "price_below_band")
+        self.assertIsNone(env.order_book.best_ask())
+
+    def test_market_orders_cannot_sweep_past_price_band(self):
+        """
+        Tests that market orders cannot execute trades beyond the price band limits.
+        """
+        from src.engine.order_book import Order
+        env = MarketEnvironment(
+            dict_spaces=True,
+            initial_price=100.0,
+            price_band=0.10,  # [90.0, 110.0]
+        )
+        env.reset(seed=1)
+
+        # Manually seed order book with one ask inside the band (105.0) and one outside (115.0)
+        ord_inside = Order("o_inside", "agent_1", Side.ASK, OrderType.LIMIT, 105.0, 10, 1)
+        ord_outside = Order("o_outside", "agent_1", Side.ASK, OrderType.LIMIT, 115.0, 10, 1)
+        env.order_book.add_order(ord_inside)
+        env.order_book.add_order(ord_outside)
+        env._all_orders[ord_inside.order_id] = ord_inside
+        env._all_orders[ord_outside.order_id] = ord_outside
+
+        # Agent 0 submits a Market Buy of 25 shares (enough to sweep both orders)
+        actions = {
+            "agent_0": {"order_type": 2, "side": 0, "price_offset": 0.0, "quantity": 25},
+            "agent_1": {"order_type": 0, "side": 0, "price_offset": 0.0, "quantity": 0},
+        }
+        env.step(actions)
+
+        # Only 10 shares at 105.0 should have matched. The 115.0 ask must NOT be filled.
+        self.assertEqual(env.inventory["agent_0"], 10)
+        self.assertEqual(env.order_book.best_ask().price, 115.0)
+        self.assertEqual(env.order_book.best_ask().quantity, 10)
+
+    def test_runaway_scenario_prevented(self):
+        """
+        Simulates an aggressive buyer attempting to inflate price and inventory over 50 steps.
+        Verifies that inventory is strictly capped at max_position and mid-price is capped by price_band.
+        """
+        env = MarketEnvironment(
+            dict_spaces=True,
+            max_cycles=50,
+            initial_price=100.0,
+            max_position=100,
+            price_band=0.10,  # collar is [90.0, 110.0]
+        )
+        env.reset(seed=42)
+
+        # Agent 0 aggressively buys each step, Agent 1 is a passive seller
+        for step in range(50):
+            actions = {
+                "agent_0": {"order_type": 2, "side": 0, "price_offset": 0.0, "quantity": 10},
+                "agent_1": {"order_type": 1, "side": 1, "price_offset": 1.0, "quantity": 10},
+            }
+            obs, rewards, term, trunc, infos = env.step(actions)
+            ref_p = env._get_reference_price()
+
+            # Invariant 1: Inventory never exceeds max_position
+            self.assertLessEqual(abs(env.inventory["agent_0"]), 100)
+
+            # Invariant 2: Price never exceeds max_price
+            self.assertLessEqual(ref_p, 110.0 + 1e-6)
+            self.assertGreaterEqual(ref_p, 90.0 - 1e-6)
+
+        # At the end of the episode:
+        self.assertLessEqual(env.inventory["agent_0"], 100)
+        self.assertLessEqual(env._get_reference_price(), 110.0 + 1e-6)
+        # Agent 0 should have rejected orders recorded
+        self.assertGreater(infos["agent_0"]["position_limit_rejections"], 0)
+
 
 if __name__ == "__main__":
     unittest.main()

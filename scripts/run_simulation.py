@@ -43,6 +43,8 @@ def run_simulation(
     snapshot_interval: int = 5,
     custom_agent_configs: Optional[Dict[str, Dict[str, Any]]] = None,
     validate: bool = False,
+    max_position: Optional[int] = 100,
+    price_band: Optional[float] = 0.10,
 ) -> MetricsLogger:
     """
     Executes a multi-episode market simulation run and logs all records.
@@ -55,6 +57,8 @@ def run_simulation(
         "seed": seed,
         "run_id": run_id,
         "snapshot_interval": snapshot_interval,
+        "max_position": max_position,
+        "price_band": price_band,
     }
     logger.start_run(run_id=run_id, seed=seed, config=config_snapshot)
 
@@ -94,6 +98,8 @@ def run_simulation(
         max_cycles=cycles_per_episode,
         dict_spaces=True,
         run_id=run_id,
+        max_position=max_position,
+        price_band=price_band,
     )
 
     # Instantiate agent policy instances
@@ -171,6 +177,10 @@ def run_simulation(
             ep_portfolios: Dict[str, List[float]] = {a: [] for a in agent_ids}
             ep_inventories: Dict[str, List[int]] = {a: [] for a in agent_ids}
 
+            p0 = float(env.episode_reference_price if env.episode_reference_price is not None else env._get_reference_price())
+            ep_min_price = p0
+            ep_max_price = p0
+
             step = 0
             while env.agents:
                 step += 1
@@ -178,6 +188,11 @@ def run_simulation(
 
                 # Step the market environment
                 next_obs, rewards, terminations, truncations, step_infos = env.step(actions)
+
+                # Track mid/reference and trade prices for excursion computation
+                p_cur = float(env._get_reference_price())
+                ep_min_price = min(ep_min_price, p_cur)
+                ep_max_price = max(ep_max_price, p_cur)
 
                 # Process rewards and agent learning updates
                 for a_id in agent_ids:
@@ -295,8 +310,15 @@ def run_simulation(
                     reward=sum(ep_rewards[a_id]),
                 )
 
+            max_price_excursion = max(abs(ep_max_price - p0), abs(ep_min_price - p0))
+            rl_invs = {a_id: env.inventory[a_id] for a_id in agent_ids if "rl" in a_id.lower()}
+            rl_inv_str = ", ".join(f"{k}: {v}" for k, v in rl_invs.items()) if rl_invs else f"All: {env.inventory}"
+
+            if verbose:
+                print(f"[Episode {ep + 1:3d}/{episodes}] P0=${p0:.2f} | Range=[${ep_min_price:.2f}, ${ep_max_price:.2f}] | Max Excursion=${max_price_excursion:.2f} ({(max_price_excursion/p0)*100:.2f}%) | RL Inv: {rl_inv_str}")
+
             if verbose and (ep + 1) % max(1, episodes // 5) == 0:
-                print(f"Episode {ep + 1}/{episodes} finished. Reference Price: ${ref_price:.2f}")
+                print(f"--- Episode {ep + 1}/{episodes} Summary (Ref Price: ${ref_price:.2f}) ---")
                 for a_id in agent_ids:
                     print(f"  {a_id}: Cash=${env.cash[a_id]:.2f}, Inv={env.inventory[a_id]}, Total PnL=${(env.cash[a_id] + env.inventory[a_id] * ref_price - env._initial_cash[a_id]):.2f}")
 
@@ -396,6 +418,18 @@ if __name__ == "__main__":
         action="store_true",
         help="Validate stylized facts post-run and save validation_report.json",
     )
+    parser.add_argument(
+        "--max-position",
+        type=int,
+        default=100,
+        help="Maximum allowed absolute position inventory limit (default: 100)",
+    )
+    parser.add_argument(
+        "--price-band",
+        type=float,
+        default=0.10,
+        help="Price band collar around starting reference price (default: 0.10 for +/-10%%)",
+    )
     args = parser.parse_args()
 
     run_simulation(
@@ -407,4 +441,6 @@ if __name__ == "__main__":
         output_dir=args.output_dir,
         snapshot_interval=args.snapshot_interval,
         validate=args.validate,
+        max_position=args.max_position,
+        price_band=args.price_band,
     )

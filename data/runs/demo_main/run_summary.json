@@ -7,10 +7,12 @@
     "cycles_per_episode": 300,
     "seed": 42,
     "run_id": "demo_main",
-    "snapshot_interval": 5
+    "snapshot_interval": 5,
+    "max_position": 100,
+    "price_band": 0.1
   },
-  "started_at": "2026-11-26T16:35:15.787772+00:00",
+  "started_at": "2026-11-27T04:42:35.554614+00:00",
   "status": "COMPLETE",
-  "completed_at": "2026-11-26T16:35:28.317981+00:00",
+  "completed_at": "2026-11-27T04:42:51.509969+00:00",
   "error_message": null
 }
