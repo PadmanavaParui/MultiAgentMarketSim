@@ -52,10 +52,13 @@ def format_table(scenario_name: str, results: dict) -> str:
         ("Peak Spread ($)", "peak_spread", "{:.2f}"),
         ("Baseline Spread ($)", "baseline_spread", "{:.2f}"),
         ("Spread Diff vs Base ($)", "spread_diff", "{:.2f}"),
+        ("One-Sided Book Steps (%)", "pct_steps_one_sided", "{:.2f}%"),
         ("MM Max |Inventory|", "mm_max_abs_inventory", "{:d}"),
         ("MM Stressed PnL ($)", "mm_pnl_stressed", "{:.2f}"),
+        ("MM Stressed PnL SE ($)", "mm_pnl_stressed_se", "{:.2f}"),
         ("MM Baseline PnL ($)", "mm_pnl_baseline", "{:.2f}"),
         ("MM PnL vs Baseline ($)", "mm_pnl_vs_baseline", "{:.2f}"),
+        ("MM PnL vs Base SE ($)", "mm_pnl_vs_baseline_se", "{:.2f}"),
         ("Adverse-Selection Loss ($)", "adverse_selection_loss", "{:.2f}"),
         ("Recovered?", "recovered", lambda v: "Yes" if v else "No"),
         ("Recovery Time (steps)", "recovery_time", lambda v: str(v) if v is not None else "N/A"),
@@ -163,24 +166,41 @@ def main():
     run_dir = os.path.join(args.output_dir, run_id)
     os.makedirs(run_dir, exist_ok=True)
     summary_path = os.path.join(run_dir, "run_summary.json")
-    summary = {
-        "run_id": run_id,
-        "seed": args.seed,
-        "config_snapshot": {
-            "mode": "stress_scenarios",
-            "scenarios": args.scenarios,
-            "mm_types": args.mm_types,
-            "episodes": args.episodes,
-            "cycles": args.cycles,
+    if os.path.exists(summary_path):
+        try:
+            with open(summary_path, "r") as f:
+                summary = json.load(f)
+            summary["stress_test"] = {
+                "scenarios": args.scenarios,
+                "mm_types": args.mm_types,
+                "episodes": args.episodes,
+                "cycles": args.cycles,
+                "seed": args.seed,
+                "completed_at": datetime.now(timezone.utc).isoformat(),
+            }
+            with open(summary_path, "w") as f:
+                json.dump(summary, f, indent=2)
+        except Exception:
+            pass
+    else:
+        summary = {
+            "run_id": run_id,
             "seed": args.seed,
-        },
-        "started_at": datetime.now(timezone.utc).isoformat(),
-        "status": "COMPLETE",
-        "completed_at": datetime.now(timezone.utc).isoformat(),
-        "error_message": None,
-    }
-    with open(summary_path, "w") as f:
-        json.dump(summary, f, indent=2)
+            "config_snapshot": {
+                "mode": "stress_scenarios",
+                "scenarios": args.scenarios,
+                "mm_types": args.mm_types,
+                "episodes": args.episodes,
+                "cycles": args.cycles,
+                "seed": args.seed,
+            },
+            "started_at": datetime.now(timezone.utc).isoformat(),
+            "status": "COMPLETE",
+            "completed_at": datetime.now(timezone.utc).isoformat(),
+            "error_message": None,
+        }
+        with open(summary_path, "w") as f:
+            json.dump(summary, f, indent=2)
 
     report_path = os.path.join(run_dir, "stress_report.json")
     print(f"\n[+] Stress report saved to: {report_path}\n")

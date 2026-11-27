@@ -66,10 +66,10 @@ def compute_max_mid_drawdown(mid_prices: Sequence[Optional[float]]) -> float:
 def compute_peak_vs_baseline_spread(
     stressed_spreads: Sequence[Optional[float]],
     baseline_spreads: Sequence[Optional[float]],
-    max_penalty_spread: float = 20.0,
 ) -> Dict[str, float]:
     """
-    Compute peak spread in stressed episode compared to baseline average spread.
+    Compute peak spread in stressed episode compared to baseline average spread,
+    considering only steps where both book sides exist, and reporting pct_steps_one_sided.
 
     Parameters
     ----------
@@ -77,22 +77,26 @@ def compute_peak_vs_baseline_spread(
         Spreads across steps in the stressed episode.
     baseline_spreads : Sequence[Optional[float]]
         Spreads across steps in the paired baseline episode.
-    max_penalty_spread : float
-        Fallback spread value when a book side is empty.
 
     Returns
     -------
     Dict[str, float]
-        Contains 'peak_spread', 'baseline_spread', 'spread_diff', and 'spread_ratio'.
+        Contains 'peak_spread', 'baseline_spread', 'spread_diff', 'spread_ratio',
+        and 'pct_steps_one_sided'.
     """
     s_clean = [
-        float(s) if (s is not None and not np.isnan(s)) else max_penalty_spread
-        for s in stressed_spreads
+        float(s) for s in stressed_spreads if (s is not None and not np.isnan(s))
     ]
     b_clean = [
-        float(s) if (s is not None and not np.isnan(s)) else max_penalty_spread
-        for s in baseline_spreads
+        float(s) for s in baseline_spreads if (s is not None and not np.isnan(s))
     ]
+
+    total_stressed_steps = len(stressed_spreads)
+    pct_one_sided = (
+        round(100.0 * (total_stressed_steps - len(s_clean)) / total_stressed_steps, 2)
+        if total_stressed_steps > 0
+        else 0.0
+    )
 
     peak_stressed = float(np.max(s_clean)) if s_clean else 0.0
     avg_baseline = float(np.mean(b_clean)) if b_clean else 0.0
@@ -104,6 +108,7 @@ def compute_peak_vs_baseline_spread(
         "baseline_spread": round(avg_baseline, 4),
         "spread_diff": round(diff, 4),
         "spread_ratio": round(ratio, 4),
+        "pct_steps_one_sided": pct_one_sided,
     }
 
 
@@ -212,10 +217,10 @@ def compute_recovery_time(
     shock_end_step: int,
     tolerance_mid: float = 1.0,
     tolerance_spread_factor: float = 1.5,
-    max_penalty_spread: float = 20.0,
 ) -> Tuple[bool, Optional[int]]:
     """
     Compute recovery time in steps after shock cessation until mid and spread return near baseline.
+    Requires both sides of the book to exist (non-None spread) for the market to be considered recovered.
 
     Parameters
     ----------
@@ -233,8 +238,6 @@ def compute_recovery_time(
         Acceptable absolute difference in mid price (|mid - baseline_mid| <= tolerance_mid).
     tolerance_spread_factor : float
         Acceptable spread multiple (spread <= baseline_spread * tolerance_spread_factor + 0.1).
-    max_penalty_spread : float
-        Spread value assigned when book side is empty.
 
     Returns
     -------
@@ -252,12 +255,11 @@ def compute_recovery_time(
 
         m = stressed_mids[idx]
         s = stressed_spreads[idx]
-        if m is None:
+        if m is None or np.isnan(m) or s is None or np.isnan(s):
             continue
-        spread_val = s if s is not None else max_penalty_spread
 
         mid_near = abs(m - baseline_mid_target) <= tolerance_mid
-        spread_near = spread_val <= spread_threshold
+        spread_near = s <= spread_threshold
 
         if mid_near and spread_near:
             recovery_steps = step - shock_end_step
@@ -284,6 +286,13 @@ class ScenarioConfig:
     tolerance_spread_factor: float = 1.5
 
 
+def compute_standard_error(values: Sequence[float]) -> float:
+    """Compute sample standard error s / sqrt(N). Returns 0.0 if N <= 1."""
+    if len(values) <= 1:
+        return 0.0
+    return float(np.std(values, ddof=1) / np.sqrt(len(values)))
+
+
 @dataclass
 class ScenarioMetrics:
     scenario_name: str
@@ -293,10 +302,13 @@ class ScenarioMetrics:
     baseline_spread: float
     spread_diff: float
     spread_ratio: float
+    pct_steps_one_sided: float
     mm_max_abs_inventory: int
     mm_pnl_stressed: float
+    mm_pnl_stressed_se: float
     mm_pnl_baseline: float
     mm_pnl_vs_baseline: float
+    mm_pnl_vs_baseline_se: float
     adverse_selection_loss: float
     adverse_selection_pnl: float
     recovered: bool
@@ -460,7 +472,7 @@ class StressScenarioRunner:
                 sp = round(ask.price - bid.price, 4)
             else:
                 mid = env._get_reference_price()
-                sp = 20.0
+                sp = None
 
             mids.append(mid)
             spreads.append(sp)
@@ -513,6 +525,7 @@ class StressScenarioRunner:
         base_spreads = []
         spread_diffs = []
         spread_ratios = []
+        pct_one_sided_list = []
         max_inventories = []
         stressed_pnls = []
         base_pnls = []
@@ -550,6 +563,7 @@ class StressScenarioRunner:
             base_spreads.append(sp_res["baseline_spread"])
             spread_diffs.append(sp_res["spread_diff"])
             spread_ratios.append(sp_res["spread_ratio"])
+            pct_one_sided_list.append(sp_res["pct_steps_one_sided"])
 
             max_inv = compute_mm_max_inventory(stress_run["mm_inventories"])
             max_inventories.append(max_inv)
@@ -573,8 +587,10 @@ class StressScenarioRunner:
             adverse_pnls.append(adv_res["adverse_selection_pnl"])
 
             # Recovery time
-            base_mid_target = float(np.mean(base_run["mids"])) if base_run["mids"] else 100.0
-            base_sp_target = float(np.mean(base_run["spreads"])) if base_run["spreads"] else 1.0
+            clean_base_mids = [m for m in base_run["mids"] if m is not None and not np.isnan(m)]
+            clean_base_sps = [s for s in base_run["spreads"] if s is not None and not np.isnan(s)]
+            base_mid_target = float(np.mean(clean_base_mids)) if clean_base_mids else 100.0
+            base_sp_target = float(np.mean(clean_base_sps)) if clean_base_sps else 1.0
 
             rec_ok, rec_time = compute_recovery_time(
                 stressed_mids=stress_run["mids"],
@@ -599,10 +615,13 @@ class StressScenarioRunner:
             baseline_spread=round(float(np.mean(base_spreads)), 4),
             spread_diff=round(float(np.mean(spread_diffs)), 4),
             spread_ratio=round(float(np.mean(spread_ratios)), 4),
+            pct_steps_one_sided=round(float(np.mean(pct_one_sided_list)), 2),
             mm_max_abs_inventory=int(round(float(np.mean(max_inventories)))),
             mm_pnl_stressed=round(float(np.mean(stressed_pnls)), 4),
+            mm_pnl_stressed_se=round(compute_standard_error(stressed_pnls), 4),
             mm_pnl_baseline=round(float(np.mean(base_pnls)), 4),
             mm_pnl_vs_baseline=round(float(np.mean(pnl_diffs)), 4),
+            mm_pnl_vs_baseline_se=round(compute_standard_error(pnl_diffs), 4),
             adverse_selection_loss=round(float(np.mean(adverse_losses)), 4),
             adverse_selection_pnl=round(float(np.mean(adverse_pnls)), 4),
             recovered=(recovered_count > 0),

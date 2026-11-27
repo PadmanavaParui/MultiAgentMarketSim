@@ -61,7 +61,7 @@ class TestStressMetrics(unittest.TestCase):
         self.assertEqual(compute_max_mid_drawdown([]), 0.0)
 
     def test_compute_peak_vs_baseline_spread(self):
-        """Test peak spread vs baseline average spread computation."""
+        """Test peak spread vs baseline average spread computation without sentinel."""
         stressed = [0.5, 1.0, 5.0, 2.0]
         baseline = [0.5, 0.5, 0.6, 0.4]
 
@@ -70,11 +70,13 @@ class TestStressMetrics(unittest.TestCase):
         self.assertEqual(res["baseline_spread"], 0.5)
         self.assertAlmostEqual(res["spread_diff"], 4.5)
         self.assertAlmostEqual(res["spread_ratio"], 10.0)
+        self.assertEqual(res["pct_steps_one_sided"], 0.0)
 
-        # Handles None values
-        stressed_dirty = [0.5, None]
+        # Handles None values without 20.0 sentinel and computes pct_steps_one_sided
+        stressed_dirty = [0.5, None, 1.2, None]
         res_dirty = compute_peak_vs_baseline_spread(stressed_dirty, [1.0])
-        self.assertEqual(res_dirty["peak_spread"], 20.0)
+        self.assertEqual(res_dirty["peak_spread"], 1.2)
+        self.assertEqual(res_dirty["pct_steps_one_sided"], 50.0)
 
     def test_compute_mm_max_inventory(self):
         """Test peak absolute inventory tracking."""
@@ -140,6 +142,19 @@ class TestStressMetrics(unittest.TestCase):
 
         self.assertTrue(rec)
         self.assertEqual(dt, 2)  # Step 7 is 2 steps after step 5
+
+        # Does not recover if book is one-sided (spread is None) even if mid is recovered
+        mids_onesided = [100.0, 95.0, 94.0, 94.0, 100.0, 100.0]
+        spreads_onesided = [1.0, 4.0, 5.0, 5.0, None, None]
+        rec_os, dt_os = compute_recovery_time(
+            stressed_mids=mids_onesided,
+            stressed_spreads=spreads_onesided,
+            baseline_mid_target=base_mid,
+            baseline_spread_target=base_sp,
+            shock_end_step=5,
+        )
+        self.assertFalse(rec_os)
+        self.assertIsNone(dt_os)
 
         # Never recovers case
         never_mids = [100.0, 90.0, 90.0, 90.0, 90.0]
@@ -219,6 +234,16 @@ class TestStressDeterminismAndScenarios(unittest.TestCase):
             self.assertIn("MarketMakerAgent", sc_data)
             self.assertIn("AvellanedaStoikovMM", sc_data)
             self.assertIn("comparison", sc_data)
+
+            # Check new schema fields
+            for mm_key in ["MarketMakerAgent", "AvellanedaStoikovMM"]:
+                mm_obj = sc_data[mm_key]
+                self.assertIn("pct_steps_one_sided", mm_obj)
+                self.assertIn("mm_pnl_vs_baseline_se", mm_obj)
+                self.assertIn("mm_pnl_stressed_se", mm_obj)
+                self.assertIsInstance(mm_obj["pct_steps_one_sided"], (int, float))
+                self.assertIsInstance(mm_obj["mm_pnl_vs_baseline_se"], (int, float))
+                self.assertIsInstance(mm_obj["mm_pnl_stressed_se"], (int, float))
 
             comp = sc_data["comparison"]
             self.assertIn("pnl_vs_baseline_advantage_as", comp)
